@@ -49,7 +49,6 @@ public class NavigationDrawerFragment extends Fragment {
      * Helper component that ties the action bar to the navigation drawer.
      */
     private ActionBarDrawerToggle mDrawerToggle;
-
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
@@ -105,6 +104,10 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section1),
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
+                        getString(R.string.title_section4),
+                        getString(R.string.title_section5),
+                        getString(R.string.title_section6),
+                        getString(R.string.title_section7)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -119,7 +122,7 @@ public class NavigationDrawerFragment extends Fragment {
      *
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     */
+            */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
@@ -189,7 +192,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
+        mCurrentSelectedPosition = position;    
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }

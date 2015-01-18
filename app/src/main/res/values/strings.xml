@@ -2,12 +2,30 @@
 <resources>
 
     <string name="app_name">KitAlumniApp</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1">KIT Campus</string>
+    <string name="title_section2">Job Market</string>
+    <string name="title_section3">KIT at a Glance</string>
+    <string name="title_section4">Event Calendar</string>
+    <string name="title_section5">Lybrometer</string>
+    <string name="title_section6">Mobility</string>
+    <string name="title_section7">Contact</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_url">http://s18028446.onlinehome-server.info:8080/gcm-demo</string>
+    <string name="gcm_registered">From GCM: device successfully registered (regId = %1$s)!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+
 
 </resources>
