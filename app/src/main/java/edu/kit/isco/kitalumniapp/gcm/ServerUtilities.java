@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp.GCM;
+package edu.kit.isco.kitalumniapp.gcm;
 
 
 /*
