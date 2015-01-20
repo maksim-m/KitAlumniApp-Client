@@ -100,7 +100,7 @@ public class ServerUtilities {
         /**
          * Unregister this account/device pair within the server.
          */
-        private void unregister(final Context context, final String regId) {
+        public void unregister(final Context context, final String regId) {
             Log.i(TAG, "unregistering device (regId = " + regId + ")");
             String serverUrl = SERVER_URL + "/unregister";
             Map<String, String> params = new HashMap<String, String>();

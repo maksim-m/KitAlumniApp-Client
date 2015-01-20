@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -45,7 +46,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown
@@ -58,6 +59,7 @@ public class SettingsActivity extends PreferenceActivity {
      * to reflect its new value.
      */
 
+    public static final String KEY_NOTIFICATIONS = "notifications_new_message";
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
@@ -78,10 +80,21 @@ public class SettingsActivity extends PreferenceActivity {
     Context context;
     String regid;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+
+            if (preference instanceof CheckBoxPreference) {
+
+            }
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -232,6 +245,47 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(KEY_NOTIFICATIONS)){
+            CheckBoxPreference checkBox = (CheckBoxPreference) findPreference(KEY_NOTIFICATIONS);
+            if (checkBox.isChecked()){
+                context = getApplicationContext();
+                // Check device for Play Services APK. If check succeeds, proceed with
+                //  GCM registration.
+                if (checkPlayServices()) {
+                    gcm = GoogleCloudMessaging.getInstance(this);
+                    regid = getRegistrationId(context);
+
+                    if (regid.isEmpty()) {
+                        registerInBackground();
+                    }
+                } else {
+                    Log.i(TAG, "No valid Google Play Services APK found.");
+                }
+            } else {
+                context = getApplicationContext();
+                regid = getRegistrationId(context);
+                deleteRegistrationIdFromBackend();
+                deleteRegistrationId(context, regid);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+        checkPlayServices();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
@@ -268,22 +322,6 @@ public class SettingsActivity extends PreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-            /*
-            context = getApplicationContext();
-
-        // Check device for Play Services APK. If check succeeds, proceed with
-        //  GCM registration.
-        if (checkPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(this);
-            regid = getRegistrationId(context);
-
-            if (regid.isEmpty()) {
-                registerInBackground();
-            }
-        } else {
-            Log.i(TAG, "No valid Google Play Services APK found.");
-        }
-            */
         }
     }
 
@@ -424,7 +462,27 @@ public class SettingsActivity extends PreferenceActivity {
             }
 
             protected void onPostExecute(String result) {
-                Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Registration on Backend Completed!", Toast.LENGTH_SHORT).show();
+            }
+        }.execute(null,null,null);
+    }
+
+    /**
+     * Sends the registration ID to our server over HTTP,
+     * so it can be deleted from the database. As a result this
+     * client won`t receive more notifications.
+     */
+    private void deleteRegistrationIdFromBackend() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                edu.kit.isco.kitalumniapp.gcm.ServerUtilities gcmUt = new ServerUtilities();
+                gcmUt.unregister(getApplicationContext(), regid);
+                return "Register Success";
+            }
+
+            protected void onPostExecute(String result) {
+                Toast.makeText(getBaseContext(), "Unregistrated!", Toast.LENGTH_SHORT).show();
             }
         }.execute(null,null,null);
     }
@@ -446,6 +504,19 @@ public class SettingsActivity extends PreferenceActivity {
         editor.commit();
     }
 
+    /**
+     * Deletes the registration ID from the SharedPreferences,
+     * because it is no more needed.
+     * @param context
+     * @param regId
+    */
+    private void deleteRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, "");
+        editor.putInt(PROPERTY_APP_VERSION, 0);
+        editor.commit();
+    }
     /**
      * @return Application's version code from the {@code PackageManager}.
      */
