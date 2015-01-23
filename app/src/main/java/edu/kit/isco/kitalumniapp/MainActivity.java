@@ -17,6 +17,7 @@ import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.JobsListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.KitAtAGlanceFragment;
 import edu.kit.isco.kitalumniapp.fragments.KitNaviFragment;
+import edu.kit.isco.kitalumniapp.fragments.NewsListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
@@ -67,17 +68,20 @@ public class MainActivity extends ActionBarActivity
                 fragment = new JobsListViewFragment();
                 break;
             case 2:
-                fragment = new KitAtAGlanceFragment();
+                fragment = new NewsListViewFragment();
                 break;
             case 3:
-                fragment = new EventListViewFragment();
+                fragment = new KitAtAGlanceFragment();
                 break;
             case 4:
-                fragment = new KitNaviFragment();
+                fragment = new EventListViewFragment();
                 break;
             case 5:
+                fragment = new KitNaviFragment();
                 break;
             case 6:
+                break;
+            case 7:
                 fragment = new ContactFragment();
                 break;
         }
@@ -86,13 +90,8 @@ public class MainActivity extends ActionBarActivity
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment).commit();
-
-            // update selected item and title, then close the drawer
-           // mDrawerList.setItemChecked(position, true);
-           // mDrawerList.setSelection(position);
-            onSectionAttached(position);
+            onSectionAttached(position + 1);
             setTitle(mTitle);
-           // mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
@@ -101,27 +100,29 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 0:
+            case 1:
                 mTitle = getString(R.string.title_section1);
                 break;
-            case 1:
+            case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 2:
+            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 3:
+            case 4:
                 mTitle = getString(R.string.title_section4);
                 break;
-            case 4:
+            case 5:
                 mTitle = getString(R.string.title_section5);
                 break;
-            case 5:
+            case 6:
                 mTitle = getString(R.string.title_section6);
                 break;
-            case 6:
+            case 7:
                 mTitle = getString(R.string.title_section7);
                 break;
+            case 8:
+                mTitle = getString(R.string.title_section8);
         }
     }
 
