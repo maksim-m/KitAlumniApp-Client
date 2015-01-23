@@ -2,12 +2,12 @@
 <resources>
 
     <string name="app_name">KitAlumniApp</string>
-    <string name="title_section1">KIT Campus</string>
+    <string name="title_section1">Overview/Home</string>
     <string name="title_section2">Job Market</string>
     <string name="title_section3">KIT at a Glance</string>
     <string name="title_section4">Event Calendar</string>
-    <string name="title_section5">Lybrometer</string>
-    <string name="title_section6">Mobility</string>
+    <string name="title_section5">KIT Campus</string>
+    <string name="title_section6">Settings</string>
     <string name="title_section7">Contact</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

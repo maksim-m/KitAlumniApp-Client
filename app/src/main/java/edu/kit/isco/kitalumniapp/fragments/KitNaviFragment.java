@@ -1,9 +1,8 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,6 @@ import edu.kit.isco.kitalumniapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {KitNaviFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {KitNaviFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class KitNaviFragment extends Fragment {
 
@@ -42,10 +36,6 @@ public class KitNaviFragment extends Fragment {
         webView.setInitialScale(1);
         webView.getSettings().setLoadWithOverviewMode(true);
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
     }
 
     @Override

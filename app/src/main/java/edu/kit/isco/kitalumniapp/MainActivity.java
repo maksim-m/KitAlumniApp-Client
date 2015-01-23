@@ -1,25 +1,23 @@
 package edu.kit.isco.kitalumniapp;
 
-import android.app.Activity;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
+import edu.kit.isco.kitalumniapp.fragments.ContactFragment;
+import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
+import edu.kit.isco.kitalumniapp.fragments.JobsListViewFragment;
+import edu.kit.isco.kitalumniapp.fragments.KitAtAGlanceFragment;
+import edu.kit.isco.kitalumniapp.fragments.KitNaviFragment;
+import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 
@@ -59,37 +57,40 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();*/
-        Fragment fragment =null;
+
+        Fragment fragment = null;
         switch (position) {
             case 0:
+                fragment = new OverViewFragment();
                 break;
             case 1:
+                fragment = new JobsListViewFragment();
                 break;
             case 2:
+                fragment = new KitAtAGlanceFragment();
                 break;
             case 3:
+                fragment = new EventListViewFragment();
                 break;
             case 4:
+                fragment = new KitNaviFragment();
                 break;
             case 5:
                 break;
             case 6:
+                fragment = new ContactFragment();
                 break;
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment).commit();
 
             // update selected item and title, then close the drawer
            // mDrawerList.setItemChecked(position, true);
            // mDrawerList.setSelection(position);
-            onSectionAttached(position+1);
+            onSectionAttached(position);
             setTitle(mTitle);
            // mDrawerLayout.closeDrawer(mDrawerList);
         } else {
@@ -100,25 +101,25 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case 0:
                 mTitle = getString(R.string.title_section1);
                 break;
-            case 2:
+            case 1:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
+            case 2:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 4:
+            case 3:
                 mTitle = getString(R.string.title_section4);
                 break;
-            case 5:
+            case 4:
                 mTitle = getString(R.string.title_section5);
                 break;
-            case 6:
+            case 5:
                 mTitle = getString(R.string.title_section6);
                 break;
-            case 7:
+            case 6:
                 mTitle = getString(R.string.title_section7);
                 break;
         }
@@ -159,46 +160,5 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
 }
