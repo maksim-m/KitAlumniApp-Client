@@ -80,6 +80,8 @@ public class MainActivity extends ActionBarActivity
                 fragment = new KitNaviFragment();
                 break;
             case 6:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             case 7:
                 fragment = new ContactFragment();
