@@ -1,6 +1,5 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import edu.kit.isco.kitalumniapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,11 +21,6 @@ public class KitNaviFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -33,18 +28,6 @@ public class KitNaviFragment extends Fragment {
         WebView webView = (WebView) rootView.findViewById(R.id.webViewCampus);
         webView.loadUrl("http://www.kit.edu/campusplan/map.php");
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setInitialScale(1);
-        webView.getSettings().setLoadWithOverviewMode(true);
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }

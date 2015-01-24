@@ -28,18 +28,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".GCM.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="edu.kit.isco.kitalumniapp" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".GCM.GcmIntentService" />
-
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" >
