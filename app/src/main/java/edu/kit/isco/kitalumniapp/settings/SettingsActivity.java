@@ -48,45 +48,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
     /**
-     * Determines whether to always show the simplified settings UI, where
-     * settings are presented in a single list. When false, settings are shown
-     * as a master/detail two-pane view on tablets. When true, a single pane is
-     * shown on tablets.
-     */
-    private static final boolean ALWAYS_SIMPLE_PREFS = false;
-    /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
 
     public static final String KEY_NOTIFICATIONS = "notifications_new_message";
-
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
     /**
      * Tag used on log messages.
      */
     static final String TAG = "GCMDemo";
+    /**
+     * Determines whether to always show the simplified settings UI, where
+     * settings are presented in a single list. When false, settings are shown
+     * as a master/detail two-pane view on tablets. When true, a single pane is
+     * shown on tablets.
+     */
+    private static final boolean ALWAYS_SIMPLE_PREFS = false;
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    /**
-     * Substitute you own sender ID here. This is the project number you got
-     * from the API Console, as described in "Getting Started."
-     */
-    String SENDER_ID = "452477873363";
-    GoogleCloudMessaging gcm;
-    AtomicInteger msgId = new AtomicInteger();
-    SharedPreferences prefs;
-    Context context;
-    String regid;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -138,6 +119,17 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             return true;
         }
     };
+    /**
+     * Substitute you own sender ID here. This is the project number you got
+     * from the API Console, as described in "Getting Started."
+     */
+    String SENDER_ID = "452477873363";
+    GoogleCloudMessaging gcm;
+    AtomicInteger msgId = new AtomicInteger();
+    SharedPreferences prefs;
+    Context context;
+    String regid;
+    private boolean alreadyRegisteredByGcm = false;
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -180,6 +172,25 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+    }
+
+    /**
+     * @return Application's version code from the {@code PackageManager}.
+     */
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -257,8 +268,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     gcm = GoogleCloudMessaging.getInstance(this);
                     regid = getRegistrationId(context);
 
-                    if (regid.isEmpty()) {
+                    if (regid.isEmpty() && !alreadyRegisteredByGcm) {
                         registerInBackground();
+                        alreadyRegisteredByGcm = true;
+                    } else if (alreadyRegisteredByGcm) {
+                        sendRegistrationIdToBackend();
                     }
                 } else {
                     Log.i(TAG, "No valid Google Play Services APK found.");
@@ -267,7 +281,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 context = getApplicationContext();
                 regid = getRegistrationId(context);
                 deleteRegistrationIdFromBackend();
-                deleteRegistrationId(context, regid);
+                //deleteRegistrationId(context, regid);
             }
         }
     }
@@ -285,63 +299,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
-    }
-    /**
-     * This fragment shows general preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
-        }
-    }
-
-    /**
-     * This fragment shows notification preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class NotificationPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_notification);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-        }
-    }
-
-    /**
-     * This fragment shows data and sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DataSyncPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_data_sync);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-        }
     }
 
     /**
@@ -517,17 +474,62 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         editor.putInt(PROPERTY_APP_VERSION, 0);
         editor.commit();
     }
+
     /**
-     * @return Application's version code from the {@code PackageManager}.
+     * This fragment shows general preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
      */
-    private static int getAppVersion(Context context) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            // should never happen
-            throw new RuntimeException("Could not get package name: " + e);
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class GeneralPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_general);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference("example_text"));
+            bindPreferenceSummaryToValue(findPreference("example_list"));
+        }
+    }
+
+    /**
+     * This fragment shows notification preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notification);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+        }
+    }
+
+    /**
+     * This fragment shows data and sync preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class DataSyncPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_data_sync);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
         }
     }
 }
