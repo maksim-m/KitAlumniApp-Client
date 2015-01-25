@@ -129,7 +129,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     SharedPreferences prefs;
     Context context;
     String regid;
-    private boolean alreadyRegisteredByGcm = false;
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -268,10 +267,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     gcm = GoogleCloudMessaging.getInstance(this);
                     regid = getRegistrationId(context);
 
-                    if (regid.isEmpty() && !alreadyRegisteredByGcm) {
+                    if (regid.isEmpty()) {
                         registerInBackground();
-                        alreadyRegisteredByGcm = true;
-                    } else if (alreadyRegisteredByGcm) {
+                    } else {
                         sendRegistrationIdToBackend();
                     }
                 } else {
