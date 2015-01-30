@@ -1,8 +1,9 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -20,6 +21,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import edu.kit.isco.kitalumniapp.NavigationDrawerItem;
+import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.adapter.NavigationDrawerAdapter;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -56,6 +63,11 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    private NavigationDrawerAdapter navDrawerAdapter;
+    private ArrayList<NavigationDrawerItem> navDrawerItemList;
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
+
     public NavigationDrawerFragment() {
     }
 
@@ -67,6 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+
 
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
@@ -95,10 +108,28 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<>(
+        navMenuTitles = getResources().getStringArray(R.array.menuTitles);
+        navMenuIcons = getResources().obtainTypedArray(R.array.menuIcons);
+
+        navDrawerItemList = new ArrayList<NavigationDrawerItem>();
+
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+        navDrawerItemList.add(new NavigationDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+
+        navMenuIcons.recycle();
+
+        navDrawerAdapter = new NavigationDrawerAdapter(getActionBar().getThemedContext(), navDrawerItemList);
+
+        mDrawerListView.setAdapter(navDrawerAdapter);
+        /*mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getActionBar().getThemedContext(),
                 R.layout.navdrawer_textview,
-                R.id.textview_navdrawer,
+                R.id.drawer_text,
                 new String[]{
                         getString(R.string.title_section1),
                         getString(R.string.title_section2),
@@ -107,7 +138,8 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section5),
                         getString(R.string.title_section6),
                         getString(R.string.title_section7),
-                }));
+                }));*/
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

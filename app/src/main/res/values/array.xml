@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menuTitles">
+        <item>Overview/Home</item>
+        <item>Job Market</item>
+        <item>News</item>
+        <item>KIT at a Glance</item>
+        <item>Event Calendar</item>
+        <item>KIT Campus</item>
+        <item>Contact</item>
+    </string-array>
+    <string-array name="menuIcons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_work</item>
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_location</item>
+        <item>@drawable/ic_arrow_back_white</item>
+    </string-array>
+</resources>
