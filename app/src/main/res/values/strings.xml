@@ -2,13 +2,6 @@
 <resources>
 
     <string name="app_name">KitAlumniApp</string>
-    <string name="title_section1">Overview/Home</string>
-    <string name="title_section2">Job Market</string>
-    <string name="title_section3">News</string>
-    <string name="title_section4">KIT at a Glance</string>
-    <string name="title_section5">Event Calendar</string>
-    <string name="title_section6">KIT Campus</string>
-    <string name="title_section7">Contact</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">Search</string>

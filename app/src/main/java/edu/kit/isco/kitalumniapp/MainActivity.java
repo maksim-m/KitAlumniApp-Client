@@ -17,6 +17,7 @@ import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.JobsListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.KitAtAGlanceFragment;
 import edu.kit.isco.kitalumniapp.fragments.KitNaviFragment;
+import edu.kit.isco.kitalumniapp.fragments.NavigationDrawerFragment;
 import edu.kit.isco.kitalumniapp.fragments.NewsListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
@@ -97,27 +98,28 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void onSectionAttached(int number) {
+        String[] menuTitles = getResources().getStringArray(R.array.menuTitles);
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = menuTitles[number-1];
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = menuTitles[number-1];
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = menuTitles[number-1];
                 break;
             case 4:
-                mTitle = getString(R.string.title_section4);
+                mTitle = menuTitles[number-1];
                 break;
             case 5:
-                mTitle = getString(R.string.title_section5);
+                mTitle = menuTitles[number-1];
                 break;
             case 6:
-                mTitle = getString(R.string.title_section6);
+                mTitle = menuTitles[number-1];
                 break;
             case 7:
-                mTitle = getString(R.string.title_section7);
+                mTitle = menuTitles[number-1];
         }
     }
 
