@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import edu.kit.isco.kitalumniapp.MainActivity;
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 /**
  * Created by Stelian Stoev on 10.1.2015 г..
@@ -20,6 +22,10 @@ import edu.kit.isco.kitalumniapp.R;
 public class GcmIntentService  extends IntentService {
 
     public static final int NOTIFICATION_ID = 1;
+
+    public static final String VIBRATE_CHECKBOX = "vibrate";
+
+    private static NotificationCompat.Builder mBuilder;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -71,15 +77,29 @@ public class GcmIntentService  extends IntentService {
         long when = System.currentTimeMillis();
         String title = context.getString(R.string.app_name);
         long[] pattern = {0,300,450,550};
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle(title)
-                .setTicker(message)
-                .setWhen(when)
-                .setShowWhen(true)
-                .setAutoCancel(true)
-                .setVibrate(pattern)
-                .setContentText(message);
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean(VIBRATE_CHECKBOX, false)) {
+                    mBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setContentTitle(title)
+                    .setTicker(message)
+                    .setWhen(when)
+                    .setShowWhen(true)
+                    .setAutoCancel(true)
+                    .setVibrate(pattern)
+                    .setContentText(message);
+        } else {
+            mBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setContentTitle(title)
+                    .setTicker(message)
+                    .setWhen(when)
+                    .setShowWhen(true)
+                    .setAutoCancel(true)
+                    .setContentText(message);
+        }
         Intent resultIntent = new Intent(context, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
