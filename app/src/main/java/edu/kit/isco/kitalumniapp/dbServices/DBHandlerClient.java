@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private static final String JOB_TABLE = "job";
     private static final String EVENT_TABLE = "event";
     private static final String NEWS_TABLE = "news";
+    private static final String JOB_TAG_TABLE = "job_tag";
+    private static final String TAG_TABLE = "tag";
 
     public DBHandlerClient(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -103,6 +106,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 job.setText(c.getString(c.getColumnIndex(JobTable.TEXT)));
                 job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
                 job.setDate(c.getString(c.getColumnIndex(JobTable.DATE)));
+                job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
 
                 jobs.add(job);
             } while (c.moveToNext());
@@ -173,18 +177,27 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert jobs != null;
 
         SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues values;
+        ContentValues values1;
+        ContentValues values2;
 
         for (DataAccessJob j : jobs) {
-            values = new ContentValues();
-            values.put(JobTable.TITLE, j.getTitle());
-            values.put(JobTable.SHORT_INFO, j.getShort_info());
-            values.put(JobTable.TEXT, j.getText());
-            values.put(JobTable.URL, j.getUrl());
-            values.put(JobTable.DATE, j.getDate());
+            values1 = new ContentValues();
+            values1.put(JobTable.TITLE, j.getTitle());
+            values1.put(JobTable.SHORT_INFO, j.getShort_info());
+            values1.put(JobTable.TEXT, j.getText());
+            values1.put(JobTable.URL, j.getUrl());
+            values1.put(JobTable.DATE, j.getDate());
 
-            long id = db.insert(JOB_TABLE, null, values);
+            long id = db.insert(JOB_TABLE, null, values1);
             j.setId(id);
+
+            for (DataAccessTag t : j.getTags()) {
+                long tagID = getTagID(t);
+                values2 = new ContentValues();
+                values2.put(JobTagTable.JOB_ID, id);
+                values2.put(JobTagTable.TAG_ID, tagID);
+                db.insert(JOB_TAG_TABLE, null, values2);
+            }
         }
     }
 
@@ -235,5 +248,48 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         db.delete(EVENT_TABLE, null, null);
     }
 
+    /**
+     * Returns all tags that are affiliated to a certain job
+     * @param jobID the ID of the job
+     * @return List of tags
+     */
+    private List<DataAccessTag> getJobTags(long jobID) {
+        List<DataAccessTag> tags = new ArrayList<DataAccessTag>();
+        String select = "SELECT " + JobTagTable.TAG_ID + " FROM " + JOB_TAG_TABLE + " tt WHERE tt."
+                + JobTagTable.JOB_ID + " = " + jobID;
+
+        Log.e(LOG, select);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(select, null);
+
+        if(c.moveToFirst()) {
+            do {
+                DataAccessTag t = new DataAccessTag();
+                t.setId(c.getLong(c.getColumnIndex(TagTable.ID)));
+                t.setName(c.getString(c.getColumnIndex(TagTable.NAME)));
+
+                tags.add(t);
+            } while(c.moveToNext());
+        }
+
+        return tags;
+    }
+
+    /**
+     * Returns the id that is affiliated with a certain tag
+     * @param tag
+     * @return the id of the tag
+     */
+    private long getTagID(DataAccessTag tag) {
+        String select = "SELECT " + TagTable.ID + " FROM " + TAG_TABLE + " tt WHERE tt."
+                + TagTable.NAME + " = '" + tag.getName() + "'";
+        Log.e(LOG, select);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(select, null);
+         if(c != null) {
+             c.moveToFirst();
+         }
+        return c.getLong(c.getColumnIndex(TagTable.ID));
+    }
 
 }
