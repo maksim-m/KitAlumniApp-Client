@@ -27,17 +27,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="edu.kit.isco.kitalumniapp" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".gcm.GcmIntentService" />
+
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name=".settings.AboutActivity"
-            android:label="@string/title_activity_about" >
-            <intent-filter>
-                <action android:name="edu.kit.isco.kitalumniapp.settings.AboutActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
         </activity>
     </application>
 
