@@ -18,4 +18,21 @@
         <item>@drawable/ic_location</item>
         <item>@drawable/ic_contacts</item>
     </string-array>
+
+    <string-array name="tags">
+        <item>Informatics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>Mathematics</item>
+        <item>Electrical Engineering</item>
+        <item>Engineering</item>
+        <item>Physics</item>
+        <item>Process Engineering</item>
+        <item>Medicine</item>
+        <item>Economics</item>
+        <item>Law</item>
+        <item>Mechanical Engineering</item>
+        <item>Others</item>
+    </string-array>
+
 </resources>

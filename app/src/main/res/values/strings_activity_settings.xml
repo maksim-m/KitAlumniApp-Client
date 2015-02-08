@@ -59,4 +59,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="about">About</string>
+    <string name="tags">Tags</string>
+    <string name="some_text">Please choose your favorite categories</string>
 </resources>

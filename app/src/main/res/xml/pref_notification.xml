@@ -31,4 +31,11 @@
             android:action="edu.kit.isco.kitalumniapp.settings.AboutActivity"/>
     </Preference>
 
+    <Preference
+        android:key="tags_section"
+        android:title="@string/tags">
+        <intent
+            android:action="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity"/>
+    </Preference>
+
 </PreferenceScreen>
