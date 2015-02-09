@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsListViewFragment extends Fragment {
+
+    ArrayAdapter<DataAccessNews> adapter;
 
     public NewsListViewFragment() {
         // Required empty public constructor

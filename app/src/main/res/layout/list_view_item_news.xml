@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="4dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/newsImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/default_news_image"/>
+
+
+    <LinearLayout
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TableRow>
+
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:id="@+id/newsCaption"
+            android:layout_width="match_parent"
+            android:text="News Caption"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/newsShortDescription"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin scelerisque ante eget metus egestas, aliquam molestie justo lobortis."/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
