@@ -24,12 +24,6 @@
         android:key="notifications_new_message_vibrate"
         android:title="@string/pref_title_vibrate" />
 
-    <Preference
-        android:key="about_section"
-        android:title="@string/about">
-        <intent
-            android:action="edu.kit.isco.kitalumniapp.settings.AboutActivity"/>
-    </Preference>
 
     <Preference
         android:key="tags_section"
@@ -37,5 +31,13 @@
         <intent
             android:action="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity"/>
     </Preference>
+    
+    <Preference
+        android:key="about_section"
+        android:title="@string/about">
+        <intent
+            android:action="edu.kit.isco.kitalumniapp.settings.AboutActivity"/>
+    </Preference>
+
 
 </PreferenceScreen>
