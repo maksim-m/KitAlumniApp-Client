@@ -13,7 +13,7 @@
     <string name="hello_kitAtaGlance_fragment">Hello kitAtaGlance fragment</string>
     <string name="hello_event_fragment">Hello event fragment</string>
     <string name="hello_contact_fragment">Hello contact fragment</string>
-    <string name="server_url">http://s18028446.onlinehome-server.info:8080/gcm-demo</string>
+    <string name="server_url">http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server2/home</string>
     <string name="gcm_registered">From GCM: device successfully registered (regId = %1$s)!</string>
     <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
     <string name="gcm_message">From GCM: you got message!</string>

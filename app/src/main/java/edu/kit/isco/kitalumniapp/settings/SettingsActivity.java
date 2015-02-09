@@ -50,15 +50,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
 
     public static final String KEY_NOTIFICATIONS = "notifications_new_message";
-    public static final String EXTRA_MESSAGE = "message";
+    public static final String KEY_VIBRATE = "notifications_new_message_vibrate";
     public static final String PROPERTY_REG_ID = "registration_id";
+    public static final String VIBRATE_CHECKBOX = "vibrate";
+
     /**
      * Tag used on log messages.
      */
@@ -268,6 +270,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         }
     }
 
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(KEY_NOTIFICATIONS)){
@@ -292,10 +295,25 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 context = getApplicationContext();
                 regid = getRegistrationId(context);
                 deleteRegistrationIdFromBackend();
-                //deleteRegistrationId(context, regid);
+            }
+        } else if (key.equals(KEY_VIBRATE)) {
+            CheckBoxPreference checkBox = (CheckBoxPreference) findPreference(KEY_VIBRATE);
+            if(checkBox.isChecked()) {
+                final SharedPreferences prefs = getGCMPreferences(context);
+                Log.i(TAG, "Saving Vibrate on.");
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(VIBRATE_CHECKBOX, true);
+                editor.apply();
+            } else {
+                final SharedPreferences prefs = getGCMPreferences(context);
+                Log.i(TAG, "Saving Vibrate on.");
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(VIBRATE_CHECKBOX, false);
+                editor.apply();
             }
         }
     }
+
 
     @Override
     protected void onResume() {
