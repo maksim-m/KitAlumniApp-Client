@@ -11,7 +11,6 @@
         android:layout_height="64dp"
         android:src="@drawable/default_news_image"/>
 
-
     <LinearLayout
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
@@ -20,33 +19,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content">
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TableRow>
-
-            </TableRow>
-        </TableLayout>
-
         <TextView
             style="@android:style/TextAppearance.Medium"
             android:id="@+id/newsCaption"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:text="News Caption"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            />
 
         <TextView
             android:id="@+id/newsShortDescription"
             style="@android:style/TextAppearance.Small"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin scelerisque ante eget metus egestas, aliquam molestie justo lobortis."/>
 
     </LinearLayout>
-
-
-
 
 </LinearLayout>
