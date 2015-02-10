@@ -83,4 +83,18 @@ public class DataAccessNews implements DataAccessObject {
     public void setDate(String date) {
         this.date = date;
     }
+
+    /* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+    @Override
+    public String toString() {
+        return new StringBuffer(" ID : ").append(this.getId())
+                .append(" Title : ").append(this.getTitle())
+                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" fullText : ").append(this.getText())
+                .append(" url : ").append(this.getUrl())
+                .append(" imageUrl : ").append(this.getImage_url())
+                .toString();
+    }
 }
