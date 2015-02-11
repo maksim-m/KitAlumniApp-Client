@@ -1,7 +1,5 @@
 package edu.kit.isco.kitalumniapp.dbObjects;
 
-import java.util.Calendar;
-
 /**
  * Created by Andre on 04.02.2015.
  */
@@ -12,19 +10,19 @@ public class DataAccessNews implements DataAccessObject {
     private String short_info;
     private String text;
     private String url;
-    private String image_url;
+    private String imageUrl;
     private String date;
 
     public DataAccessNews() {
     }
 
-    public DataAccessNews(long id, String title, String short_info, String text, String url, String image_url, String date) {
+    public DataAccessNews(long id, String title, String short_info, String text, String url, String imageUrl, String date) {
         this.id = id;
         this.title = title;
         this.short_info = short_info;
         this.text = text;
         this.url = url;
-        this.image_url = image_url;
+        this.imageUrl = imageUrl;
         this.date = date;
     }
 
@@ -48,8 +46,8 @@ public class DataAccessNews implements DataAccessObject {
         return url;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getDate() {
@@ -76,8 +74,8 @@ public class DataAccessNews implements DataAccessObject {
         this.url = url;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setDate(String date) {
@@ -94,7 +92,7 @@ public class DataAccessNews implements DataAccessObject {
                 .append(" shortDescription: ").append(this.getShort_info())
                 .append(" fullText : ").append(this.getText())
                 .append(" url : ").append(this.getUrl())
-                .append(" imageUrl : ").append(this.getImage_url())
+                .append(" imageUrl : ").append(this.getImageUrl())
                 .toString();
     }
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -137,7 +136,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 n.setText(c.getString(c.getColumnIndex(NewsTable.TEXT)));
                 n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
                 n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
-                n.setImage_url(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
+                n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
                 news.add(n);
             } while (c.moveToNext());
         }
@@ -161,7 +160,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             values.put(NewsTable.SHORT_INFO, n.getShort_info());
             values.put(NewsTable.TEXT, n.getText());
             values.put(NewsTable.URL, n.getUrl());
-            values.put(NewsTable.IMAGE_URL, n.getImage_url());
+            values.put(NewsTable.IMAGE_URL, n.getImageUrl());
             values.put(NewsTable.DATE, n.getDate());
 
             long id = db.insert(NEWS_TABLE, null, values);

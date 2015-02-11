@@ -2,21 +2,18 @@ package edu.kit.isco.kitalumniapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
 import java.util.List;
-
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 
@@ -47,17 +44,19 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
             convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.list_view_item_news, null);
         }
         DataAccessNews news = getItem(position);
+
         TextView newsCaption = (TextView) convertView.findViewById(R.id.newsCaption);
         newsCaption.setText(news.getTitle());
+
         TextView newsShortDescription = (TextView) convertView.findViewById(R.id.newsShortDescription);
         newsShortDescription.setText(news.getShort_info());
+
         ImageView newsImage = (ImageView) convertView.findViewById(R.id.newsImage);
-        if (news.getImage_url() != null) {
-            Ion.with(newsImage)
-               .placeholder(R.drawable.placeholder)
-               .error(R.drawable.default_news_image)
-               .load(SERVICE_URL);
-        }
+        Ion.with(newsImage)
+           .placeholder(R.drawable.placeholder)
+           .error(R.drawable.default_news_image)
+           //.crossfade(true)
+           .load(news.getImageUrl());
 
         // we're near the end of the list adapter, so load more items
         if (position >= getCount() - 3) {
