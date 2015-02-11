@@ -151,6 +151,7 @@ public class MainActivity extends ActionBarActivity
 
         switch (item.getItemId()) {
             case R.id.action_search:
+                onSearchRequested();
                 return true;
 
             case R.id.action_settings:

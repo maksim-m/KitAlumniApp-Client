@@ -36,6 +36,7 @@
             android:label="@string/title_activity_about" >
             <intent-filter>
                 <action android:name="edu.kit.isco.kitalumniapp.settings.AboutActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -43,9 +44,20 @@
             android:name=".settings.ListViewCheckboxTagsActivity"
             android:label="@string/title_activity_tags" >
             <intent-filter>
-               <action android:name="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity" />
-               <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
     </application>
 
