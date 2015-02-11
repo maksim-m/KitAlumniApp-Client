@@ -3,9 +3,7 @@
     android:padding="5dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    >
+    android:layout_height="match_parent"    >
     <TextView
         style="@android:style/TextAppearance.Medium"
         android:id="@+id/eventTitle"
@@ -27,6 +25,4 @@
         android:textColor="@color/accent_material_light"
         android:textSize="10sp"
         android:text="KIT-App-Presentation!!!"/>
-
-
 </LinearLayout>

@@ -25,27 +25,22 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         this.layoutEventResId = resource;
     }
     public View getView(int position, View convertView, ViewGroup parent) {
-        EventHolder holder = null;
+        EventsHolder holder = null;
 
         if(convertView==null){
             LayoutInflater inflater=((Activity) context).getLayoutInflater();
             convertView = inflater.inflate(layoutEventResId, parent, false);
 
-            holder = new EventHolder();
+            holder = new EventsHolder();
             holder.eventTitle = (TextView)convertView.findViewById(R.id.eventTitle);
             holder.eventShortDescription = (TextView)convertView.findViewById(R.id.eventShortDescription);
             }
         else{
-            holder = (EventHolder) convertView.getTag();
+            holder = (EventsHolder)convertView.getTag();
         }
-
-        // DB-Info
-
-
         return convertView;
-
     }
-    static class EventHolder{
+    static class EventsHolder{
         TextView eventTitle;
         TextView eventShortDescription;
     }
