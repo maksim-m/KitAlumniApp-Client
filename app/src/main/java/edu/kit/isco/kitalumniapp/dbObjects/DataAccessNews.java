@@ -7,7 +7,7 @@ public class DataAccessNews implements DataAccessObject {
 
     private long id;
     private String title;
-    private String short_info;
+    private String shortDescription;
     private String text;
     private String url;
     private String imageUrl;
@@ -16,10 +16,10 @@ public class DataAccessNews implements DataAccessObject {
     public DataAccessNews() {
     }
 
-    public DataAccessNews(long id, String title, String short_info, String text, String url, String imageUrl, String date) {
+    public DataAccessNews(long id, String title, String shortDescription, String text, String url, String imageUrl, String date) {
         this.id = id;
         this.title = title;
-        this.short_info = short_info;
+        this.shortDescription = shortDescription;
         this.text = text;
         this.url = url;
         this.imageUrl = imageUrl;
@@ -34,8 +34,8 @@ public class DataAccessNews implements DataAccessObject {
         return title;
     }
 
-    public String getShort_info() {
-        return short_info;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public String getText() {
@@ -62,8 +62,8 @@ public class DataAccessNews implements DataAccessObject {
         this.title = title;
     }
 
-    public void setShort_info(String short_info) {
-        this.short_info = short_info;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public void setText(String text) {
@@ -89,7 +89,7 @@ public class DataAccessNews implements DataAccessObject {
     public String toString() {
         return new StringBuffer(" ID : ").append(this.getId())
                 .append(" Title : ").append(this.getTitle())
-                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" shortDescription: ").append(this.getShortDescription())
                 .append(" fullText : ").append(this.getText())
                 .append(" url : ").append(this.getUrl())
                 .append(" imageUrl : ").append(this.getImageUrl())

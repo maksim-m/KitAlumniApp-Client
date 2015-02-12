@@ -57,7 +57,7 @@ public class NewsListViewFragment extends Fragment {
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 4500);
+                }, 3500);
             }
         });
         // sets the colors used in the refresh animation

@@ -2,7 +2,7 @@ package edu.kit.isco.kitalumniapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,7 +23,8 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
     private static final String SERVICE_URL = "http://87.106.21.153:8080/KitAlumniApp-Server/rest/service/news/";
-    Context context;
+    private Context context;
+    private LayoutInflater layoutInflater;
     int layoutResId;
     // This "Future" tracks loading operations.
     // A Future is an object that manages the state of an operation
@@ -36,23 +37,36 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         super(context, resource);
         this.context = context;
         this.layoutResId = resource;
+        this.layoutInflater = ((Activity) context).getLayoutInflater();
+    }
+
+    static class NewsHolder {
+        ImageView newsImage;
+        TextView newsCaption;
+        TextView newsShortDescription;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        NewsHolder holder;
         if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.list_view_item_news, null);
+            convertView = layoutInflater.inflate(R.layout.list_view_item_news, null);
+            holder = new NewsHolder();
+            holder.newsImage = (ImageView) convertView.findViewById(R.id.newsImage);
+            holder.newsCaption  = (TextView) convertView.findViewById(R.id.newsCaption);
+            holder.newsShortDescription = (TextView) convertView.findViewById(R.id.newsShortDescription);
+            convertView.setTag(holder);
+        } else {
+            holder = (NewsHolder) convertView.getTag();
         }
         DataAccessNews news = getItem(position);
 
-        TextView newsCaption = (TextView) convertView.findViewById(R.id.newsCaption);
-        newsCaption.setText(news.getTitle());
+        holder.newsCaption.setText(news.getTitle());
 
-        TextView newsShortDescription = (TextView) convertView.findViewById(R.id.newsShortDescription);
-        newsShortDescription.setText(news.getShort_info());
+        holder.newsShortDescription.setText(news.getShortDescription());
 
-        ImageView newsImage = (ImageView) convertView.findViewById(R.id.newsImage);
-        Ion.with(newsImage)
+
+        Ion.with(holder.newsImage)
            .placeholder(R.drawable.placeholder)
            .error(R.drawable.default_news_image)
            //.crossfade(true)
@@ -83,7 +97,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                     public void onCompleted(Exception e, List<DataAccessNews> result) {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
                         if (e != null) {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
                             return;
                         }
                         // add the news
