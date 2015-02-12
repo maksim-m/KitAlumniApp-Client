@@ -132,7 +132,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 DataAccessNews n = new DataAccessNews();
                 n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
                 n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
-                n.setShort_info(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
+                n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
                 n.setText(c.getString(c.getColumnIndex(NewsTable.TEXT)));
                 n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
                 n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
@@ -157,7 +157,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         for (DataAccessNews n : news) {
             values = new ContentValues();
             values.put(NewsTable.TITLE, n.getTitle());
-            values.put(NewsTable.SHORT_INFO, n.getShort_info());
+            values.put(NewsTable.SHORT_INFO, n.getShortDescription());
             values.put(NewsTable.TEXT, n.getText());
             values.put(NewsTable.URL, n.getUrl());
             values.put(NewsTable.IMAGE_URL, n.getImageUrl());

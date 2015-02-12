@@ -11,10 +11,11 @@
         android:layout_height="match_parent"
         >
 
+        <!-- don't use height="wrap_content" for ListView! -->
         <ListView
             android:id="@+id/newsListView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
