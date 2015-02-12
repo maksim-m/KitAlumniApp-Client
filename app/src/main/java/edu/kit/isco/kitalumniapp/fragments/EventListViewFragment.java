@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.koushikdutta.async.future.Future;
+
+import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.EventAdapter;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
@@ -17,6 +23,13 @@ import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 public class EventListViewFragment extends Fragment {
     EventAdapter eventAdapter;
     DBHandlerClient dbHandler;
+    // This "Future" tracks loading operations.
+    // A Future is an object that manages the state of an operation
+    // in progress that will have a "Future" result.
+    // You can attach callbacks (setCallback) for when the result is ready,
+    // or cancel() it if you no longer need the result.
+    Future<List<DataAccessEvent>> loading;
+
 
     public EventListViewFragment() {
         // Required empty public constructor
@@ -32,13 +45,13 @@ public class EventListViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_event_list_view, container, false);
-        eventAdapter = new EventAdapter(rootView.getContext(), R.id.eventsListView);
+        View view = inflater.inflate(R.layout.fragment_event_list_view, container, false);
+        eventAdapter = new EventAdapter(getActivity(), 0);
+        ListView listView = (ListView) view.findViewById(R.id.eventsListView);
+        listView.setAdapter(eventAdapter);
+        eventAdapter.loadLatest();
+        return view;
 
-        //dbHandler = new DBHandlerClient(rootView.getContext());
-        //eventAdapter.addAll(dbHandler.getAllEvents());
-        return rootView;
     }
 
     @Override

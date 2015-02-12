@@ -73,4 +73,15 @@ public class DataAccessEvent implements DataAccessObject {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuffer(" ID : ").append(this.getId())
+                .append(" Title : ").append(this.getTitle())
+                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" fullText : ").append(this.getText())
+                .append(" url : ").append(this.getUrl())
+                .toString();
+    }
+
 }
