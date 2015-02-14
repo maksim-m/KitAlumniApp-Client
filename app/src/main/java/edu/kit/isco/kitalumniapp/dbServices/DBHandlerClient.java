@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 DataAccessJob job = new DataAccessJob();
                 job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
                 job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
-                job.setShort_info(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                 job.setText(c.getString(c.getColumnIndex(JobTable.TEXT)));
                 job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
                 job.setDate(c.getString(c.getColumnIndex(JobTable.DATE)));
@@ -183,7 +182,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         for (DataAccessJob j : jobs) {
             values1 = new ContentValues();
             values1.put(JobTable.TITLE, j.getTitle());
-            values1.put(JobTable.SHORT_INFO, j.getShort_info());
+            values1.put(JobTable.SHORT_INFO, j.getShortDescription());
             values1.put(JobTable.TEXT, j.getText());
             values1.put(JobTable.URL, j.getUrl());
             values1.put(JobTable.DATE, j.getDate());
