@@ -1,11 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.kit.isco.kitalumniapp.fragments.EventListViewFragment">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventsListView" />
+    <android.support.v4.widget.SwipeRefreshLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="edu.kit.isco.kitalumniapp.fragments.EventsListViewFragment"
+    android:id="@+id/eventsSwipeContainer"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+-<FrameLayout android:layout_height="match_parent" android:layout_width="match_parent">
+
+    <ListView android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/eventsListView"/>
+
 </FrameLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

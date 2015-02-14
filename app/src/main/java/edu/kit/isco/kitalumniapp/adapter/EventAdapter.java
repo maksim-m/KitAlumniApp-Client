@@ -3,9 +3,11 @@ package edu.kit.isco.kitalumniapp.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
@@ -25,9 +27,11 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
     // String with URL that lead to the database, where
     // ist the  saved information about the events.
-    private static final String EVENT_SERVICE_URL = "";
+    private static final String EVENT_SERVICE_URL =
+            "http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server2/rest/service/events";
 
     Context context;
+    private LayoutInflater layoutInflater;
     int layoutEventResId;
     // This "Future" tracks loading operations.
     // A Future is an object that manages the state of an operation
@@ -41,17 +45,37 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         super(context, resource);
         this.context = context;
         this.layoutEventResId = resource;
-    }
+        this.layoutInflater = ((Activity) context).getLayoutInflater();
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    }
+    static class EventsHolder {
+        TextView eventTitle;
+        TextView eventDate;}
+
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            EventsHolder holder;
 
         if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.list_view_item_events, null);
+            convertView = layoutInflater.inflate(R.layout.list_view_item_events, null);
+            holder = new EventsHolder();
+
+            holder.eventTitle  = (TextView) convertView.findViewById(R.id.eventTitle);
+            holder.eventDate = (TextView) convertView.findViewById(R.id.eventDate);
+            convertView.setTag(holder);
         }
+         else {
+            holder = (EventsHolder) convertView.getTag();
+        }
+
         DataAccessEvent event = getItem(position);
-        TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
+            holder.eventTitle.setText(event.getTitle());
+
+            holder.eventDate.setText(event.getDate());
+
+            TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
         eventTitle.setText(event.getTitle());
-        TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventShortDescription);
+        TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventDate);
         eventShortDescription.setText(event.getShort_info());
 
         // we're near the end of the list adapter, so load more items

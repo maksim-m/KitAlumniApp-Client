@@ -2,4 +2,6 @@
 <resources>
     <color name="kit_lighter_green">#4cb5a7</color>
     <color name="kit_darker_green">#009682</color>
+    <color name="kit_cyan_blau">#ff23a1e0</color>
+    <color name="kit_blau">#ff4664aa</color>
 </resources>
