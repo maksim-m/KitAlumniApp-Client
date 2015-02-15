@@ -34,8 +34,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         }
         // Lookup view for data population
         TextView name = (TextView) convertView.findViewById(R.id.contactName);
-        TextView mail = (TextView) convertView.findViewById(R.id.contactMail);
-        TextView phone = (TextView) convertView.findViewById(R.id.contactPhone);
+
         TextView shortDescription = (TextView) convertView.findViewById(R.id.contactShortDescription);
         ImageView image = (ImageView) convertView.findViewById(R.id.contactImage);
 
@@ -44,8 +43,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 
         // Populate the data into the template view using the data object
         name.setText(user.name);
-        mail.setText(user.mailAddress);
-        phone.setText(user.phoneNumber);
+
         shortDescription.setText(user.shortDescription);
         image.setImageDrawable(roundedImage);
 
