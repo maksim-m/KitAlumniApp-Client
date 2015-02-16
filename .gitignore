@@ -31,3 +31,5 @@ proguard/
 # Log Files
 *.log
 .idea/dictionaries/Stelian_Stoev.xml
+
+/app/src/main/res/values/sensitive_data.xml

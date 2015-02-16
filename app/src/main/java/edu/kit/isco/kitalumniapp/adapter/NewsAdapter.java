@@ -22,7 +22,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
  */
 public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
-    private static final String SERVICE_URL = "http://87.106.21.153:8080/KitAlumniApp-Server/rest/service/news/";
+    private final String SERVICE_URL;
     private Context context;
     private LayoutInflater layoutInflater;
     int layoutResId;
@@ -38,6 +38,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
+        SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "news/";
     }
 
     static class NewsHolder {
