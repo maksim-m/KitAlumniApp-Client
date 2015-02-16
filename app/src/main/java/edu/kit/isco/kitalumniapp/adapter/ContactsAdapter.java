@@ -42,9 +42,9 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         RoundedImageView roundedImage = new RoundedImageView(bm);
 
         // Populate the data into the template view using the data object
-        name.setText(user.name);
+        name.setText(user.getName());
 
-        shortDescription.setText(user.shortDescription);
+        shortDescription.setText(user.getShortDescription());
         image.setImageDrawable(roundedImage);
 
 
