@@ -129,7 +129,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      * Substitute you own sender ID here. This is the project number you got
      * from the API Console, as described in "Getting Started."
      */
-    String SENDER_ID = "452477873363";
+    String SENDER_ID = "1044572950898";
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
