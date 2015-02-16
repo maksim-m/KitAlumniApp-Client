@@ -35,5 +35,11 @@ public class SearchActivity extends ListActivity {
     }
 
     private void doMySearch(String query) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, "site:kit.edu " + query);
+            startActivity(intent);
+        } catch (Exception e) {
+        }
     }
 }
