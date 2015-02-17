@@ -2,12 +2,16 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.koushikdutta.async.future.Future;
@@ -33,7 +37,7 @@ public class EventListViewFragment extends Fragment {
     Future<List<DataAccessEvent>> loading;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-
+    ListView listView;
 
     public EventListViewFragment() {
         // Required empty public constructor
@@ -50,6 +54,7 @@ public class EventListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_list_view, container, false);
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.eventsSwipeContainer);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -65,8 +70,9 @@ public class EventListViewFragment extends Fragment {
         });
         // sets the colors used in the refresh animation
         swipeRefreshLayout.setColorSchemeResources(R.color.kit_cyan_blau, R.color.kit_darker_green);
+
         eventAdapter = new EventAdapter(getActivity(), 0);
-        final ListView listView = (ListView) view.findViewById(R.id.eventsListView);
+        listView = (ListView) view.findViewById(R.id.eventsListView);
         listView.setAdapter(eventAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -87,9 +93,25 @@ public class EventListViewFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DataAccessEvent event = eventAdapter.getItem(position);
+                Bundle args = new Bundle();
+                args.putString("text", event.getText());
+                Fragment fragment = new EventDetailsViewFragment();
+                fragment.setArguments(args);
+                if (fragment != null) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment).commit();
+                } else {
+                    // error in creating fragment
+                    Log.e("MainActivity", "Error in creating fragment");
+                }
+            }
+        });
 
-        //ListView listView = (ListView) view.findViewById(R.id.eventsListView);
-        //listView.setAdapter(eventAdapter);
         eventAdapter.loadLatest();
         return view;
 
