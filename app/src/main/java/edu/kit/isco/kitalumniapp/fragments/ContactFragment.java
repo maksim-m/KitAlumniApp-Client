@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.kit.isco.kitalumniapp.Child;
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
-import edu.kit.isco.kitalumniapp.adapter.ContactsAdapter;
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
 
 /**
@@ -28,8 +25,6 @@ import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
  */
 public class ContactFragment extends Fragment {
 
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
     ArrayList<Contact> contacts;
 
     public ContactFragment() {
@@ -49,15 +44,8 @@ public class ContactFragment extends Fragment {
         // Create the adapter to convert the array to views
         //ContactsAdapter adapter = new ContactsAdapter(getActivity(), arrayOfUsers);
         //prepareListData();
-        contacts = new ArrayList<Contact>();
-        contacts.add(new Contact("Test", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", "muster@mann.org", "www.muster.man"));
-        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        prepareData();
         ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
-
-
-        //adapter.add(new Contact("Muster Mann", "Standard Typ. Kennt jeder. Ansonsten kommt hier eine kurze Beschreibung rein. Bla Bla und so", "01234 56789", "muster@man.org"));
-
-        // Attach the adapter to a ListView
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         //ListView listView = (ListView) view.findViewById(R.id.contactListView);
@@ -98,6 +86,17 @@ public class ContactFragment extends Fragment {
         return view;
     }
 
+    private void prepareData(){
+        contacts = new ArrayList<Contact>();
+        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        contacts.add(new Contact("Fikitv ", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", "muster@mann.org", "www.muster.man"));
+        contacts.add(new Contact("BlueFanta", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -106,38 +105,5 @@ public class ContactFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        contacts = new ArrayList<Contact>();
-
-        contacts.add(new Contact("Test", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", "muster@mann.org", "www.muster.man"));
-
-        // Adding child data
-        listDataHeader.add("Max Mustermann");
-        listDataHeader.add("Xana Musterfrau");
-        listDataHeader.add("Hans Peter");
-
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("0172345678");
-        top250.add("muster@mann.org");
-
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("www.institut.kit.edu");
-        nowShowing.add("07212345678");
-        nowShowing.add("xana@mitarbeiter.kit.edu");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("07218907654");
-        comingSoon.add("hp@sekretariat.kit.edu");
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 }

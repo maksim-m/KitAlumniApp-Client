@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +21,15 @@ import android.widget.TextView;
 import edu.kit.isco.kitalumniapp.Child;
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.RoundedImageView;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     //private HashMap<String, List<String>> _listDataChild;
     private ArrayList<Contact> contacts;
     private HashMap<Contact, ArrayList<Child>> _listDataChild;
-
-    private List<Contact> _listContact;
 
     public ExpandableListAdapter(Context context, ArrayList<Contact> contacts) {
         this._context = context;
@@ -68,8 +68,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Child current = (Child) getChild(groupPosition, childPosition);
         final String childText = current.getContent();
 
-
-
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,16 +77,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         switch (current.getId()) {
             case 0:
-                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_work));
+                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_email));
                 break;
             case 1:
                 imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_web));
                 break;
             case 2:
-                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_location));
+                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_phone));
                 break;
             default:
-                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_work));
+                imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_info));
                 break;
         }
 
@@ -125,6 +123,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
 
         String headerTitle = ((Contact) getGroup(groupPosition)).getName();
+        String headerDescription = ((Contact) getGroup(groupPosition)).getShortDescription();
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -135,6 +134,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.contactName);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+        TextView lblListerHeaderDes = (TextView) convertView
+                .findViewById(R.id.contactShortDescription);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListerHeaderDes.setText(headerDescription);
+        /*
+        ImageView imageParent = (ImageView) convertView.findViewById(R.id.contactImage);
+
+        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_launcher);
+        RoundedImageView roundedImage = new RoundedImageView(bm);
+        imageParent.setImageDrawable(roundedImage);*/
 
         return convertView;
     }

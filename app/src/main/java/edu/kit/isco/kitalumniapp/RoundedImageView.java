@@ -1,5 +1,4 @@
 package edu.kit.isco.kitalumniapp;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
