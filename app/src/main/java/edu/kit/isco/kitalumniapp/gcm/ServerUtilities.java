@@ -39,7 +39,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessUser;
  */
 public class ServerUtilities {
 
-    static final String SERVER_URL = "http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server2/rest/service/users/";
+    static final String SERVER_URL = yourURL;
     /**
      * Tag used on log messages.
      */

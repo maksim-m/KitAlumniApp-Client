@@ -35,9 +35,8 @@ public class EventListViewFragment extends Fragment {
     // You can attach callbacks (setCallback) for when the result is ready,
     // or cancel() it if you no longer need the result.
     Future<List<DataAccessEvent>> loading;
-    private SwipeRefreshLayout swipeRefreshLayout;
-
     ListView listView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public EventListViewFragment() {
         // Required empty public constructor
@@ -56,7 +55,7 @@ public class EventListViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_list_view, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.eventsSwipeContainer);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
@@ -76,12 +75,13 @@ public class EventListViewFragment extends Fragment {
         listView.setAdapter(eventAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) { }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 boolean enable = false;
-                if(listView != null && listView.getChildCount() > 0){
+                if (listView != null && listView.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible
@@ -97,18 +97,9 @@ public class EventListViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAccessEvent event = eventAdapter.getItem(position);
-                Bundle args = new Bundle();
-                args.putString("text", event.getText());
-                Fragment fragment = new EventDetailsViewFragment();
-                fragment.setArguments(args);
-                if (fragment != null) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, fragment).commit();
-                } else {
-                    // error in creating fragment
-                    Log.e("MainActivity", "Error in creating fragment");
-                }
+                Intent intent = new Intent(view.getContext(), EventDetailsViewActivity.class);
+                intent.putExtra("html", event.getText());
+                startActivity(intent);
             }
         });
 
