@@ -4,6 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.koushikdutta.ion.Ion;
 
 import edu.kit.isco.kitalumniapp.R;
 
@@ -13,6 +18,19 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details_vew);
+        TextView titleTextView = (TextView) findViewById(R.id.newsTitleTextView);
+        titleTextView.setText(getIntent().getStringExtra("title"));
+        ImageView newsImage = (ImageView) findViewById(R.id.newsImageView);
+        TextView fullTextView = (TextView) findViewById(R.id.newsFullTextView);
+        fullTextView.setText(getIntent().getStringExtra("fullText"));
+        TextView dateTextView = (TextView) findViewById(R.id.newsDateTextView);
+        dateTextView.setText(getIntent().getStringExtra("date"));
+
+
+        Ion.with(newsImage)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.default_news_image)
+                .load(getIntent().getStringExtra("urlImage"));
     }
 
 

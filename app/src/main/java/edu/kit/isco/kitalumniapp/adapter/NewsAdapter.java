@@ -38,7 +38,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
-        SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "news/";
+        SERVICE_URL = yourURL;
     }
 
     static class NewsHolder {

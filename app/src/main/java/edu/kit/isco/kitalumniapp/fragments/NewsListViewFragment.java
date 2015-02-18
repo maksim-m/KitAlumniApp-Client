@@ -3,6 +3,7 @@ package edu.kit.isco.kitalumniapp.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -91,16 +92,12 @@ public class NewsListViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAccessNews news = adapter.getItem(position);
-                Fragment fragment = new NewsDetailsViewFragment();
-                Bundle args = new Bundle();
-                args.putString("fullText", news.getText());
-                args.putString("urlImage", news.getImageUrl());
-                args.putString("title", news.getTitle());
-                args.putString("date", news.getDate());
-                fragment.setArguments(args);
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragment).commit();
+                Intent intent = new Intent(view.getContext(), NewsDetailsVewActivity.class);
+                intent.putExtra("fullText", news.getText());
+                intent.putExtra("urlImage", news.getImageUrl());
+                intent.putExtra("title", news.getTitle());
+                intent.putExtra("date", news.getDate());
+                startActivity(intent);
             }
         });
         adapter.loadLatest();

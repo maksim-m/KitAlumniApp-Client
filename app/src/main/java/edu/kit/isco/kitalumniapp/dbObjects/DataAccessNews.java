@@ -7,7 +7,7 @@ public class DataAccessNews implements DataAccessObject {
 
     private long id;
     private String title;
-    private String shortDescription;
+    private String shortInfo;
     private String text;
     private String url;
     private String imageUrl;
@@ -16,10 +16,10 @@ public class DataAccessNews implements DataAccessObject {
     public DataAccessNews() {
     }
 
-    public DataAccessNews(long id, String title, String shortDescription, String text, String url, String imageUrl, String date) {
+    public DataAccessNews(long id, String title, String shortInfo, String text, String url, String imageUrl, String date) {
         this.id = id;
         this.title = title;
-        this.shortDescription = shortDescription;
+        this.shortInfo = shortInfo;
         this.text = text;
         this.url = url;
         this.imageUrl = imageUrl;
@@ -35,7 +35,7 @@ public class DataAccessNews implements DataAccessObject {
     }
 
     public String getShortDescription() {
-        return shortDescription;
+        return shortInfo;
     }
 
     public String getText() {
@@ -63,7 +63,7 @@ public class DataAccessNews implements DataAccessObject {
     }
 
     public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+        this.shortInfo = shortDescription;
     }
 
     public void setText(String text) {

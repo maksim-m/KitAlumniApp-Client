@@ -51,6 +51,7 @@
             android:label="@string/title_activity_about" >
             <intent-filter>
                 <action android:name="edu.kit.isco.kitalumniapp.settings.AboutActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -58,9 +59,14 @@
             android:name=".settings.ListViewCheckboxTagsActivity"
             android:label="@string/title_activity_tags" >
             <intent-filter>
-               <action android:name="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity" />
-               <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".fragments.NewsDetailsVewActivity"
+            android:label="@string/title_activity_news_details_vew" >
         </activity>
     </application>
 
