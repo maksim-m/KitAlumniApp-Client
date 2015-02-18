@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details_vew);
-        TextView titleTextView = (TextView) findViewById(R.id.newsTitleTextView);
+        /*TextView titleTextView = (TextView) findViewById(R.id.newsTitleTextView);
         titleTextView.setText(getIntent().getStringExtra("title"));
         ImageView newsImage = (ImageView) findViewById(R.id.newsImageView);
         TextView fullTextView = (TextView) findViewById(R.id.newsFullTextView);
@@ -30,7 +31,11 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
         Ion.with(newsImage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.default_news_image)
-                .load(getIntent().getStringExtra("urlImage"));
+                .load(getIntent().getStringExtra("urlImage"));*/
+
+        WebView webView = (WebView) findViewById(R.id.webViewNewsDetails);
+        webView.loadUrl(getIntent().getStringExtra("url"));
+        webView.getSettings().setJavaScriptEnabled(true);
     }
 
 

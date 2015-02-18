@@ -97,6 +97,7 @@ public class NewsListViewFragment extends Fragment {
                 intent.putExtra("urlImage", news.getImageUrl());
                 intent.putExtra("title", news.getTitle());
                 intent.putExtra("date", news.getDate());
+                intent.putExtra("url", news.getUrl());
                 startActivity(intent);
             }
         });
