@@ -43,7 +43,6 @@ public class ContactFragment extends Fragment {
         ArrayList<Contact> arrayOfUsers = new ArrayList<Contact>();
         // Create the adapter to convert the array to views
         //ContactsAdapter adapter = new ContactsAdapter(getActivity(), arrayOfUsers);
-        //prepareListData();
         prepareData();
         ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
 
@@ -51,12 +50,16 @@ public class ContactFragment extends Fragment {
         //ListView listView = (ListView) view.findViewById(R.id.contactListView);
         ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.contactListView);
         //ListView listView = (ListView) this.getActivity().findViewById(R.id.contactListView);
+
+        //create a clickListener to click on the children in the List.
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String txt =  ((TextView) v.findViewById(R.id.infotext)).getText().toString();
 
+                //Each child have a different behavior. So when you click on a child which contains
+                // a website url, you will be asked to go there with the browser you want.
                 switch ((int)id) {
                     case 0:
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
@@ -86,6 +89,9 @@ public class ContactFragment extends Fragment {
         return view;
     }
 
+    /**
+     * 
+     */
     private void prepareData(){
         contacts = new ArrayList<Contact>();
         contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));

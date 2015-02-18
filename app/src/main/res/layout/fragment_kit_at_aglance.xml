@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     tools:context="edu.kit.isco.kitalumniapp.fragments.KitAtAGlanceFragment">
 
+    <ImageView
+        android:id="@+id/myround"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher" />
+
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"

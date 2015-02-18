@@ -5,11 +5,11 @@ package edu.kit.isco.kitalumniapp.adapter;
  */
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +21,13 @@ import android.widget.TextView;
 import edu.kit.isco.kitalumniapp.Child;
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
-import edu.kit.isco.kitalumniapp.RoundedImageView;
+import edu.kit.isco.kitalumniapp.RoundedAvatarDrawable;
 
+//Adapter to show parents (contacts) with their children
+//(email, website and phone number of the contacts) in an expandable ListView.
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    // child data in format of header title, child title
-    //private HashMap<String, List<String>> _listDataChild;
     private ArrayList<Contact> contacts;
     private HashMap<Contact, ArrayList<Child>> _listDataChild;
 
@@ -36,6 +36,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.contacts = contacts;
         _listDataChild = new HashMap<Contact, ArrayList<Child>>();
 
+        //In each contact you can find an email address, website url or phone number
+        //But it could be, some contacts doesn't have a email website for example.
+        //So proof if one of the information could be null.
+        //If not, create a child object and add it to the parent/child hash-map.
         for (Contact contact: contacts) {
             ArrayList<Child> _children = new ArrayList<Child>();
             if (contact.getMailAddress() != null) {
@@ -59,6 +63,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
+        //return the Id which the child object contains.
         return ((Child)getChild(groupPosition, childPosition)).getId();
     }
 
@@ -75,6 +80,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         ImageView imageListChild = (ImageView) convertView.findViewById(R.id.childImage);
 
+        //Each child should have an icon which it belongs to. For example: A child with
+        // a email-address stored should have a letter as icon.
         switch (current.getId()) {
             case 0:
                 imageListChild.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_email));
@@ -138,12 +145,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.contactShortDescription);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListerHeaderDes.setText(headerDescription);
-        /*
-        ImageView imageParent = (ImageView) convertView.findViewById(R.id.contactImage);
 
-        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_launcher);
-        RoundedImageView roundedImage = new RoundedImageView(bm);
-        imageParent.setImageDrawable(roundedImage);*/
+
+        //Make round avatar pictures.
+        ImageView imageParent = (ImageView) convertView.findViewById(R.id.contactImage);
+        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_timer);
+        RoundedAvatarDrawable roundedImage = new RoundedAvatarDrawable(bm);
+        imageParent.setImageDrawable(roundedImage);
 
         return convertView;
     }
@@ -157,4 +165,5 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
 }
