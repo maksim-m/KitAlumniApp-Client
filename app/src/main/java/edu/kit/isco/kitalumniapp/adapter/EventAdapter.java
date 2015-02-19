@@ -28,7 +28,7 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
     // String with URL that lead to the database, where
     // ist the  saved information about the events.
     private static final String EVENT_SERVICE_URL =
-            "http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server2/rest/service/events";
+            yourUrl;
 
     Context context;
     private LayoutInflater layoutInflater;

@@ -29,5 +29,6 @@
     <string name="title_activity_tags">ListViewCheckboxTagsActivity</string>
     <string name="sendEmail">Send email...</string>
     <string name="openSite">Open</string>
+    <string name="title_activity_event_details_view">EventDetailsViewActivity</string>
 
 </resources>

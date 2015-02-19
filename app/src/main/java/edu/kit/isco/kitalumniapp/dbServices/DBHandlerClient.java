@@ -214,7 +214,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             values = new ContentValues();
             values.put(EventTable.TITLE, e.getTitle());
             values.put(EventTable.SHORT_INFO, e.getShort_info());
-            values.put(EventTable.TEXT, e.getText());
+            values.put(EventTable.TEXT, e.getAllText());
             values.put(EventTable.URL, e.getUrl());
             values.put(EventTable.DATE, e.getDate());
 
