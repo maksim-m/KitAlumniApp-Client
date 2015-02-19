@@ -2,12 +2,14 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -66,12 +68,13 @@ public class JobsListViewFragment extends Fragment {
         listView.setAdapter(jobsAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) { }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 boolean enable = false;
-                if(listView != null && listView.getChildCount() > 0){
+                if (listView != null && listView.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible
@@ -80,6 +83,15 @@ public class JobsListViewFragment extends Fragment {
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
                 swipeRefreshLayout.setEnabled(enable);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DataAccessJob job = jobsAdapter.getItem(position);
+                Intent intent = new Intent(view.getContext(), JobsDetailsViewActivity.class);
+                intent.putExtra("html", job.getAllText());
+                startActivity(intent);
             }
         });
         jobsAdapter.loadLatest();

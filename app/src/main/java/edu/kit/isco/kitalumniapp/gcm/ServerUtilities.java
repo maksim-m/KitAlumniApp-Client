@@ -38,7 +38,7 @@ import edu.kit.isco.kitalumniapp.R;
  */
 public class ServerUtilities {
 
-        static final String SERVER_URL = "http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server2";
+        static final String SERVER_URL = "http://s18028446.onlinehome-server.info:8080/KitAlumniApp-Server/rest/service/users";
         /**
          * Tag used on log messages.
          */

@@ -28,5 +28,7 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="about_activity_text">This application is developed by cool KIT students.</string>
     <string name="title_activity_tags">ListViewCheckboxTagsActivity</string>
-  
+    <string name="title_activity_jobs_details_view">JobsDetailsViewActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

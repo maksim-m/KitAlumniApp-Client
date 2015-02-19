@@ -63,7 +63,7 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         DataAccessJob jobs = getItem(position);
         holder.jobsCaption.setText(jobs.getTitle());
 
-        holder.jobsShortDescription.setText(jobs.getShortDescription());
+        holder.jobsShortDescription.setText(jobs.getShort_info());
 
         // we're near the end of the list adapter, so load more items
         if (position >= getCount() - 3) {

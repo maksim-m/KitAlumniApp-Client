@@ -9,8 +9,8 @@ public class DataAccessJob implements DataAccessObject {
 
     private long id;
     private String title;
-    private String shortDescription;
-    private String text;
+    private String short_info;
+    private String allText;
     private String url;
     private List<DataAccessTag> tags;
     private String date;
@@ -18,11 +18,11 @@ public class DataAccessJob implements DataAccessObject {
     public DataAccessJob() {
     }
 
-    public DataAccessJob(long id, String title, String shortDescription, String text, String url, List<DataAccessTag> tags, String date) {
+    public DataAccessJob(long id, String title, String shortDescription, String allText, String url, List<DataAccessTag> tags, String date) {
         this.id = id;
         this.title = title;
-        this.shortDescription = shortDescription;
-        this.text = text;
+        this.short_info = shortDescription;
+        this.allText = allText;
         this.url = url;
         this.tags = tags;
         this.date = date;
@@ -36,12 +36,12 @@ public class DataAccessJob implements DataAccessObject {
         return title;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getShort_info() {
+        return short_info;
     }
 
-    public String getText() {
-        return text;
+    public String getAllText() {
+        return allText;
     }
 
     public String getUrl() {
@@ -64,12 +64,12 @@ public class DataAccessJob implements DataAccessObject {
         this.title = title;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setShortDescription(String short_info) {
+        this.short_info = short_info;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAllText(String allText) {
+        this.allText = allText;
     }
 
     public void setUrl(String url) {
@@ -88,8 +88,8 @@ public class DataAccessJob implements DataAccessObject {
     public String toString() {
         return new StringBuffer(" ID : ").append(this.getId())
                 .append(" Title : ").append(this.getTitle())
-                .append(" shortDescription: ").append(this.getShortDescription())
-                .append(" fullText : ").append(this.getText())
+                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" fullText : ").append(this.getAllText())
                 .append(" url : ").append(this.getUrl())
                 .toString();
     }
