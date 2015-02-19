@@ -13,6 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.Collections;
 import java.util.List;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
@@ -38,7 +40,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
-        SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "news/";
+        SERVICE_URL = yourURL;
     }
 
     static class NewsHolder {
@@ -102,6 +104,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                             return;
                         }
                         // add the news
+                        Collections.reverse(result);
                         for (int i = 0; i < result.size(); i++) {
                             add(result.get(i));
                         }

@@ -30,6 +30,7 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
     private static final String EVENT_SERVICE_URL =
             yourUrl;
 
+
     Context context;
     private LayoutInflater layoutInflater;
     int layoutEventResId;

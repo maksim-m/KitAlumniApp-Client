@@ -2,6 +2,8 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.koushikdutta.async.future.Future;
@@ -17,6 +20,7 @@ import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.NewsAdapter;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 
 /**
@@ -67,12 +71,13 @@ public class NewsListViewFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) { }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 boolean enable = false;
-                if(listView != null && listView.getChildCount() > 0){
+                if (listView != null && listView.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible
@@ -81,6 +86,19 @@ public class NewsListViewFragment extends Fragment {
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
                 swipeRefreshLayout.setEnabled(enable);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DataAccessNews news = adapter.getItem(position);
+                Intent intent = new Intent(view.getContext(), NewsDetailsVewActivity.class);
+                intent.putExtra("fullText", news.getText());
+                intent.putExtra("urlImage", news.getImageUrl());
+                intent.putExtra("title", news.getTitle());
+                intent.putExtra("date", news.getDate());
+                intent.putExtra("url", news.getUrl());
+                startActivity(intent);
             }
         });
         adapter.loadLatest();
