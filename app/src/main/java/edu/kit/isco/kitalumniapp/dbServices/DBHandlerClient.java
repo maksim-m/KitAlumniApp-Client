@@ -101,8 +101,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 DataAccessJob job = new DataAccessJob();
                 job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
                 job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
-                job.setShort_info(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
-                job.setText(c.getString(c.getColumnIndex(JobTable.TEXT)));
+                job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                job.setAllText(c.getString(c.getColumnIndex(JobTable.TEXT)));
                 job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
                 job.setDate(c.getString(c.getColumnIndex(JobTable.DATE)));
                 job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
@@ -183,7 +183,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             values1 = new ContentValues();
             values1.put(JobTable.TITLE, j.getTitle());
             values1.put(JobTable.SHORT_INFO, j.getShort_info());
-            values1.put(JobTable.TEXT, j.getText());
+            values1.put(JobTable.TEXT, j.getAllText());
             values1.put(JobTable.URL, j.getUrl());
             values1.put(JobTable.DATE, j.getDate());
 
