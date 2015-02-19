@@ -98,7 +98,7 @@ public class EventListViewFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAccessEvent event = eventAdapter.getItem(position);
                 Intent intent = new Intent(view.getContext(), EventDetailsViewActivity.class);
-                intent.putExtra("html", event.getText());
+                intent.putExtra("html", event.getAllText());
                 startActivity(intent);
             }
         });
