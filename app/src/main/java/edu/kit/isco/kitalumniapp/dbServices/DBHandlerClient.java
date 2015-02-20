@@ -17,8 +17,8 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "Database_Client";
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "DatabaseClient.db";
     private static final String LOG = "DBHandlerClient";
     //Table Names
     private static final String JOB_TABLE = "job";

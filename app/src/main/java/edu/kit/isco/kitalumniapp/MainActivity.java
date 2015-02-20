@@ -52,9 +52,8 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        // initialize database manager
         DatabaseManager.initializeInstance(new DBHandlerClient(this));
-        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
-        DatabaseManager.getInstance().closeDatabase();
 
     }
 

@@ -1,6 +1,10 @@
 package edu.kit.isco.kitalumniapp.dbObjects;
 
+import android.content.ContentValues;
+
 import java.util.Calendar;
+
+import edu.kit.isco.kitalumniapp.dbServices.EventTable;
 
 /**
  * Created by Andre on 04.02.2015.
@@ -82,6 +86,16 @@ public class DataAccessEvent implements DataAccessObject {
                 .append(" fullText : ").append(this.getAllText())
                 .append(" url : ").append(this.getUrl())
                 .toString();
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(EventTable.ID, id);
+        values.put(EventTable.SHORT_INFO, short_info);
+        values.put(EventTable.FULL_TEXT, allText);
+        values.put(EventTable.URL, url);
+        values.put(EventTable.DATE, date);
+        return values;
     }
 
 }
