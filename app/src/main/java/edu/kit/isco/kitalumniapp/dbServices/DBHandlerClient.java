@@ -157,15 +157,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         ContentValues values;
 
         for (DataAccessNews n : news) {
-            values = new ContentValues();
-            values.put(NewsTable.TITLE, n.getTitle());
-            values.put(NewsTable.SHORT_INFO, n.getShortDescription());
-            values.put(NewsTable.FULL_TEXT, n.getText());
-            values.put(NewsTable.URL, n.getUrl());
-            values.put(NewsTable.IMAGE_URL, n.getImageUrl());
-            values.put(NewsTable.DATE, n.getDate());
 
-            long id = db.insert(NEWS_TABLE, null, values);
+            long id = db.insert(NEWS_TABLE, null, n.toContentValues());
             n.setId(id);
         }
     }
@@ -182,14 +175,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         ContentValues values2;
 
         for (DataAccessJob j : jobs) {
-            values1 = new ContentValues();
-            values1.put(JobTable.TITLE, j.getTitle());
-            values1.put(JobTable.SHORT_INFO, j.getShortInfo());
-            values1.put(JobTable.FULL_TEXT, j.getAllText());
-            values1.put(JobTable.URL, j.getUrl());
-            values1.put(JobTable.DATE, j.getDate());
 
-            long id = db.insert(JOB_TABLE, null, values1);
+            long id = db.insert(JOB_TABLE, null, j.toContentValues());
             j.setId(id);
 
             for (DataAccessTag t : j.getTags()) {
@@ -213,14 +200,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         ContentValues values;
 
         for (DataAccessEvent e : events) {
-            values = new ContentValues();
-            values.put(EventTable.TITLE, e.getTitle());
-            values.put(EventTable.SHORT_INFO, e.getShort_info());
-            values.put(EventTable.FULL_TEXT, e.getAllText());
-            values.put(EventTable.URL, e.getUrl());
-            values.put(EventTable.DATE, e.getDate());
-
-            long id = db.insert(EVENT_TABLE, null, values);
+            long id = db.insert(EVENT_TABLE, null, e.toContentValues());
             e.setId(id);
         }
     }

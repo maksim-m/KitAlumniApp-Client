@@ -27,7 +27,7 @@ public class EventTable {
                     + SHORT_INFO + " TEXT, "
                     + FULL_TEXT + " TEXT, "
                     + URL + " TEXT, "
-                    + DATE + " DATETIME"
+                    + DATE + " INTEGER"
                 + ");";
     }
 

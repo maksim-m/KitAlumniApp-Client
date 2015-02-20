@@ -1,5 +1,10 @@
 package edu.kit.isco.kitalumniapp.dbObjects;
 
+import android.content.ContentValues;
+
+import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
+import edu.kit.isco.kitalumniapp.dbServices.TagTable;
+
 /**
  * Created by Andre on 04.02.2015.
  */
@@ -30,5 +35,12 @@ public class DataAccessTag implements DataAccessObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TagTable.ID, id);
+        values.put(TagTable.NAME, name);
+        return values;
     }
 }

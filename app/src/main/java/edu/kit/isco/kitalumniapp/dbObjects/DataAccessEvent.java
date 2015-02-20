@@ -91,6 +91,7 @@ public class DataAccessEvent implements DataAccessObject {
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         values.put(EventTable.ID, id);
+        values.put(EventTable.TITLE, title);
         values.put(EventTable.SHORT_INFO, short_info);
         values.put(EventTable.FULL_TEXT, allText);
         values.put(EventTable.URL, url);

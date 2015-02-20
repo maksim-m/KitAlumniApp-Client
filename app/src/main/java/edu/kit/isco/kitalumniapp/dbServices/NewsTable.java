@@ -29,7 +29,7 @@ public class NewsTable {
                     + FULL_TEXT + " TEXT, "
                     + URL + " TEXT, "
                     + IMAGE_URL + " TEXT, "
-                    + DATE + " DATETIME"
+                    + DATE + " INTEGER"
                 + ")";
     }
 

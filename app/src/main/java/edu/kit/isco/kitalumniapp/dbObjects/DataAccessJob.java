@@ -1,6 +1,12 @@
 package edu.kit.isco.kitalumniapp.dbObjects;
 
+import android.content.ContentValues;
+
+import java.util.Calendar;
 import java.util.List;
+
+import edu.kit.isco.kitalumniapp.dbServices.EventTable;
+import edu.kit.isco.kitalumniapp.dbServices.JobTable;
 
 /**
  * Created by Andre on 04.02.2015.
@@ -101,6 +107,18 @@ public class DataAccessJob implements DataAccessObject {
                 .append(" fullText : ").append(this.getAllText())
                 .append(" url : ").append(this.getUrl())
                 .toString();
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(JobTable.ID, id);
+        values.put(JobTable.TITLE, title);
+        values.put(JobTable.SHORT_INFO, shortInfo);
+        values.put(JobTable.FULL_TEXT, allText);
+        values.put(JobTable.URL, url);
+        values.put(JobTable.DATE, date);
+        values.put(JobTable.STAR, (star ? 1 : 0));
+        return values;
     }
 
 }

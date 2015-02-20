@@ -1,5 +1,12 @@
 package edu.kit.isco.kitalumniapp.dbObjects;
 
+import android.content.ContentValues;
+
+import java.util.Calendar;
+
+import edu.kit.isco.kitalumniapp.dbServices.JobTable;
+import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
+
 /**
  * Created by Andre on 04.02.2015.
  */
@@ -94,5 +101,17 @@ public class DataAccessNews implements DataAccessObject {
                 .append(" url : ").append(this.getUrl())
                 .append(" imageUrl : ").append(this.getImageUrl())
                 .toString();
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(NewsTable.ID, id);
+        values.put(NewsTable.TITLE, title);
+        values.put(NewsTable.SHORT_INFO, shortInfo);
+        values.put(NewsTable.FULL_TEXT, text);
+        values.put(NewsTable.URL, url);
+        values.put(NewsTable.IMAGE_URL, imageUrl);
+        values.put(NewsTable.DATE, date);
+        return values;
     }
 }
