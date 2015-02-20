@@ -17,7 +17,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Database_Client";
     private static final String LOG = "DBHandlerClient";
 
@@ -72,7 +72,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
                 ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
                 ev.setShort_info(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
-                ev.setText(c.getString(c.getColumnIndex(EventTable.TEXT)));
+                ev.setText(c.getString(c.getColumnIndex(EventTable.FULL_TEXT)));
                 ev.setUrl(c.getString(c.getColumnIndex(EventTable.URL)));
                 ev.setDate(c.getString(c.getColumnIndex(EventTable.DATE)));
 
@@ -102,7 +102,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
                 job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
                 job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
-                job.setAllText(c.getString(c.getColumnIndex(JobTable.TEXT)));
+                job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                 job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
                 job.setDate(c.getString(c.getColumnIndex(JobTable.DATE)));
                 job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
@@ -133,7 +133,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
                 n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
                 n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
-                n.setText(c.getString(c.getColumnIndex(NewsTable.TEXT)));
+                n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
                 n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
                 n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
                 n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
@@ -158,7 +158,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             values = new ContentValues();
             values.put(NewsTable.TITLE, n.getTitle());
             values.put(NewsTable.SHORT_INFO, n.getShortDescription());
-            values.put(NewsTable.TEXT, n.getText());
+            values.put(NewsTable.FULL_TEXT, n.getText());
             values.put(NewsTable.URL, n.getUrl());
             values.put(NewsTable.IMAGE_URL, n.getImageUrl());
             values.put(NewsTable.DATE, n.getDate());
@@ -182,8 +182,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         for (DataAccessJob j : jobs) {
             values1 = new ContentValues();
             values1.put(JobTable.TITLE, j.getTitle());
-            values1.put(JobTable.SHORT_INFO, j.getShort_info());
-            values1.put(JobTable.TEXT, j.getAllText());
+            values1.put(JobTable.SHORT_INFO, j.getShortInfo());
+            values1.put(JobTable.FULL_TEXT, j.getAllText());
             values1.put(JobTable.URL, j.getUrl());
             values1.put(JobTable.DATE, j.getDate());
 
@@ -214,7 +214,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             values = new ContentValues();
             values.put(EventTable.TITLE, e.getTitle());
             values.put(EventTable.SHORT_INFO, e.getShort_info());
-            values.put(EventTable.TEXT, e.getAllText());
+            values.put(EventTable.FULL_TEXT, e.getAllText());
             values.put(EventTable.URL, e.getUrl());
             values.put(EventTable.DATE, e.getDate());
 

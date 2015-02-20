@@ -9,11 +9,12 @@ public class DataAccessJob implements DataAccessObject {
 
     private long id;
     private String title;
-    private String short_info;
+    private String shortInfo;
     private String allText;
     private String url;
     private List<DataAccessTag> tags;
     private String date;
+    private boolean star = false;
 
     public DataAccessJob() {
     }
@@ -21,7 +22,7 @@ public class DataAccessJob implements DataAccessObject {
     public DataAccessJob(long id, String title, String shortDescription, String allText, String url, List<DataAccessTag> tags, String date) {
         this.id = id;
         this.title = title;
-        this.short_info = shortDescription;
+        this.shortInfo = shortDescription;
         this.allText = allText;
         this.url = url;
         this.tags = tags;
@@ -36,8 +37,8 @@ public class DataAccessJob implements DataAccessObject {
         return title;
     }
 
-    public String getShort_info() {
-        return short_info;
+    public String getShortInfo() {
+        return shortInfo;
     }
 
     public String getAllText() {
@@ -65,7 +66,7 @@ public class DataAccessJob implements DataAccessObject {
     }
 
     public void setShortDescription(String short_info) {
-        this.short_info = short_info;
+        this.shortInfo = short_info;
     }
 
     public void setAllText(String allText) {
@@ -84,11 +85,19 @@ public class DataAccessJob implements DataAccessObject {
         this.date = date;
     }
 
+    public boolean isStar() {
+        return star;
+    }
+
+    public void setStar(boolean star) {
+        this.star = star;
+    }
+
     @Override
     public String toString() {
         return new StringBuffer(" ID : ").append(this.getId())
                 .append(" Title : ").append(this.getTitle())
-                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" shortDescription: ").append(this.getShortInfo())
                 .append(" fullText : ").append(this.getAllText())
                 .append(" url : ").append(this.getUrl())
                 .toString();

@@ -7,11 +7,12 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class EventTable {
 
+    private static final String TABLE_NAME = "event";
     //Column Names
     public static final String ID = "id";
     public static final String TITLE = "title";
     public static final String SHORT_INFO = "short_info";
-    public static final String TEXT = "text";
+    public static final String FULL_TEXT = "full_text";
     public static final String URL = "url";
     public static final String DATE = "date";
 
@@ -20,8 +21,14 @@ public class EventTable {
      * @return  SQL query
      */
     public static String createSQL() {
-        return "CREATE TABLE event(" + ID + " INTEGER PRIMARY KEY," + TITLE + " TEXT," + SHORT_INFO +
-                " TEXT," + TEXT + " TEXT," + URL + " TEXT," + DATE + " DATETIME)";
+        return "CREATE TABLE " + TABLE_NAME + "("
+                    + ID + " INTEGER PRIMARY KEY, "
+                    + TITLE + " TEXT, "
+                    + SHORT_INFO + " TEXT, "
+                    + FULL_TEXT + " TEXT, "
+                    + URL + " TEXT, "
+                    + DATE + " DATETIME"
+                + ");";
     }
 
     /**
@@ -29,7 +36,7 @@ public class EventTable {
      * @return SQL query
      */
     public static String dropSQL() {
-        return "DROP TABLE IF EXISTS event";
+        return "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
     }
 
 }
