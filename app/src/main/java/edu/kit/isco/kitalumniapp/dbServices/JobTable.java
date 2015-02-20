@@ -24,10 +24,10 @@ public class JobTable {
     public static String createSQL() {
         return "CREATE TABLE " + TABLE_NAME + "("
                     + ID + " INTEGER PRIMARY KEY, "
-                    + TITLE + " FULL_TEXT, "
-                    + SHORT_INFO + " FULL_TEXT, "
-                    + FULL_TEXT + " FULL_TEXT, "
-                    + URL + " FULL_TEXT, "
+                    + TITLE + " TEXT, "
+                    + SHORT_INFO + " TEXT, "
+                    + FULL_TEXT + " TEXT, "
+                    + URL + " TEXT, "
                     + DATE + " DATETIME, "
                     + STAR + " INTEGER DEFAULT 0"
                 + ");";

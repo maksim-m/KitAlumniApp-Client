@@ -4,6 +4,7 @@ package edu.kit.isco.kitalumniapp;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
+import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 import edu.kit.isco.kitalumniapp.fragments.ContactFragment;
 import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
 import edu.kit.isco.kitalumniapp.fragments.JobsListViewFragment;
@@ -48,6 +51,11 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        DatabaseManager.initializeInstance(new DBHandlerClient(this));
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        DatabaseManager.getInstance().closeDatabase();
+
     }
 
     // You need to do the Play Services APK check here too.

@@ -7,6 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class TagTable {
 
+    private static final String TABLE_NAME = "tag";
     //Column names
     public static final String ID = "id";
     public static final String NAME = "name";
@@ -16,7 +17,10 @@ public class TagTable {
     * @return  SQL query
     */
     public static String createSQL() {
-        return "CREATE TABLE tag(" + ID + " INTEGER PRIMARY KEY," + NAME + " Text)";
+        return "CREATE TABLE tag("
+                    + ID + " INTEGER PRIMARY KEY, "
+                    + NAME + " TEXT"
+                + ");";
     }
 
     /**
@@ -24,6 +28,6 @@ public class TagTable {
      * @return SQL query
      */
     public static String dropSQL() {
-        return "DROP TABLE IF EXISTS tag";
+        return "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
     }
 }

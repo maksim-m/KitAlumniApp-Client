@@ -7,6 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class JobTagTable {
 
+    private static final String TABLE_NAME = "job_tag";
     //Column names
     public static final String JOB_ID = "job_id";
     public static final String TAG_ID = "tag_id";
@@ -16,7 +17,9 @@ public class JobTagTable {
      * @return  SQL query
      */
     public static String createSQL() {
-        return "CREATE TABLE tag(" + JOB_ID + " INTEGER PRIMARY KEY," + TAG_ID + " INTEGER PRIMARY KEY)";
+        return "CREATE TABLE " + TABLE_NAME + "("
+                + JOB_ID + " INTEGER PRIMARY KEY,"
+                + TAG_ID + " INTEGER PRIMARY KEY)";
     }
 
     /**
@@ -24,6 +27,6 @@ public class JobTagTable {
      * @return SQL query
      */
     public static String dropSQL() {
-        return "DROP TABLE IF EXISTS tag";
+        return "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
     }
 }

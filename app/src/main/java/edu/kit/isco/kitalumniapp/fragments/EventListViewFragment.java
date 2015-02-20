@@ -2,11 +2,9 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +26,6 @@ import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
  */
 public class EventListViewFragment extends Fragment {
     EventAdapter eventAdapter;
-    DBHandlerClient dbHandler;
     // This "Future" tracks loading operations.
     // A Future is an object that manages the state of an operation
     // in progress that will have a "Future" result.

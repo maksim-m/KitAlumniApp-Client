@@ -20,14 +20,13 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Database_Client";
     private static final String LOG = "DBHandlerClient";
-
-
     //Table Names
     private static final String JOB_TABLE = "job";
     private static final String EVENT_TABLE = "event";
     private static final String NEWS_TABLE = "news";
     private static final String JOB_TAG_TABLE = "job_tag";
     private static final String TAG_TABLE = "tag";
+    private Context context;
 
     public DBHandlerClient(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,16 +38,19 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         db.execSQL(TagTable.createSQL());
         db.execSQL(JobTable.createSQL());
         db.execSQL(NewsTable.createSQL());
-        db.execSQL(JobTagTable.createSQL());
+        //db.execSQL(JobTagTable.createSQL());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(oldVersion == 1) {
+            context.deleteDatabase("Database_Client");
+        }
         db.execSQL(EventTable.dropSQL());
         db.execSQL(TagTable.dropSQL());
         db.execSQL(JobTable.dropSQL());
         db.execSQL(NewsTable.dropSQL());
-        db.execSQL(JobTagTable.dropSQL());
+        //db.execSQL(JobTagTable.dropSQL());
 
         onCreate(db);
     }
