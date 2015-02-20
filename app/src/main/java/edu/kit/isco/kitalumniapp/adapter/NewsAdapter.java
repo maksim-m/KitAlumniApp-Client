@@ -40,7 +40,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
-        SERVICE_URL = yourURL;
+        SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "news/";
     }
 
     static class NewsHolder {
@@ -92,7 +92,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         // This request loads a URL as JsonArray and invokes
         // a callback on completion.
         loading = Ion.with(getContext())
-                .load(SERVICE_URL)
+                .load(SERVICE_URL + "latest/")
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessNews>>() {

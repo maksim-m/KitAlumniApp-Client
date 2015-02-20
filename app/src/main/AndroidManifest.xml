@@ -71,8 +71,7 @@
         </activity>
         <activity
             android:name=".fragments.NewsDetailsVewActivity"
-            android:label="@string/title_activity_news_details_vew">
-
+            android:label="@string/title_activity_news_details_vew" >
         </activity>
 
         <activity

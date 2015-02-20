@@ -27,8 +27,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
     // String with URL that lead to the database, where
     // ist the  saved information about the events.
-    private static final String EVENT_SERVICE_URL =
-            yourUrl;
+    private final String EVENT_SERVICE_URL;
 
 
     Context context;
@@ -47,7 +46,7 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         this.context = context;
         this.layoutEventResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
-
+        EVENT_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "events/";
     }
     static class EventsHolder {
         TextView eventTitle;
