@@ -24,24 +24,29 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
  */
 public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
-    private final String SERVICE_URL;
+    private final String REST_SERVICE_URL;
+    private final String NEWS_SERVICE_URL;
     private Context context;
     private LayoutInflater layoutInflater;
     int layoutResId;
-    // This "Future" tracks loading operations.
+    // This "Future" tracks loadingOfLatest operations.
     // A Future is an object that manages the state of an operation
     // in progress that will have a "Future" result.
     // You can attach callbacks (setCallback) for when the result is ready,
     // or cancel() it if you no longer need the result.
-    Future<List<DataAccessNews>> loading;
+    Future<List<DataAccessNews>> loadingOfLatest;
+    Future<List<DataAccessNews>> loadingOfPrevious;
 
     public NewsAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
-        SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "news/";
+        REST_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url);
+        NEWS_SERVICE_URL = REST_SERVICE_URL + "news/";
     }
+
+
 
     static class NewsHolder {
         ImageView newsImage;
@@ -77,7 +82,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
         // we're near the end of the list adapter, so load more items
         if (position >= getCount() - 3) {
-            loadPrevious();
+            loadPrevious(getItem(getCount() - 1).getId());
         }
 
         return convertView;
@@ -85,14 +90,14 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
     public void loadLatest() {
         // don't attempt to load more if a load is already in progress
-        if (loading != null && !loading.isDone() && !loading.isCancelled()) {
+        if (loadingOfLatest != null && !loadingOfLatest.isDone() && !loadingOfLatest.isCancelled()) {
             return;
         }
 
         // This request loads a URL as JsonArray and invokes
         // a callback on completion.
-        loading = Ion.with(getContext())
-                .load(SERVICE_URL + "latest/")
+        loadingOfLatest = Ion.with(getContext())
+                .load(NEWS_SERVICE_URL + "latest/")
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessNews>>() {
@@ -113,7 +118,35 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                 });
     }
 
-    private void loadPrevious() {
-
+    private void loadPrevious(long id) {
+        // don't attempt to load more if a load is already in progress
+        if (loadingOfPrevious != null && !loadingOfPrevious.isDone() && !loadingOfPrevious.isCancelled()) {
+            return;
+        }
+        String url = NEWS_SERVICE_URL + "previous";
+        url = url + "?id=" + id;
+        url = url + "&count=" + 30;
+        // This request loads a URL as JsonArray and invokes
+        // a callback on completion.
+        loadingOfLatest = Ion.with(getContext())
+                .load(url)
+                .as(new TypeToken<List<DataAccessNews>>() {
+                })
+                .setCallback(new FutureCallback<List<DataAccessNews>>() {
+                    @Override
+                    public void onCompleted(Exception e, List<DataAccessNews> result) {
+                        // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
+                        if (e != null) {
+                            Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        // add the news
+                        Collections.reverse(result);
+                        for (int i = 0; i < result.size(); i++) {
+                            add(result.get(i));
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
     }
 }

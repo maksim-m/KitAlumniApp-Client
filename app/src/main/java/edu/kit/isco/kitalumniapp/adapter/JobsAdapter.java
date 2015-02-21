@@ -24,7 +24,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
  */
 public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
 
-    private static final String JOBS_SERVICE_URL ="";
+    private final String JOBS_SERVICE_URL;
     private Context context;
     private LayoutInflater layoutInflater;
     private int layoutResId;
@@ -40,6 +40,7 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         this.context = context;
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
+        JOBS_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "jobs/";
     }
     static class JobsHolder {
         TextView jobsCaption;
@@ -81,7 +82,7 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         // This request loads a URL as JsonArray and invokes
         // a callback on completion.
         loading = Ion.with(getContext())
-                .load(JOBS_SERVICE_URL)
+                .load(JOBS_SERVICE_URL + "latest/")
                 .as(new TypeToken<List<DataAccessJob>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessJob>>() {
