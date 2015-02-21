@@ -2,13 +2,12 @@ package edu.kit.isco.kitalumniapp.dbObjects;
 
 import android.content.ContentValues;
 
-import java.util.Calendar;
 import java.util.List;
 
-import edu.kit.isco.kitalumniapp.dbServices.EventTable;
 import edu.kit.isco.kitalumniapp.dbServices.JobTable;
 
 /**
+ * DAO for Job
  * Created by Andre on 04.02.2015.
  */
 public class DataAccessJob implements DataAccessObject {
@@ -24,11 +23,9 @@ public class DataAccessJob implements DataAccessObject {
     public DataAccessJob() {
     }
 
-    public DataAccessJob(List<DataAccessTag> tags, String title, String shortInfo, String allText, String url, Calendar date) {
-        this.id = id;
+    public DataAccessJob(List<DataAccessTag> tags, String title, String shortInfo, String url) {
         this.title = title;
         this.shortInfo = shortInfo;
-        this.allText = allText;
         this.url = url;
         this.tags = tags;
     }
@@ -37,8 +34,16 @@ public class DataAccessJob implements DataAccessObject {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getShortInfo() {
@@ -49,36 +54,28 @@ public class DataAccessJob implements DataAccessObject {
         return allText;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public List<DataAccessTag> getTags() {
-        return tags;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setShortDescription(String short_info) {
-        this.shortInfo = short_info;
-    }
-
     public void setAllText(String allText) {
         this.allText = allText;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
 
+    public List<DataAccessTag> getTags() {
+        return tags;
+    }
+
     public void setTags(List<DataAccessTag> tags) {
         this.tags = tags;
+    }
+
+    public void setShortDescription(String short_info) {
+        this.shortInfo = short_info;
     }
 
     public boolean isStar() {

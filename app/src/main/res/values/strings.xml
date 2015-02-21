@@ -19,18 +19,18 @@
     <string name="gcm_error">From GCM: error (%1$s).</string>
     <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
     <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
-    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
-    <string name="server_registered">From Demo Server: successfully added device!</string>
-    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
-    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
-    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Server.</string>
+    <string name="server_registered">From Server: successfully added device!</string>
+    <string name="server_unregistered">From Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Server (%1$s).</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="about_activity_text">This application is developed by cool KIT students.</string>
     <string name="title_activity_tags">ListViewCheckboxTagsActivity</string>
     <string name="sendEmail">Send email...</string>
     <string name="openSite">Open</string>
-    <string name="title_activity_event_details_view">EventDetailsViewActivity</string>
-    <string name="title_activity_news_details_vew">NewsDetailsVewActivity</string>
-    <string name="title_activity_jobs_details_view">JobsDetailsViewActivity</string>
+    <string name="title_activity_event_details_view"></string>
+    <string name="title_activity_news_details_vew"></string>
+    <string name="title_activity_jobs_details_view"></string>
 
 </resources>

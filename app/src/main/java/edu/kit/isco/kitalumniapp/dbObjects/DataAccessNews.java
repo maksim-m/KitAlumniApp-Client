@@ -2,12 +2,10 @@ package edu.kit.isco.kitalumniapp.dbObjects;
 
 import android.content.ContentValues;
 
-import java.util.Calendar;
-
-import edu.kit.isco.kitalumniapp.dbServices.JobTable;
 import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
 
 /**
+ * Dao for News.
  * Created by Andre on 04.02.2015.
  */
 public class DataAccessNews implements DataAccessObject {
@@ -37,52 +35,52 @@ public class DataAccessNews implements DataAccessObject {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getShortDescription() {
-        return shortInfo;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getShortDescription() {
+        return shortInfo;
+    }
+
     public void setShortDescription(String shortDescription) {
         this.shortInfo = shortDescription;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void setDate(String date) {
@@ -90,7 +88,7 @@ public class DataAccessNews implements DataAccessObject {
     }
 
     /* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+     * @see java.lang.Object#toString()
 	 */
     @Override
     public String toString() {

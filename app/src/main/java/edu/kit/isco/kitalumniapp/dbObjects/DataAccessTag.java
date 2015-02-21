@@ -2,10 +2,10 @@ package edu.kit.isco.kitalumniapp.dbObjects;
 
 import android.content.ContentValues;
 
-import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
 import edu.kit.isco.kitalumniapp.dbServices.TagTable;
 
 /**
+ * Dao for Tags
  * Created by Andre on 04.02.2015.
  */
 public class DataAccessTag implements DataAccessObject {
@@ -25,12 +25,12 @@ public class DataAccessTag implements DataAccessObject {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

@@ -35,11 +35,12 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessUser;
 
 /**
+ * Binds in one place methods for register, unregister and updating for notifications.
  * Created by Stelian Stoev on 14.1.2015 г..
  */
 public class ServerUtilities {
 
-    static final String SERVER_URL = yourURL;
+    static final String SERVER_URL = "yourUrl";
     /**
      * Tag used on log messages.
      */
@@ -102,9 +103,6 @@ public class ServerUtilities {
                 displayMessage(context, message);
                 return;
             } catch (Exception e) {
-                // Here we are simplifying and retrying on any error; in a real
-                // application, it should retry only on unrecoverable errors
-                // (like HTTP error code 503).
                 Log.e(TAG, "Failed to register on attempt " + i + ":" + e);
                 if (i == MAX_ATTEMPTS) {
                     break;
@@ -144,7 +142,6 @@ public class ServerUtilities {
                             Log.i(TAG, "Unregistrating Success");
                         }
                     });
-            //GCMRegistrar.setRegisteredOnServer(context, false);
             String message = context.getString(R.string.server_unregistered);
             displayMessage(context, message);
         } catch (Exception e) {
@@ -182,16 +179,13 @@ public class ServerUtilities {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                Log.i(TAG, "Updating info for user to APP Server");
+                                Log.i(TAG, "Updating info for user on APP Server");
                             }
                         });
                 String message = context.getString(R.string.server_registered);
                 displayMessage(context, message);
                 return;
             } catch (Exception e) {
-                // Here we are simplifying and retrying on any error; in a real
-                // application, it should retry only on unrecoverable errors
-                // (like HTTP error code 503).
                 Log.e(TAG, "Failed to update on attempt " + i + ":" + e);
                 if (i == MAX_ATTEMPTS) {
                     break;

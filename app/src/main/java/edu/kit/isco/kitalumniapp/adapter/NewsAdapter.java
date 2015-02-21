@@ -95,14 +95,14 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                 .load(SERVICE_URL + "latest/")
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
-                .setCallback(new FutureCallback<List<DataAccessNews>>() {
-                    @Override
-                    public void onCompleted(Exception e, List<DataAccessNews> result) {
-                        // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
-                        if (e != null) {
-                            Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
-                            return;
-                        }
+                        .setCallback(new FutureCallback<List<DataAccessNews>>() {
+                            @Override
+                            public void onCompleted(Exception e, List<DataAccessNews> result) {
+                                // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
+                                if (e != null) {
+                                    Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
                         // add the news
                         Collections.reverse(result);
                         for (int i = 0; i < result.size(); i++) {

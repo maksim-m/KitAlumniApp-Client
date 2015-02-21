@@ -7,6 +7,7 @@ import java.util.Calendar;
 import edu.kit.isco.kitalumniapp.dbServices.EventTable;
 
 /**
+ * DAO for Event
  * Created by Andre on 04.02.2015.
  */
 public class DataAccessEvent implements DataAccessObject {
@@ -21,25 +22,36 @@ public class DataAccessEvent implements DataAccessObject {
     public DataAccessEvent() {
     }
 
-    public DataAccessEvent(long id, String title, String short_info, String allText, String url, String date) {
+    public DataAccessEvent(String title, String shortInfo, String allText, String url, Calendar date) {
         this.id = id;
         this.title = title;
-        this.short_info = short_info;
+        this.short_info = shortInfo;
         this.allText = allText;
         this.url = url;
-        this.date = date;
     }
 
     public long getId() {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getShort_info() {
         return short_info;
+    }
+
+    public void setShort_info(String short_info) {
+        this.short_info = short_info;
     }
 
     public String getAllText() {
@@ -50,32 +62,20 @@ public class DataAccessEvent implements DataAccessObject {
         return url;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setShort_info(String short_info) {
-        this.short_info = short_info;
-    }
-
-    public void setText(String allText) {
-        this.allText = allText;
-    }
-
     public void setUrl(String url) {
         this.url = url;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setText(String allText) {
+        this.allText = allText;
     }
 
     @Override

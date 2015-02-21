@@ -3,6 +3,7 @@ package edu.kit.isco.kitalumniapp.dbObjects;
 import java.util.List;
 
 /**
+ * Dao for user.
  * Created by Stelian Stoev on 13.2.2015 г..
  */
 public class DataAccessUser implements DataAccessObject {

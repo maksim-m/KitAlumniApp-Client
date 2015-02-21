@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 /**
+ * Receives the incomming notification and gives it on the GcmIntent Service for further
+ * action.
  * Created by Stelian Stoev on 10.1.2015 г..
  */
 public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {

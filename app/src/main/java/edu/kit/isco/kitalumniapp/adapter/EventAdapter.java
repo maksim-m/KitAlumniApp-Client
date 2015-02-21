@@ -71,7 +71,7 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         DataAccessEvent event = getItem(position);
             holder.eventTitle.setText(event.getTitle());
 
-            holder.eventDate.setText(event.getDate().toString());
+            holder.eventDate.setText(event.getDate());
 
             TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
         eventTitle.setText(event.getTitle());

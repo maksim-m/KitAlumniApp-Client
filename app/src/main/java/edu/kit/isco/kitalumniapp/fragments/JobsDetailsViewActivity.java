@@ -2,6 +2,7 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -17,6 +18,7 @@ public class JobsDetailsViewActivity extends ActionBarActivity {
         WebView webView = (WebView) findViewById(R.id.webViewJobDetails);
         webView.loadUrl(getIntent().getStringExtra("jobURL"));
         webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
     }
 
 
