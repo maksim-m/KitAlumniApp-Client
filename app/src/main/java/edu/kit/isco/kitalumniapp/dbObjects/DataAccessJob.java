@@ -19,20 +19,18 @@ public class DataAccessJob implements DataAccessObject {
     private String allText;
     private String url;
     private List<DataAccessTag> tags;
-    private String date;
     private boolean star = false;
 
     public DataAccessJob() {
     }
 
-    public DataAccessJob(long id, String title, String shortDescription, String allText, String url, List<DataAccessTag> tags, String date) {
+    public DataAccessJob(List<DataAccessTag> tags, String title, String shortInfo, String allText, String url, Calendar date) {
         this.id = id;
         this.title = title;
-        this.shortInfo = shortDescription;
+        this.shortInfo = shortInfo;
         this.allText = allText;
         this.url = url;
         this.tags = tags;
-        this.date = date;
     }
 
     public long getId() {
@@ -59,10 +57,6 @@ public class DataAccessJob implements DataAccessObject {
         return tags;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -85,10 +79,6 @@ public class DataAccessJob implements DataAccessObject {
 
     public void setTags(List<DataAccessTag> tags) {
         this.tags = tags;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public boolean isStar() {
@@ -116,7 +106,6 @@ public class DataAccessJob implements DataAccessObject {
         values.put(JobTable.SHORT_INFO, shortInfo);
         values.put(JobTable.FULL_TEXT, allText);
         values.put(JobTable.URL, url);
-        values.put(JobTable.DATE, date);
         values.put(JobTable.STAR, (star ? 1 : 0));
         return values;
     }

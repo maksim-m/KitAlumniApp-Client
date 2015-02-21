@@ -106,7 +106,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                 job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                 job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                job.setDate(c.getString(c.getColumnIndex(JobTable.DATE)));
                 job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
 
                 jobs.add(job);

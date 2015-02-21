@@ -15,7 +15,8 @@ public class JobsDetailsViewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_details_view);
         WebView webView = (WebView) findViewById(R.id.webViewJobDetails);
-        webView.loadData(getIntent().getStringExtra("html"), "text/html", null);
+        webView.loadUrl(getIntent().getStringExtra("jobURL"));
+        webView.getSettings().setBuiltInZoomControls(true);
     }
 
 

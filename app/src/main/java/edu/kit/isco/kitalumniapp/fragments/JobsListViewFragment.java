@@ -90,7 +90,7 @@ public class JobsListViewFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAccessJob job = jobsAdapter.getItem(position);
                 Intent intent = new Intent(view.getContext(), JobsDetailsViewActivity.class);
-                intent.putExtra("html", job.getAllText());
+                intent.putExtra("jobURL", job.getUrl());
                 startActivity(intent);
             }
         });

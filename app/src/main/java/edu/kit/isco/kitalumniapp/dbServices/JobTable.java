@@ -14,7 +14,6 @@ public class JobTable {
     public static final String SHORT_INFO = "short_info";
     public static final String FULL_TEXT = "full_text";
     public static final String URL = "url";
-    public static final String DATE = "date";
     public static final String STAR = "star";
 
     /**
@@ -28,7 +27,6 @@ public class JobTable {
                     + SHORT_INFO + " TEXT, "
                     + FULL_TEXT + " TEXT, "
                     + URL + " TEXT, "
-                    + DATE + " INTEGER, "
                     + STAR + " INTEGER DEFAULT 0"
                 + ");";
     }
