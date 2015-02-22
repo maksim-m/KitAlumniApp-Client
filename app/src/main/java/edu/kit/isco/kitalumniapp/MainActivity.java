@@ -3,12 +3,15 @@ package edu.kit.isco.kitalumniapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -145,6 +148,9 @@ public class MainActivity extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+            searchView.setSearchableInfo( searchManager.getSearchableInfo(getComponentName()) );
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -158,6 +164,7 @@ public class MainActivity extends ActionBarActivity
 
         switch (item.getItemId()) {
             case R.id.action_search:
+                onSearchRequested();
                 return true;
 
             case R.id.action_settings:
