@@ -1,11 +1,14 @@
 package edu.kit.isco.kitalumniapp.settings;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ListView;
 import java.util.ArrayList;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.CheckboxTagAdapter;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
 
 
 public class ListViewCheckboxTagsActivity extends Activity {
@@ -25,20 +28,20 @@ public class ListViewCheckboxTagsActivity extends Activity {
         tagsStringArray = getResources().getStringArray(R.array.tags);
 
         //Array list of tags
-        ArrayList<Tag> tagList = new ArrayList<>();
-        tagList.add(new Tag(tagsStringArray[0]));
-        tagList.add(new Tag(tagsStringArray[1]));
-        tagList.add(new Tag(tagsStringArray[2]));
-        tagList.add(new Tag(tagsStringArray[3]));
-        tagList.add(new Tag(tagsStringArray[4]));
-        tagList.add(new Tag(tagsStringArray[5]));
-        tagList.add(new Tag(tagsStringArray[6]));
-        tagList.add(new Tag(tagsStringArray[7]));
-        tagList.add(new Tag(tagsStringArray[8]));
-        tagList.add(new Tag(tagsStringArray[9]));
-        tagList.add(new Tag(tagsStringArray[10]));
-        tagList.add(new Tag(tagsStringArray[11]));
-        tagList.add(new Tag(tagsStringArray[12]));
+        ArrayList<DataAccessTag> tagList = new ArrayList<>();
+        tagList.add(new DataAccessTag(tagsStringArray[0]));
+        tagList.add(new DataAccessTag(tagsStringArray[1]));
+        tagList.add(new DataAccessTag(tagsStringArray[2]));
+        tagList.add(new DataAccessTag(tagsStringArray[3]));
+        tagList.add(new DataAccessTag(tagsStringArray[4]));
+        tagList.add(new DataAccessTag(tagsStringArray[5]));
+        tagList.add(new DataAccessTag(tagsStringArray[6]));
+        tagList.add(new DataAccessTag(tagsStringArray[7]));
+        tagList.add(new DataAccessTag(tagsStringArray[8]));
+        tagList.add(new DataAccessTag(tagsStringArray[9]));
+        tagList.add(new DataAccessTag(tagsStringArray[10]));
+        tagList.add(new DataAccessTag(tagsStringArray[11]));
+        tagList.add(new DataAccessTag(tagsStringArray[12]));
 
         //create an ArrayAdaptar from the String Array
         dataAdapter = new CheckboxTagAdapter(this, tagList);
