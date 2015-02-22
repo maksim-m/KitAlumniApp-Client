@@ -20,6 +20,8 @@ import edu.kit.isco.kitalumniapp.adapter.JobsAdapter;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
 
 /**
+ * This Class holds the List with all jobs,
+ * using the Information from JobsAdapter.
  * A simple {@link Fragment} subclass.
  */
 public class JobsListViewFragment extends Fragment {
@@ -46,7 +48,6 @@ public class JobsListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_jobs_list_view, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.jobsSwipeContainer);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

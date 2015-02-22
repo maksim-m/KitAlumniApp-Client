@@ -3,13 +3,10 @@ package edu.kit.isco.kitalumniapp.adapter;
 /**
  * Created by Yannick on 15.02.15 | KW 7.
  */
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +15,18 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import edu.kit.isco.kitalumniapp.Child;
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.RoundedAvatarDrawable;
 
-//Adapter to show parents (contacts) with their children
-//(email, website and phone number of the contacts) in an expandable ListView.
+/**
+ * Adapter that shows parents (contacts) with their children
+ * (email, website and phone number of the contacts) in an expandable ListView.
+ */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
@@ -36,11 +38,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.contacts = contacts;
         _listDataChild = new HashMap<Contact, ArrayList<Child>>();
 
-        //In each contact you can find an email address, website url or phone number
-        //But it could be, some contacts doesn't have a email website for example.
-        //So proof if one of the information could be null.
-        //If not, create a child object and add it to the parent/child hash-map.
-        for (Contact contact: contacts) {
+        /**
+         * In each contact you can find an email address, website url or phone number
+         *But it is possible that, some contacts doesn't have any.
+         *So we first proof if one of the information could be null.
+         *If not, create a child object and add it to the parent/child hash-map.
+         */
+        for (Contact contact : contacts) {
             ArrayList<Child> _children = new ArrayList<Child>();
             if (contact.getMailAddress() != null) {
                 _children.add(new Child(contact.getMailAddress(), 0));
@@ -64,7 +68,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         //return the Id which the child object contains.
-        return ((Child)getChild(groupPosition, childPosition)).getId();
+        return ((Child) getChild(groupPosition, childPosition)).getId();
     }
 
     @Override

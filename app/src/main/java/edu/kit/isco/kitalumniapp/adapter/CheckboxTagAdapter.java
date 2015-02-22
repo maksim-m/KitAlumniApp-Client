@@ -13,6 +13,7 @@ import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.settings.Tag;
 
 /**
+ * This Class sets the text in every checkedTextView.
  * Created by Kristina on 7.2.2015 г..
  */
 public class CheckboxTagAdapter extends BaseAdapter {
@@ -40,13 +41,23 @@ public class CheckboxTagAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * Get a View that displays the data at the specified position in the data set.
+     * The View is inflated from the XML layout file. The parent View applies default
+     * layout parameters.
+     *
+     * @param position:    The position of the item within the adapter's data set of the item whose view we want.
+     * @param convertView: Converts the XML-view to display the correct data.
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(
+            LayoutInflater view = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.tag_info, null);
+            convertView = view.inflate(R.layout.tag_info, null);
         }
 
         final CheckedTextView checkedTextView = (CheckedTextView)
@@ -54,10 +65,9 @@ public class CheckboxTagAdapter extends BaseAdapter {
         checkedTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkedTextView.isChecked()){
+                if (checkedTextView.isChecked()) {
                     checkedTextView.setChecked(false);
-                }
-                else
+                } else
                     checkedTextView.setChecked(true);
             }
         });

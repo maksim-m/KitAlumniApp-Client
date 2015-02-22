@@ -10,11 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
@@ -56,14 +53,14 @@ public class ContactFragment extends Fragment {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                String txt =  ((TextView) v.findViewById(R.id.infotext)).getText().toString();
+                String txt = ((TextView) v.findViewById(R.id.infotext)).getText().toString();
 
                 //Each child have a different behavior. So when you click on a child which contains
                 // a website url, you will be asked to go there with the browser you want.
-                switch ((int)id) {
+                switch ((int) id) {
                     case 0:
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                "mailto", txt , null));
+                                "mailto", txt, null));
                         startActivity(Intent.createChooser(emailIntent, getActivity().getString(R.string.sendEmail)));
                         break;
                     case 1:
@@ -90,9 +87,9 @@ public class ContactFragment extends Fragment {
     }
 
     /**
-     * 
+     *
      */
-    private void prepareData(){
+    private void prepareData() {
         contacts = new ArrayList<Contact>();
         contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
         contacts.add(new Contact("Fikitv ", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", "muster@mann.org", "www.muster.man"));

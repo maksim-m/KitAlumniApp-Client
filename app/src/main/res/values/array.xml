@@ -20,18 +20,20 @@
     </string-array>
 
     <string-array name="tags">
-        <item>Informatics</item>
-        <item>Chemistry</item>
-        <item>Biology</item>
-        <item>Mathematics</item>
-        <item>Electrical Engineering</item>
-        <item>Engineering</item>
-        <item>Physics</item>
-        <item>Process Engineering</item>
-        <item>Medicine</item>
-        <item>Economics</item>
-        <item>Law</item>
-        <item>Mechanical Engineering</item>
+        <item>Employee in Data Administration</item>
+        <item>Trainee</item>
+        <item>Clerk</item>
+        <item>Graduand</item>
+        <item>Doctorand</item>
+        <item>FH/BA Engineer</item>
+        <item>Industrial Job</item>
+        <item>Sales Occupation</item>
+        <item>Threshold Worker</item>
+        <item>Professor</item>
+        <item>Technical Employee</item>
+        <item>Student Research Project</item>
+        <item>Administration</item>
+        <item>Scientist</item>
         <item>Others</item>
     </string-array>
 
