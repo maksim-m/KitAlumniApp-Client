@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -112,6 +113,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                     job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
                     job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
+                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
 
                     jobs.add(job);
                 } while (c.moveToNext());
@@ -258,6 +260,40 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }
+    }
+
+    public List<DataAccessJob> getJobsByTag(DataAccessTag tag) {
+        List<DataAccessJob> jobs = new ArrayList<DataAccessJob>();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        String select = "SELECT * FROM "+ JOB_TABLE + " jt, "
+                + TAG_TABLE + " tt, " + JOB_TAG_TABLE + " jtt WHERE tt."
+                + TagTable.NAME + " = '" + tag.getName() + "'" + " AND tt." + TagTable.ID
+                + " = " + "jtt." + JobTagTable.TAG_ID + " AND jt." + JobTable.ID + " = "
+                + "jtt." + JobTagTable.JOB_ID;
+
+        Log.e(LOG, select);
+        Cursor c = db.rawQuery(select, null);
+
+        try {
+            if(c.moveToFirst()) {
+                do {
+                    DataAccessJob job = new DataAccessJob();
+                    job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
+                    job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
+                    job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                    job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
+                    job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
+                    job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
+                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
+
+                    jobs.add(job);
+                } while (c.moveToNext());
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+
+        return jobs;
     }
 
     /**
