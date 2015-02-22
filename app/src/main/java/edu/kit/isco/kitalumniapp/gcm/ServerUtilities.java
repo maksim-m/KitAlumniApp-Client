@@ -27,6 +27,7 @@ import com.koushikdutta.ion.Ion;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -57,6 +58,8 @@ public class ServerUtilities {
     private static final int MAX_ATTEMPTS = 5;
     private static final int BACKOFF_MILLI_SECONDS = 2000;
     private static final Random random = new Random();
+    BigInteger bigInteger;
+    private List<DataAccessTag> fullTagsList;
 
     /**
      * Notifies UI to display a message.
@@ -73,14 +76,44 @@ public class ServerUtilities {
         context.sendBroadcast(intent);
     }
 
+    private List<DataAccessTag> populateTagList() {
+        if (fullTagsList == null) {
+            fullTagsList = new ArrayList<DataAccessTag>();
+            fullTagsList.add(DataAccessTag.DATA_ADMINISTRATION);
+            fullTagsList.add(DataAccessTag.TRAINEE);
+            fullTagsList.add(DataAccessTag.CLERK);
+            fullTagsList.add(DataAccessTag.GRADUAND);
+            fullTagsList.add(DataAccessTag.DOCTORAND);
+            fullTagsList.add(DataAccessTag.ENGINEER);
+            fullTagsList.add(DataAccessTag.CLERK);
+            fullTagsList.add(DataAccessTag.INDUSTRIAL);
+            fullTagsList.add(DataAccessTag.SALES_OCCUPATION);
+            fullTagsList.add(DataAccessTag.THRESHOLD_WORKER);
+            fullTagsList.add(DataAccessTag.PROFESSOR);
+            fullTagsList.add(DataAccessTag.TECHNICAL_EMPLOYEE);
+            fullTagsList.add(DataAccessTag.STUDENT_RESEARCH_PROJECT);
+            fullTagsList.add(DataAccessTag.ADMINISTRATION);
+            fullTagsList.add(DataAccessTag.SCIENTIST);
+            fullTagsList.add(DataAccessTag.OTHERS);
+        }
+
+        return fullTagsList;
+    }
+
+    private BigInteger getPassword() {
+        if (bigInteger == null) {
+            SecureRandom password = new SecureRandom();
+            bigInteger = new BigInteger(64, password);
+        }
+        return bigInteger;
+    }
+
     /**
      * Register this account/device pair within the server.
      */
     public void register(final Context context, final String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
-        SecureRandom password = new SecureRandom();
-
-        DataAccessUser user = new DataAccessUser(regId, null, new BigInteger(64, password).toString(32));
+        DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // Once GCM returns a registration id, we need to register it in the
         // app server. The registration will be repeated maximal 5 times.
@@ -130,7 +163,7 @@ public class ServerUtilities {
      */
     public void unregister(final Context context, final String regId) {
         Log.i(TAG, "unregistering device (regId = " + regId + ")");
-        DataAccessUser user = new DataAccessUser(regId, null, null);
+        DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
         try {
             Ion.with(context)
                     .load("DELETE", SERVER_URL)
@@ -162,9 +195,7 @@ public class ServerUtilities {
 
     public void updateUser(Context context, List<DataAccessTag> tags, String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
-
-        SecureRandom password = new SecureRandom();
-        DataAccessUser user = new DataAccessUser(regId, tags, new BigInteger(64, password).toString(32));
+        DataAccessUser user = new DataAccessUser(regId, tags, getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // The update will be repeated maximal 5 times.
         for (int i = 1; i <= MAX_ATTEMPTS; i++) {

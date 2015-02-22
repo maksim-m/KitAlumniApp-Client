@@ -16,7 +16,6 @@
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:gravity="center_vertical"
-        android:checked="false" />
+        android:gravity="center_vertical" />
 
 </RelativeLayout>

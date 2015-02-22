@@ -1,6 +1,7 @@
 package edu.kit.isco.kitalumniapp.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,8 @@ import android.widget.CheckedTextView;
 import java.util.ArrayList;
 
 import edu.kit.isco.kitalumniapp.R;
-import edu.kit.isco.kitalumniapp.settings.Tag;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
+import edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity;
 
 /**
  * This Class sets the text in every checkedTextView.
@@ -18,12 +20,15 @@ import edu.kit.isco.kitalumniapp.settings.Tag;
  */
 public class CheckboxTagAdapter extends BaseAdapter {
 
+    final SharedPreferences sharedPreferences;
     Context context;
-    private ArrayList<Tag> tagList;
+    private ArrayList<DataAccessTag> tagList;
 
-    public CheckboxTagAdapter(Context context, ArrayList<Tag> tagList) {
+    public CheckboxTagAdapter(Context context, ArrayList<DataAccessTag> tagList) {
         this.context = context;
         this.tagList = tagList;
+        sharedPreferences = context.getSharedPreferences(ListViewCheckboxTagsActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class CheckboxTagAdapter extends BaseAdapter {
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             LayoutInflater view = (LayoutInflater) context.getSystemService(
@@ -62,17 +67,22 @@ public class CheckboxTagAdapter extends BaseAdapter {
 
         final CheckedTextView checkedTextView = (CheckedTextView)
                 convertView.findViewById(R.id.checkedTextViewTag);
+        checkedTextView.setChecked(sharedPreferences.getBoolean(tagList.get(position).getName(), true));
         checkedTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (checkedTextView.isChecked()) {
                     checkedTextView.setChecked(false);
-                } else
+                    editor.putBoolean(tagList.get(position).getName(), false).apply();
+                } else {
                     checkedTextView.setChecked(true);
+                    editor.putBoolean(tagList.get(position).getName(), true).apply();
+                }
             }
         });
         checkedTextView.setText(tagList.get(position).getName());
-
         return convertView;
     }
 }
