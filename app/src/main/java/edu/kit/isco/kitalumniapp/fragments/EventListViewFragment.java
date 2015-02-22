@@ -19,7 +19,6 @@ import java.util.List;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.EventAdapter;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
-import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,6 +95,7 @@ public class EventListViewFragment extends Fragment {
                 DataAccessEvent event = eventAdapter.getItem(position);
                 Intent intent = new Intent(view.getContext(), EventDetailsViewActivity.class);
                 intent.putExtra("html", event.getAllText());
+                intent.putExtra("title", event.getTitle());
                 startActivity(intent);
             }
         });

@@ -1,5 +1,8 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 public class NewsDetailsVewActivity extends ActionBarActivity {
 
@@ -19,20 +23,6 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details_vew);
-        /*TextView titleTextView = (TextView) findViewById(R.id.newsTitleTextView);
-        titleTextView.setText(getIntent().getStringExtra("title"));
-        ImageView newsImage = (ImageView) findViewById(R.id.newsImageView);
-        TextView fullTextView = (TextView) findViewById(R.id.newsFullTextView);
-        fullTextView.setText(getIntent().getStringExtra("fullText"));
-        TextView dateTextView = (TextView) findViewById(R.id.newsDateTextView);
-        dateTextView.setText(getIntent().getStringExtra("date"));
-
-
-        Ion.with(newsImage)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.default_news_image)
-                .load(getIntent().getStringExtra("urlImage"));*/
-
         WebView webView = (WebView) findViewById(R.id.webViewNewsDetails);
         webView.loadUrl(getIntent().getStringExtra("url"));
         webView.getSettings().setJavaScriptEnabled(true);
@@ -43,6 +33,12 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_news_details_vew, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getIntent().getStringExtra("title"));
+        actionBar.setShowHideAnimationEnabled(true);
         return true;
     }
 
@@ -55,6 +51,11 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == android.R.id.home){
+            finish();
             return true;
         }
 

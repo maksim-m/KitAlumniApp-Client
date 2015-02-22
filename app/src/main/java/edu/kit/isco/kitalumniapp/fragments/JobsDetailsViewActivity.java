@@ -1,13 +1,15 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 public class JobsDetailsViewActivity extends ActionBarActivity {
 
@@ -26,6 +28,12 @@ public class JobsDetailsViewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_jobs_details_view, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getIntent().getStringExtra("title"));
+        actionBar.setShowHideAnimationEnabled(true);
         return true;
     }
 
@@ -38,6 +46,11 @@ public class JobsDetailsViewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == android.R.id.home) {
+            finish();
             return true;
         }
 
