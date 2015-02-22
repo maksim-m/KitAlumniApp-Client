@@ -28,7 +28,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchActivity" />
+                android:value=".settings.SearchActivity" />
         </activity>
         <activity
             android:name=".settings.SettingsActivity"
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name=".settings.SearchActivity"
             android:label="@string/title_activity_search"
             android:launchMode="singleTop" >
             <intent-filter>

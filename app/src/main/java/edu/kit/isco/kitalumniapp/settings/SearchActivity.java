@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.settings;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.kit.isco.kitalumniapp.R;
 
 
 public class SearchActivity extends ListActivity {
@@ -32,6 +34,12 @@ public class SearchActivity extends ListActivity {
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
         handleIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        finish();
     }
 
     private void doMySearch(String query) {
