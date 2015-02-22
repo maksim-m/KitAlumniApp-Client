@@ -42,6 +42,8 @@ public class ListViewCheckboxTagsActivity extends Activity {
         tagList.add(new DataAccessTag(tagsStringArray[10]));
         tagList.add(new DataAccessTag(tagsStringArray[11]));
         tagList.add(new DataAccessTag(tagsStringArray[12]));
+        tagList.add(new DataAccessTag(tagsStringArray[13]));
+        tagList.add(new DataAccessTag(tagsStringArray[14]));
 
         //create an ArrayAdaptar from the String Array
         dataAdapter = new CheckboxTagAdapter(this, tagList);

@@ -21,6 +21,8 @@ import edu.kit.isco.kitalumniapp.adapter.EventAdapter;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 
 /**
+ * This Class holds the List with all events,
+ * using the Information from EventsAdapter.
  * A simple {@link Fragment} subclass.
  */
 public class EventListViewFragment extends Fragment {

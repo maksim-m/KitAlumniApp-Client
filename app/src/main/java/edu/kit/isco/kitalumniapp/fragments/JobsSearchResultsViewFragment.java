@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import edu.kit.isco.kitalumniapp.R;
 
 /**
+ * This class implements the search-function in JobsDetailsViewActivity.
  * A simple {@link Fragment} subclass.
  */
+
 public class JobsSearchResultsViewFragment extends Fragment {
 
     public JobsSearchResultsViewFragment() {

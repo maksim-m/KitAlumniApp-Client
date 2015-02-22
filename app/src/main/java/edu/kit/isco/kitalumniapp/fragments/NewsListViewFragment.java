@@ -2,10 +2,8 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +18,11 @@ import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.NewsAdapter;
-import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 
 /**
+ * This Class holds the List with all News,
+ * using the Information from NewsAdapter.
  * A simple {@link Fragment} subclass.
  */
 public class NewsListViewFragment extends Fragment {
@@ -51,6 +50,7 @@ public class NewsListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
+        // implements the refresh animation
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsSwipeContainer);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import edu.kit.isco.kitalumniapp.R;
 
 /**
+ * This class implements the search-function in EventsDetailsViewActivity.
  * A simple {@link Fragment} subclass.
  */
 public class EventSearchResultsViewFragment extends Fragment {
