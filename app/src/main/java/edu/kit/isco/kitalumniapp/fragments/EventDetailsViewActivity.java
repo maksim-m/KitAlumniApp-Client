@@ -1,12 +1,16 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 /**
  * This activity contains the detail information about each event.
@@ -26,6 +30,12 @@ public class EventDetailsViewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event_details_view, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getIntent().getStringExtra("title"));
+        actionBar.setShowHideAnimationEnabled(true);
         return true;
     }
 
@@ -40,8 +50,14 @@ public class EventDetailsViewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == android.R.id.home) {
+            finish();
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

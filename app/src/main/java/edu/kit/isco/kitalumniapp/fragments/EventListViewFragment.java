@@ -97,6 +97,7 @@ public class EventListViewFragment extends Fragment {
                 DataAccessEvent event = eventAdapter.getItem(position);
                 Intent intent = new Intent(view.getContext(), EventDetailsViewActivity.class);
                 intent.putExtra("html", event.getAllText());
+                intent.putExtra("title", event.getTitle());
                 startActivity(intent);
             }
         });

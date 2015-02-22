@@ -32,5 +32,7 @@
     <string name="title_activity_event_details_view"></string>
     <string name="title_activity_news_details_vew"></string>
     <string name="title_activity_jobs_details_view"></string>
+    <string name="search_hint">Search in KIT</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>
