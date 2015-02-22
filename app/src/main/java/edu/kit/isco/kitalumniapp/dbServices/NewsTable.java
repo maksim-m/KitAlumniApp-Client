@@ -11,10 +11,10 @@ public class NewsTable {
     //Column Names
     public static final String ID = "id";
     public static final String TITLE = "title";
-    public static final String SHORT_INFO = "short_info";
-    public static final String FULL_TEXT = "full_text";
+    public static final String SHORT_INFO = "shortInfo";
+    public static final String FULL_TEXT = "text";
     public static final String URL = "url";
-    public static final String IMAGE_URL = "image_url";
+    public static final String IMAGE_URL = "imageUrl";
     public static final String DATE = "date";
 
     /**

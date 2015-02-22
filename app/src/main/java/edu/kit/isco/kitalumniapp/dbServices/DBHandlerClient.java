@@ -38,7 +38,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         db.execSQL(TagTable.createSQL());
         db.execSQL(JobTable.createSQL());
         db.execSQL(NewsTable.createSQL());
-        //db.execSQL(JobTagTable.createSQL());
+        db.execSQL(JobTagTable.createSQL());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         db.execSQL(TagTable.dropSQL());
         db.execSQL(JobTable.dropSQL());
         db.execSQL(NewsTable.dropSQL());
-        //db.execSQL(JobTagTable.dropSQL());
+        db.execSQL(JobTagTable.dropSQL());
 
         onCreate(db);
     }
@@ -65,21 +65,25 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
         Log.e(LOG, selectQuery);
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if(c.moveToFirst()) {
-            do {
-                DataAccessEvent ev = new DataAccessEvent();
-                ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
-                ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
-                ev.setShort_info(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
-                ev.setText(c.getString(c.getColumnIndex(EventTable.FULL_TEXT)));
-                ev.setUrl(c.getString(c.getColumnIndex(EventTable.URL)));
-                ev.setDate(c.getString(c.getColumnIndex(EventTable.DATE)));
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    DataAccessEvent ev = new DataAccessEvent();
+                    ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
+                    ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
+                    ev.setShort_info(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
+                    ev.setText(c.getString(c.getColumnIndex(EventTable.FULL_TEXT)));
+                    ev.setUrl(c.getString(c.getColumnIndex(EventTable.URL)));
+                    ev.setDate(c.getString(c.getColumnIndex(EventTable.DATE)));
 
-                events.add(ev);
-            } while (c.moveToNext());
+                    events.add(ev);
+                } while (c.moveToNext());
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
 
         return events;
@@ -95,23 +99,26 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
         Log.e(LOG, selectQuery);
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if(c.moveToFirst()) {
-            do {
-                DataAccessJob job = new DataAccessJob();
-                job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
-                job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
-                job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
-                job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
-                job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    DataAccessJob job = new DataAccessJob();
+                    job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
+                    job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
+                    job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                    job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
+                    job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
+                    job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
 
-                jobs.add(job);
-            } while (c.moveToNext());
+                    jobs.add(job);
+                } while (c.moveToNext());
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
-
         return jobs;
     }
 
@@ -125,21 +132,25 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
         Log.e(LOG, selectQuery);
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if(c.moveToFirst()) {
-            do {
-                DataAccessNews n = new DataAccessNews();
-                n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
-                n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
-                n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
-                n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
-                n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
-                n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
-                n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
-                news.add(n);
-            } while (c.moveToNext());
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    DataAccessNews n = new DataAccessNews();
+                    n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
+                    n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
+                    n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
+                    n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
+                    n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
+                    n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
+                    n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
+                    news.add(n);
+                } while (c.moveToNext());
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
 
         return news;
@@ -152,13 +163,16 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     public void updateNews(List<DataAccessNews> news) {
         assert news != null;
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues values;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        for (DataAccessNews n : news) {
+        try {
+            for (DataAccessNews n : news) {
 
-            long id = db.insert(NEWS_TABLE, null, n.toContentValues());
-            n.setId(id);
+                long id = db.insert(NEWS_TABLE, null, n.toContentValues());
+                n.setId(id);
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
     }
 
@@ -169,22 +183,25 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     public void updateJobs(List<DataAccessJob> jobs) {
         assert jobs != null;
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues values1;
-        ContentValues values2;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values;
 
-        for (DataAccessJob j : jobs) {
+        try {
+            for (DataAccessJob j : jobs) {
 
-            long id = db.insert(JOB_TABLE, null, j.toContentValues());
-            j.setId(id);
+                long id = db.insert(JOB_TABLE, null, j.toContentValues());
+                j.setId(id);
 
-            for (DataAccessTag t : j.getTags()) {
-                long tagID = getTagID(t);
-                values2 = new ContentValues();
-                values2.put(JobTagTable.JOB_ID, id);
-                values2.put(JobTagTable.TAG_ID, tagID);
-                db.insert(JOB_TAG_TABLE, null, values2);
+                for (DataAccessTag t : j.getTags()) {
+                    long tagID = getTagID(t);
+                    values = new ContentValues();
+                    values.put(JobTagTable.JOB_ID, id);
+                    values.put(JobTagTable.TAG_ID, tagID);
+                    db.insert(JOB_TAG_TABLE, null, values);
+                }
             }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
     }
 
@@ -195,12 +212,15 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     public void updateEvents(List<DataAccessEvent> events) {
         assert events != null;
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues values;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        for (DataAccessEvent e : events) {
-            long id = db.insert(EVENT_TABLE, null, e.toContentValues());
-            e.setId(id);
+        try {
+            for (DataAccessEvent e : events) {
+                long id = db.insert(EVENT_TABLE, null, e.toContentValues());
+                e.setId(id);
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
     }
 
@@ -208,24 +228,36 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      * Deletes all jobs from the database
      */
     private void clearJobs() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(JOB_TABLE, null, null);
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        try {
+            db.delete(JOB_TABLE, null, null);
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
     }
 
     /**
      * Deletes all news from the database
      */
     private void clearNews() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(NEWS_TABLE, null, null);
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        try {
+            db.delete(NEWS_TABLE, null, null);
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
     }
 
     /**
      * deletes all events from the database
      */
     private void clearEvents() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(EVENT_TABLE, null, null);
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        try {
+            db.delete(EVENT_TABLE, null, null);
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
     }
 
     /**
@@ -239,17 +271,21 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 + JobTagTable.JOB_ID + " = " + jobID;
 
         Log.e(LOG, select);
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor c = db.rawQuery(select, null);
 
-        if(c.moveToFirst()) {
-            do {
-                DataAccessTag t = new DataAccessTag();
-                t.setId(c.getLong(c.getColumnIndex(TagTable.ID)));
-                t.setName(c.getString(c.getColumnIndex(TagTable.NAME)));
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    DataAccessTag t = new DataAccessTag();
+                    t.setId(c.getLong(c.getColumnIndex(TagTable.ID)));
+                    t.setName(c.getString(c.getColumnIndex(TagTable.NAME)));
 
-                tags.add(t);
-            } while(c.moveToNext());
+                    tags.add(t);
+                } while (c.moveToNext());
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
         }
 
         return tags;
@@ -261,15 +297,22 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      * @return the id of the tag
      */
     private long getTagID(DataAccessTag tag) {
+        long id = -1;
         String select = "SELECT " + TagTable.ID + " FROM " + TAG_TABLE + " tt WHERE tt."
                 + TagTable.NAME + " = '" + tag.getName() + "'";
         Log.e(LOG, select);
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor c = db.rawQuery(select, null);
-         if(c != null) {
-             c.moveToFirst();
-         }
-        return c.getLong(c.getColumnIndex(TagTable.ID));
+
+        try {
+            if (c != null) {
+                c.moveToFirst();
+                id = c.getLong(c.getColumnIndex(TagTable.ID));
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+        return id;
     }
 
 }
