@@ -297,6 +297,43 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     }
 
     /**
+     * Returns a list of news of a certain length
+     * @param x number of news that should be returned
+     * @return list of news
+     */
+    public List<DataAccessNews> getXnews(int x) {
+        List<DataAccessNews> news = new ArrayList<DataAccessNews>();
+        String selectQuery = "SELECT * FROM " + NEWS_TABLE;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        try {
+            if (c.moveToFirst()) {
+                for(int i = 0; i<x ; i++) {
+                    if (c.moveToNext()) {
+                        DataAccessNews n = new DataAccessNews();
+                        n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
+                        n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
+                        n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
+                        n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
+                        n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
+                        n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
+                        n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
+                        news.add(n);
+                    }
+                }
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+
+        return news;
+    }
+
+    /**
      * Returns all tags that are affiliated to a certain job
      * @param jobID the ID of the job
      * @return List of tags

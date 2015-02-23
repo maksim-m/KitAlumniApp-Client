@@ -10,9 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-
             android:background="@color/background_material_light"
-            android:color="@color/accent_material_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
