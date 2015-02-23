@@ -140,7 +140,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         // a callback on completion.
         final String newsUrl = url;
         Log.d(TAG, "Loading more news from \"" + newsUrl + "\"...");
-        loadingOfLatest = Ion.with(getContext())
+        loadingOfPrevious = Ion.with(getContext())
                 .load(newsUrl)
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
