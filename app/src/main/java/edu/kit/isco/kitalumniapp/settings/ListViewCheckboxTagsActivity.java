@@ -44,7 +44,7 @@ public class ListViewCheckboxTagsActivity extends Activity {
                 SharedPreferences gcmPrefs = getSharedPreferences(SettingsActivity.class.getSimpleName(),
                         Context.MODE_PRIVATE);
                 ServerUtilities updater = new ServerUtilities();
-                updater.updateUser(getApplicationContext(),checkedTagList,gcmPrefs.getString(PROPERTY_REG_ID,""))
+                updater.updateUser(getApplicationContext(), checkedTagList, gcmPrefs.getString(PROPERTY_REG_ID, ""));
                 finish();
             }
         });
