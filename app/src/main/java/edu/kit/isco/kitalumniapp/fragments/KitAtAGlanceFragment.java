@@ -93,18 +93,42 @@ public class KitAtAGlanceFragment extends Fragment {
       * @param adapter
      */
     private void prepareData(KitAtAGlanceAdapter adapter) {
-        adapter.addInfoText("The KIT","With more than 9,000 employees and an annual budget of about EUR 785 million, KIT is one of the biggest research and education institutions worldwide and has the potential of reaching a top position in selected research areas on an international level. The objective is to turn KIT into an institution of top research, excellent scientific education, and a prominent location of academic life, life-long learning, comprehensive advanced training, unrestricted exchange of know-how, and sustainable innovation culture.");
-        adapter.addPdf("KIT Overview", "http://www.kit.edu/mediathek/print_forschung/Broschuere_KIT_Ueberblick_en.pdf");
+        adapter.addInfoText("Karlsruhe Institute of Technology","Unique in German Research\n" +
+                "In October 2009, the Karlsruhe Institute of Technology (KIT) was established " +
+                "by a merger of Forschungszentrum Karlsruhe GmbH and Universität Karlsruhe (TH)." +
+                " The KIT pursues both the mission of a university with teaching and research " +
+                "tasks and the mission\n" +
+                "of a national research center of the Helmholtz Association conducting " +
+                "program-oriented provident research. Within these missions, KIT is operating " +
+                "along the three strategic fields of action of research, teaching, and innovation.\n" +
+                "KIT’s activities are organized in five divisions: Biology, Chemistry, and " +
+                "Process Engineering; Informatics, Economics, and Society; Mechanical and " +
+                "Electrical Engineering; Natural and Built Environ­ment; Physics and " +
+                "Mathematics. These divisions pool the research, education, and innovation " +
+                "activities of the affiliated institutes. The divisions also cover the work " +
+                "accomplished by the KIT depart­ments and under the program-oriented funding " +
+                "programs of the Helmholtz Association.\n" +
+                "With about 9400 employees, including 6000 staff members in the science and " +
+                "education sector, and 24,500 students, KIT is one of the biggest research and " +
+                "education institutions in Europe.\n" +
+                "The merger in KIT is the logical continuation of a long-lasting close " +
+                "cooperation of two research and education institutions having a rich " +
+                "tradition. Forschungszentrum Karlsruhe was founded in 1956 as Nuclear " +
+                "Reactor Building and Operation Company and has turned into a " +
+                "multidisciplinary large-scale research center of the Helmholtz Association " +
+                "working on research programs in natural sciences and engineering. Universität " +
+                "Karlsruhe was founded in 1825 as Polytechnical College and has become a " +
+                "modern location of research and education in natural sciences, engineering, " +
+                "economics, and the humanities. \n Source: KIT at a Glance Brochure");
+        adapter.addPdf("KIT at a glance","http://www.kit.edu/mediathek/print_forschung/Broschuere_KIT_Ueberblick_en.pdf");
         adapter.addPdf("Facts and Figures", "http://www.kit.edu/mediathek/print_forschung/Flyer_KIT_en.pdf");
-        adapter.addPdf("Particles and Forces in the Universe", "http://www.kit.edu/mediathek/print_forschung/Broschuere_KCETA_en.pdf");
-        adapter.addPdf("Energy for Tomorrow","http://www.kit.edu/mediathek/print_forschung/Broschuere_Energie_en.pdf");
-        adapter.addPdf("For an Environment Worth Living","http://www.kit.edu/mediathek/print_forschung/Broschuere_Klima_Umwelt_en.pdf");
-        adapter.addPdf("Solutions for Tomorrow’s Mobility","http://www.kit.edu/mediathek/print_forschung/Broschuere_Mobilitaetssysteme_en.pdf");
-        adapter.addPdf("Reflecting Technology – Designing Society","http://www.kit.edu/mediathek/print_forschung/Broschuere_Mensch_Technik_en.pdf");
-        adapter.addPdf("Power Stores for Renewable Energies and Electric Drive Trains for E-Vehicles","http://www.kit.edu/mediathek/print_forschung/Flyer_Competence_E_en.pdf");
-        adapter.addPdf("An der Spitze","http://www.kit.edu/mediathek/print_looKIT/Mit_Atmosphaerenforschern_des_KIT_an_der_Zugspitze.pdf");
-        adapter.addPdf("KIT at CERN: The Man Inside","http://www.kit.edu/mediathek/print_looKIT/Mit_KIT-Wissenschaftlern_auf_Teilchensuche_am_CERN.pdf");
-        adapter.addPdf("KIT-Water Resources Management System","http://www.kit.edu/mediathek/print_looKIT/Mit_KIT-Bauingenieuren_in_Hoehlenkraftwerken_auf_Java.pdf");
+        adapter.addPdf("Portrait: Energy Center","http://www.kit.edu/mediathek/print_forschung/Broschuere_Energie_en.pdf");
+        adapter.addPdf("Portrait: Climate and Environment Center","http://www.kit.edu/mediathek/print_forschung/Broschuere_Klima_Umwelt_en.pdf");
+        adapter.addPdf("Portrait: Humans and Technology Focus","http://www.kit.edu/mediathek/print_forschung/Broschuere_Mensch_Technik_en.pdf");
+        adapter.addPdf("Campus Alpine","http://www.kit.edu/mediathek/print_looKIT/Mit_Atmosphaerenforschern_des_KIT_an_der_Zugspitze.pdf");
+        adapter.addPdf("KIT at CERN","http://www.kit.edu/mediathek/print_looKIT/Mit_KIT-Wissenschaftlern_auf_Teilchensuche_am_CERN.pdf");
+        adapter.addPdf("Competence E – Association for Electromobility","http://www.kit.edu/mediathek/print_forschung/Flyer_Competence_E_en.pdf");
+
     }
 
     /**
