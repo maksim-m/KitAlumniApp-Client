@@ -27,6 +27,7 @@ import com.koushikdutta.ion.Ion;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -77,6 +78,7 @@ public class ServerUtilities {
 
     private List<DataAccessTag> populateTagList() {
         if (fullTagsList == null) {
+            fullTagsList = new ArrayList<DataAccessTag>();
             fullTagsList.add(DataAccessTag.DATA_ADMINISTRATION);
             fullTagsList.add(DataAccessTag.TRAINEE);
             fullTagsList.add(DataAccessTag.CLERK);
