@@ -2,6 +2,7 @@ package edu.kit.isco.kitalumniapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
  */
 public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
+    private static final String TAG = "NewsAdapter";
     private final String REST_SERVICE_URL;
     private final String NEWS_SERVICE_URL;
     private Context context;
@@ -128,8 +130,10 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         url = url + "&count=" + 30;
         // This request loads a URL as JsonArray and invokes
         // a callback on completion.
+        final String newsUrl = url;
+        Log.d(TAG, "Loading more news from \"" + newsUrl + "\"...");
         loadingOfLatest = Ion.with(getContext())
-                .load(url)
+                .load(newsUrl)
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessNews>>() {
@@ -138,14 +142,21 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
                         if (e != null) {
                             Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Error loading news from \"" + newsUrl + "\". Exception message: " + e.getLocalizedMessage());
                             return;
                         }
                         // add the news
-                        Collections.reverse(result);
-                        for (int i = 0; i < result.size(); i++) {
-                            add(result.get(i));
+                        if (result != null) {
+                            Log.d(TAG, "Loaded " + result.size() + " more news from \"" + newsUrl + "\".");
+                            Collections.reverse(result);
+                            for (int i = 0; i < result.size(); i++) {
+                                add(result.get(i));
+                            }
+                            notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG, "Result list from \"" + newsUrl + "\" was null.");
                         }
-                        notifyDataSetChanged();
+
                     }
                 });
     }
