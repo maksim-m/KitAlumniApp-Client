@@ -113,12 +113,14 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                             Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        // add the news
-                        Collections.reverse(result);
-                        for (int i = 0; i < result.size(); i++) {
-                            add(result.get(i));
+                        if (result != null) {
+                            // add the news
+                            Collections.reverse(result);
+                            for (int i = 0; i < result.size(); i++) {
+                                add(result.get(i));
+                            }
+                            notifyDataSetChanged();
                         }
-                        notifyDataSetChanged();
                     }
                 });
     }
