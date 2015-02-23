@@ -34,13 +34,6 @@
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin scelerisque ante eget metus egestas, aliquam molestie justo lobortis."/>
 
-        <TextView
-            android:id="@+id/newsId"
-            android:gravity="end"
-            android:text="12345"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Small"/>
 
     </LinearLayout>
 

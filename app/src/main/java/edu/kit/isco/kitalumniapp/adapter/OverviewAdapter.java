@@ -144,7 +144,7 @@ public class OverviewAdapter extends ArrayAdapter {
          * and invokes a callback on completion.
          */
         loadNews = Ion.with(getContext())
-                .load(SERVICE_URL + "/news/latest/")
+                .load(SERVICE_URL + "news/latest/")
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessNews>>() {
@@ -181,7 +181,7 @@ public class OverviewAdapter extends ArrayAdapter {
          * and invokes a callback on completion.
          */
         loadJobs = Ion.with(getContext())
-                .load(SERVICE_URL + "/jobs/latest/")
+                .load(SERVICE_URL + "jobs/latest/")
                 .as(new TypeToken<List<DataAccessJob>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessJob>>() {
@@ -216,7 +216,7 @@ public class OverviewAdapter extends ArrayAdapter {
          * and invokes a callback on completion.
          */
         loadEvents = Ion.with(getContext())
-                .load(SERVICE_URL + "/events/")
+                .load(SERVICE_URL + "events/")
                 .as(new TypeToken<List<DataAccessEvent>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessEvent>>() {

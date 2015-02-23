@@ -66,7 +66,6 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
             holder.newsImage = (ImageView) convertView.findViewById(R.id.newsImage);
             holder.newsCaption  = (TextView) convertView.findViewById(R.id.newsCaption);
             holder.newsShortDescription = (TextView) convertView.findViewById(R.id.newsShortDescription);
-            holder.newsId = (TextView) convertView.findViewById(R.id.newsId);
             convertView.setTag(holder);
         } else {
             holder = (NewsHolder) convertView.getTag();
@@ -77,7 +76,6 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
         holder.newsShortDescription.setText(news.getShortDescription());
 
-        holder.newsId.setText(Long.toString(news.getId()));
 
         Ion.with(holder.newsImage)
            .placeholder(R.drawable.placeholder)
@@ -86,7 +84,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
            .load(news.getImageUrl());
 
         // we're near the end of the list adapter, so load more items
-        if (position >= getCount() - 3) {
+        if (position >= getCount() - 1) {
             loadPrevious(getItem(getCount() - 1).getId());
         }
 
