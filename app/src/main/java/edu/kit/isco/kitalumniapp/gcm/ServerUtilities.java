@@ -76,9 +76,14 @@ public class ServerUtilities {
         context.sendBroadcast(intent);
     }
 
+    /**
+     * Checks if the list has been created and if it hasn`t, then it puts all Tags in one single list.
+     * @return fully populated List of DataAccessTags
+     */
+
     private List<DataAccessTag> populateTagList() {
         if (fullTagsList == null) {
-            fullTagsList = new ArrayList<DataAccessTag>();
+            fullTagsList = new ArrayList<>();
             fullTagsList.add(DataAccessTag.DATA_ADMINISTRATION);
             fullTagsList.add(DataAccessTag.TRAINEE);
             fullTagsList.add(DataAccessTag.CLERK);
@@ -100,6 +105,11 @@ public class ServerUtilities {
         return fullTagsList;
     }
 
+    /**
+     * Generates password the first time and then returns it
+     * every other time.
+     * @return password
+     */
     private BigInteger getPassword() {
         if (bigInteger == null) {
             SecureRandom password = new SecureRandom();
@@ -113,7 +123,7 @@ public class ServerUtilities {
      */
     public void register(final Context context, final String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
-        DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
+        DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // Once GCM returns a registration id, we need to register it in the
         // app server. The registration will be repeated maximal 5 times.
@@ -195,6 +205,7 @@ public class ServerUtilities {
 
     public void updateUser(Context context, List<DataAccessTag> tags, String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
+        fullTagsList = tags;
         DataAccessUser user = new DataAccessUser(regId, tags, getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // The update will be repeated maximal 5 times.
