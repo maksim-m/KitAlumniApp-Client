@@ -54,6 +54,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         ImageView newsImage;
         TextView newsCaption;
         TextView newsShortDescription;
+        TextView newsId;
     }
 
     @Override
@@ -65,6 +66,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
             holder.newsImage = (ImageView) convertView.findViewById(R.id.newsImage);
             holder.newsCaption  = (TextView) convertView.findViewById(R.id.newsCaption);
             holder.newsShortDescription = (TextView) convertView.findViewById(R.id.newsShortDescription);
+            holder.newsId = (TextView) convertView.findViewById(R.id.newsId);
             convertView.setTag(holder);
         } else {
             holder = (NewsHolder) convertView.getTag();
@@ -75,6 +77,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
 
         holder.newsShortDescription.setText(news.getShortDescription());
 
+        holder.newsId.setText(Long.toString(news.getId()));
 
         Ion.with(holder.newsImage)
            .placeholder(R.drawable.placeholder)
@@ -125,6 +128,11 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         if (loadingOfPrevious != null && !loadingOfPrevious.isDone() && !loadingOfPrevious.isCancelled()) {
             return;
         }
+
+        if (id <= 1) {
+            return;
+        }
+
         String url = NEWS_SERVICE_URL + "previous";
         url = url + "?id=" + id;
         url = url + "&count=" + 30;
