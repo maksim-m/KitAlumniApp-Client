@@ -18,10 +18,18 @@ import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
 
 /**
+ * This Class holds the List with all Contacts,
+ * using the Information from ExpandableListAdapter.
  * A simple {@link Fragment} subclass.
+ *
  */
 public class ContactFragment extends Fragment {
 
+    /**
+     * List of contact-objects.
+     *
+     * @since 1.0
+     */
     ArrayList<Contact> contacts;
 
     public ContactFragment() {
@@ -38,9 +46,12 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ArrayList<Contact> arrayOfUsers = new ArrayList<Contact>();
-        // Create the adapter to convert the array to views
-        //ContactsAdapter adapter = new ContactsAdapter(getActivity(), arrayOfUsers);
+        //create list with contacts
+        contacts = new ArrayList<Contact>();
+        //fill contacts-list with Data
         prepareData();
+
+        // Create the adapter to convert the array to views
         ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
@@ -78,7 +89,6 @@ public class ContactFragment extends Fragment {
                     default:
                         break;
                 }
-                //Toast.makeText(getActivity().getApplicationContext(), "child:" + childPosition + " id:" + id, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -87,13 +97,21 @@ public class ContactFragment extends Fragment {
     }
 
     /**
-     *
+     * Generate data which will displayed in the fragment. They will be added directly
+     * to the contact-list.
      */
     private void prepareData() {
-        contacts = new ArrayList<Contact>();
-        contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
-        contacts.add(new Contact("Fikitv ", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", "muster@mann.org", "www.muster.man"));
-        contacts.add(new Contact("BlueFanta", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
+
+        contacts.add(new Contact("International Scholars & Welcome Office (IScO)", "Dr. Petra Roth\n" +
+                "Leiterin\n" +
+                "Karlsruher Institut für Technologie (KIT)\n" +
+                "Adenauerring 2\n" +
+                "76131 Karlsruhe\n" +
+                "\n" +
+                "Campus Süd\n" +
+                "Gebäude 50.20  ", "+49 721 608-44946", "scholar@intl.kit.edu", "http://www.intl.kit.edu/intl/isco.php"));
+        //contacts.add(new Contact("Fikitv ", "", "0172345678", "muster@mann.org", "www.muster.man"));
+        contacts.add(new Contact("Discover the Karlsruhe TechnologyRegion!", "", null, null, "http://welcome.technologieregion-karlsruhe.de/en/"));
         contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
         contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));
         contacts.add(new Contact("Test2", "Balblalsalkdslafdsfjdslfjlsdjf", "0172345678", null, "www.web.de"));

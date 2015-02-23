@@ -2,6 +2,7 @@ package edu.kit.isco.kitalumniapp;
 
 /**
  * Created by Yannick on 15.02.15 | KW 7.
+ * Class to store information and the type of information
  */
 public class Child {
 
@@ -13,10 +14,18 @@ public class Child {
         this.id = id;
     }
 
+    /**
+     * Returns the Information
+     * @return
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * Returns the type of information
+     * @return
+     */
     public int getId() {
         return id;
     }

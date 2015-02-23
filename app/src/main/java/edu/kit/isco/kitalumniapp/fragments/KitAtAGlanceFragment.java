@@ -7,23 +7,17 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -36,13 +30,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.KitAtAGlanceAdapter;
 
 /**
+ * This Class holds the List with one Informationtext and multiple PDFs,
+ * using the Information from KitAtAGlanceAdapter.
  * A simple {@link Fragment} subclass.
+ *
  */
 public class KitAtAGlanceFragment extends Fragment {
 
@@ -59,8 +55,6 @@ public class KitAtAGlanceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -71,15 +65,10 @@ public class KitAtAGlanceFragment extends Fragment {
         ArrayList<String> arrayOfPdfs = new ArrayList<String>();
         // Create the adapter to convert the array to views
         KitAtAGlanceAdapter adapter = new KitAtAGlanceAdapter(getActivity());
-
-        //adapter.add(new Contact("Muster Mann", "Standard Typ. Kennt jeder. Ansonsten kommt hier eine kurze Beschreibung rein. Bla Bla und so", "01234 56789", "muster@man.org"));
-
         // Attach the adapter to a ListView
-
         View view = inflater.inflate(R.layout.fragment_kit_at_aglance, container, false);
         final ListView listView = (ListView) view.findViewById(R.id.glanceView);
-        //ListView listView = (ListView) this.getActivity().findViewById(R.id.contactListView);
-
+        //Fill adapter with content
         prepareData(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,6 +88,10 @@ public class KitAtAGlanceFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Generate data and add it to the adapter.
+      * @param adapter
+     */
     private void prepareData(KitAtAGlanceAdapter adapter) {
         adapter.addInfoText("The KIT","With more than 9,000 employees and an annual budget of about EUR 785 million, KIT is one of the biggest research and education institutions worldwide and has the potential of reaching a top position in selected research areas on an international level. The objective is to turn KIT into an institution of top research, excellent scientific education, and a prominent location of academic life, life-long learning, comprehensive advanced training, unrestricted exchange of know-how, and sustainable innovation culture.");
         adapter.addPdf("KIT Overview", "http://www.kit.edu/mediathek/print_forschung/Broschuere_KIT_Ueberblick_en.pdf");
@@ -114,6 +107,9 @@ public class KitAtAGlanceFragment extends Fragment {
         adapter.addPdf("KIT-Water Resources Management System","http://www.kit.edu/mediathek/print_looKIT/Mit_KIT-Bauingenieuren_in_Hoehlenkraftwerken_auf_Java.pdf");
     }
 
+    /**
+     * Class to download a file in background.
+     */
     private class DownloadFile extends AsyncTask<String, String, String> {
 
         @Override
@@ -141,13 +137,10 @@ public class KitAtAGlanceFragment extends Fragment {
             }catch (IOException e){
                 e.printStackTrace();
             }
-            //FileDownloader.downloadFile(fileUrl, pdfFile);
             try {
 
                 URL url = new URL(fileUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-                //urlConnection.setRequestMethod("GET");
-                //urlConnection.setDoOutput(true);
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
@@ -199,6 +192,12 @@ public class KitAtAGlanceFragment extends Fragment {
         }
     }
 
+
+    /**
+     * Download PDF from param URL and save it in folder /KITAlumniApp/
+     * If a PDF with the URL already exists then open it instead.
+     * @param url
+     */
     public void download(String url)
     {
 
@@ -215,6 +214,10 @@ public class KitAtAGlanceFragment extends Fragment {
 
     }
 
+    /**
+     * Show PDF with fileName in installed PDF-Viewer
+     * @param fileName
+     */
     public void view(String fileName)
     {
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);  // -> filename = maven.pdf
