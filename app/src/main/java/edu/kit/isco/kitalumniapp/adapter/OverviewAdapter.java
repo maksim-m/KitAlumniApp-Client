@@ -190,7 +190,6 @@ public class OverviewAdapter extends ArrayAdapter {
                             return;
                         }
                         // add the jobs
-                        Collections.reverse(result);
                         addItem(new OverviewListItem("Newest Jobs", 3));
                         for (int i = 0; i < 3; i++) {
                             addItem(new OverviewListItem(result.get(i), TYPE_JOBS));
@@ -224,7 +223,6 @@ public class OverviewAdapter extends ArrayAdapter {
                             return;
                         }
                         // add the event
-                        Collections.reverse(result);
                         addItem(new OverviewListItem("Next Event", 3));
                         addItem(new OverviewListItem(result.get(0), TYPE_EVENTS));
 
