@@ -41,7 +41,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessUser;
  */
 public class ServerUtilities {
 
-    static final String SERVER_URL = "yourUrl";
+    static final String SERVER_URL = "yourURL";
     /**
      * Tag used on log messages.
      */
@@ -90,7 +90,6 @@ public class ServerUtilities {
             fullTagsList.add(DataAccessTag.GRADUAND);
             fullTagsList.add(DataAccessTag.DOCTORAND);
             fullTagsList.add(DataAccessTag.ENGINEER);
-            fullTagsList.add(DataAccessTag.CLERK);
             fullTagsList.add(DataAccessTag.INDUSTRIAL);
             fullTagsList.add(DataAccessTag.SALES_OCCUPATION);
             fullTagsList.add(DataAccessTag.THRESHOLD_WORKER);
@@ -123,7 +122,7 @@ public class ServerUtilities {
      */
     public void register(final Context context, final String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
-        DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
+        DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // Once GCM returns a registration id, we need to register it in the
         // app server. The registration will be repeated maximal 5 times.
