@@ -155,13 +155,16 @@ public class OverviewAdapter extends ArrayAdapter {
                             Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        // add the news
-                        Collections.reverse(result);
-                        addItem(new OverviewListItem("Latest News", 3));
-                        for (int i = 0; i < 3; i++) {
-                            addItem(new OverviewListItem(result.get(i), TYPE_NEWS));
+                        if (result != null) {
+                            // add the news
+                            Collections.reverse(result);
+                            addItem(new OverviewListItem("Latest News", 3));
+                            for (int i = 0; i < 3; i++) {
+                                addItem(new OverviewListItem(result.get(i), TYPE_NEWS));
+                            }
+                            notifyDataSetChanged();
                         }
-                        notifyDataSetChanged();
+
                     }
                 });
     }
