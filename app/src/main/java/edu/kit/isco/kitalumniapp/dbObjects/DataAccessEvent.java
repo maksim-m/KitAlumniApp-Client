@@ -14,7 +14,7 @@ public class DataAccessEvent implements DataAccessObject {
 
     private long id;
     private String title;
-    private String short_info;
+    private String shortInfo;
     private String allText;
     private String url;
     private String date;
@@ -25,7 +25,7 @@ public class DataAccessEvent implements DataAccessObject {
     public DataAccessEvent(String title, String shortInfo, String allText, String url, Calendar date) {
         this.id = id;
         this.title = title;
-        this.short_info = shortInfo;
+        this.shortInfo = shortInfo;
         this.allText = allText;
         this.url = url;
     }
@@ -46,12 +46,12 @@ public class DataAccessEvent implements DataAccessObject {
         this.title = title;
     }
 
-    public String getShort_info() {
-        return short_info;
+    public String getShortInfo() {
+        return shortInfo;
     }
 
-    public void setShort_info(String short_info) {
-        this.short_info = short_info;
+    public void setShortInfo(String shortInfo) {
+        this.shortInfo = shortInfo;
     }
 
     public String getAllText() {
@@ -82,7 +82,7 @@ public class DataAccessEvent implements DataAccessObject {
     public String toString() {
         return new StringBuffer(" ID : ").append(this.getId())
                 .append(" Title : ").append(this.getTitle())
-                .append(" shortDescription: ").append(this.getShort_info())
+                .append(" shortDescription: ").append(this.getShortInfo())
                 .append(" fullText : ").append(this.getAllText())
                 .append(" url : ").append(this.getUrl())
                 .toString();
@@ -92,7 +92,7 @@ public class DataAccessEvent implements DataAccessObject {
         ContentValues values = new ContentValues();
         values.put(EventTable.ID, id);
         values.put(EventTable.TITLE, title);
-        values.put(EventTable.SHORT_INFO, short_info);
+        values.put(EventTable.SHORT_INFO, shortInfo);
         values.put(EventTable.FULL_TEXT, allText);
         values.put(EventTable.URL, url);
         values.put(EventTable.DATE, date);

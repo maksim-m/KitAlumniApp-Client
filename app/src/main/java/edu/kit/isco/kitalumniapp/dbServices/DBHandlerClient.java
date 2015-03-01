@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     DataAccessEvent ev = new DataAccessEvent();
                     ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
                     ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
-                    ev.setShort_info(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
+                    ev.setShortInfo(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
                     ev.setText(c.getString(c.getColumnIndex(EventTable.FULL_TEXT)));
                     ev.setUrl(c.getString(c.getColumnIndex(EventTable.URL)));
                     ev.setDate(c.getString(c.getColumnIndex(EventTable.DATE)));

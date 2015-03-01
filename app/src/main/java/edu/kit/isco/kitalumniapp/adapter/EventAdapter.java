@@ -78,12 +78,12 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         DataAccessEvent event = getItem(position);
         holder.eventTitle.setText(event.getTitle());
 
-        holder.eventDate.setText(event.getDate());
+        holder.eventDate.setText(event.getShortInfo());
 
         TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
         eventTitle.setText(event.getTitle());
         TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventDate);
-        eventShortDescription.setText(event.getShort_info());
+        eventShortDescription.setText(event.getShortInfo());
 
         // We're near the end of the list adapter, so load more items.
         if (position >= getCount() - 3) {

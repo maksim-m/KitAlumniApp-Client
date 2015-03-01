@@ -3,16 +3,14 @@
     android:padding="5dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"    >
+    android:layout_height="match_parent">
+
     <TextView
         style="@android:style/TextAppearance.Medium"
         android:id="@+id/eventTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
-        android:textColor="@color/accent_material_light"
-        android:textSize="20sp"
         android:text="New Event"/>
 
     <TextView
@@ -20,9 +18,7 @@
         android:id="@+id/eventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
-        android:textColor="@color/accent_material_light"
-        android:textSize="10sp"
         android:text="KIT-App-Presentation!!!"/>
+
 </LinearLayout>
