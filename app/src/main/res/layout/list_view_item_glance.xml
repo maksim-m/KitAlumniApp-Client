@@ -5,16 +5,17 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp">
 
 
         <TextView
             style="@android:style/TextAppearance.Medium"
+            android:textStyle="bold"
             android:id="@+id/glanceName"
             android:layout_width="wrap_content"
             android:text="Das KIT"
@@ -24,7 +25,7 @@
 
         <TextView
             android:id="@+id/glanceDescription"
-            style="@android:style/TextAppearance.Small"
+            style="@android:style/TextAppearance.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mit über 9.000 Beschäftigten und einem Jahresbudget von knapp 800 Mio. Euro entstand in Karlsruhe eine der weltweit größten Forschungs- und Lehreinrichtungen mit dem Potenzial, auf ausgewählten Forschungsgebieten eine weltweite Spitzenposition einzunehmen. Das Ziel: KIT wird eine Institution der Spitzenforschung und der exzellenten wissenschaftlichen Ausbildung sowie eine herausragende Stätte für akademisches Leben, lebenslanges Lernen, umfassende Weiterbildung, unbegrenzten Wissensaustausch und nachhaltige Innovationskultur."/>

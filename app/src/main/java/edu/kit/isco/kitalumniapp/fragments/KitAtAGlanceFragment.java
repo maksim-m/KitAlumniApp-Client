@@ -76,7 +76,7 @@ public class KitAtAGlanceFragment extends Fragment {
                 //Toast.makeText(getActivity(), "myPos " + i, Toast.LENGTH_SHORT).show();
                 if (i != 0) {
                     String url = (String)listView.getItemAtPosition(i);
-                    download(url);
+                    File pdf = download(url, true, true);
 
                     //Object objects = listView.getItemAtPosition(i);
                     //System.out.println(objects);
@@ -84,6 +84,29 @@ public class KitAtAGlanceFragment extends Fragment {
                 }
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> av, View view, int i, long l) {
+                if (i == 0) {
+                    return false;
+                }
+
+
+                String url = (String)listView.getItemAtPosition(i);
+                File pdf = download(url, false, false);
+                //Toast.makeText(getActivity(), "Name " + pdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdf));
+                sendIntent.setType("application/pdf");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
+
+                return true;
+            }
+        });
+
         listView.setAdapter(adapter);
         return view;
     }
@@ -222,19 +245,20 @@ public class KitAtAGlanceFragment extends Fragment {
      * If a PDF with the URL already exists then open it instead.
      * @param url
      */
-    public void download(String url)
+    public File download(String url, boolean viewPDF, boolean showProcess)
     {
 
         String fileExtenstion = MimeTypeMap.getFileExtensionFromUrl(url);
         String fileName = URLUtil.guessFileName(url, null, fileExtenstion);
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);
-        if (pdfFile.exists()) {
+        if (pdfFile.exists() && viewPDF) {
             view(fileName);
             //Toast.makeText(getActivity(), url + ":" + fileName, Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (!pdfFile.exists()) {
             new DownloadFile().execute(url, fileName);
             //Toast.makeText(getActivity(), "No Application available to view PDF", Toast.LENGTH_SHORT).show();
         }
+        return pdfFile;
 
     }
 
