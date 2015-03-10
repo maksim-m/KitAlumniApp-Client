@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,10 +51,12 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".settings.AboutActivity"
-            android:label="@string/title_activity_about">
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="edu.kit.isco.kitalumniapp.settings.AboutActivity" />
 
@@ -62,7 +65,8 @@
         </activity>
         <activity
             android:name=".settings.ListViewCheckboxTagsActivity"
-            android:label="@string/title_activity_tags">
+            android:label="@string/title_activity_tags"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity" />
 
@@ -73,7 +77,8 @@
         <activity
             android:name=".settings.SearchActivity"
             android:label="@string/title_activity_search"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -84,15 +89,18 @@
 
         <activity
             android:name=".fragments.EventDetailsViewActivity"
-            android:label="@string/title_activity_event_details_view"></activity>
+            android:label="@string/title_activity_event_details_view"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".fragments.NewsDetailsVewActivity"
-            android:label="@string/title_activity_news_details_vew"></activity>
+            android:label="@string/title_activity_news_details_vew"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".fragments.JobsDetailsViewActivity"
-            android:label="@string/title_activity_jobs_details_view"></activity>
+            android:label="@string/title_activity_jobs_details_view"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
