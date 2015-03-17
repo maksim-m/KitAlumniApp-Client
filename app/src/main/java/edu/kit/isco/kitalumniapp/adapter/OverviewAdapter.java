@@ -1,6 +1,7 @@
 package edu.kit.isco.kitalumniapp.adapter;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,7 @@ public class OverviewAdapter extends ArrayAdapter {
                     TextView textViewEvents2 = (TextView) convertView.findViewById(R.id.eventDate);
                     DataAccessEvent event = (DataAccessEvent) getItem(position);
                     textViewEvents1.setText(event.getTitle());
-                    textViewEvents2.setText(event.getDate());
+                    textViewEvents2.setText(DateFormat.format("dd.MM.yyyy hh:mm", Long.parseLong(event.getDate())).toString());
                     break;
                 case TYPE_JOBS:
                     convertView = mInflater.inflate(R.layout.list_view_item_jobs, null);
