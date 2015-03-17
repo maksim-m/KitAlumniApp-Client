@@ -34,5 +34,12 @@
     <string name="title_activity_jobs_details_view"></string>
     <string name="search_hint">Search in KIT</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_impressum">Impressum</string>
+    <string name="impressum_provider_title">Provider</string>
+    <string name="impressum_provider_text">Provider of services in the sense of Art. 5 of the State Agreement on Media Services and Art. 55 of German Act on Teleservices.</string>
+    <string name="impressum_office_title">Registrated Office</string>
+    <string name="impressum_office_text">International Scholars and Welcome Office, Adenauerring 8, 76131 Karlsruhe</string>
+    <string name="impressum_contact_title">Contact</string>
+    <string name="impressum_contact_text">E-mail: researchalumni@intl.kit.edu</string>
 
 </resources>
