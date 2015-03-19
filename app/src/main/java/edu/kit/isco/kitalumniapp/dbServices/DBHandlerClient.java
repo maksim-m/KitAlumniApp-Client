@@ -26,6 +26,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private static final String NEWS_TABLE = "news";
     private static final String JOB_TAG_TABLE = "job_tag";
     private static final String TAG_TABLE = "tag";
+    public static final int NEWS_IN_DB = 30;
     private Context context;
 
     public DBHandlerClient(Context context) {
@@ -165,10 +166,11 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert news != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL("delete from " + NewsTable.TABLE_NAME);
 
         try {
-            for (DataAccessNews n : news) {
-
+            for (int i = 0; i < news.size() && i < NEWS_IN_DB; i++) {
+                DataAccessNews n = news.get(i);
                 long id = db.insert(NEWS_TABLE, null, n.toContentValues());
                 n.setId(id);
             }
