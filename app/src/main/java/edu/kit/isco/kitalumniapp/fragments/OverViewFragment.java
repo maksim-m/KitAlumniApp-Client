@@ -44,7 +44,6 @@ public class OverViewFragment extends Fragment {
         //adapter.addItem(new OverviewListItem(header2, 3));
         //adapter.loadLatestEvents();
         //adapter.addItem(new OverviewListItem(header3 ,3));
-
     }
 
     @Override
