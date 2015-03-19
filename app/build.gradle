@@ -25,4 +25,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.koushikdutta.ion:ion:2.0.5'
+    testCompile 'junit:junit:4.12'
 }

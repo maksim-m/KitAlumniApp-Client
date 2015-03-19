@@ -120,6 +120,8 @@ public class ServerUtilities {
      * Register this account/device pair within the server.
      */
     public void register(final Context context, final String regId) {
+        if (regId == null)
+            throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
         DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
         long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
@@ -170,6 +172,8 @@ public class ServerUtilities {
      * Unregister this account/device pair within the server.
      */
     public void unregister(final Context context, final String regId) {
+        if (regId == null)
+            throw new IllegalArgumentException();
         Log.i(TAG, "unregistering device (regId = " + regId + ")");
         DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
         try {
@@ -202,6 +206,8 @@ public class ServerUtilities {
      */
 
     public void updateUser(Context context, List<DataAccessTag> tags, String regId) {
+        if (regId == null)
+            throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
         fullTagsList = tags;
         DataAccessUser user = new DataAccessUser(regId, tags, getPassword().toString(32));
