@@ -7,7 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class NewsTable {
 
-    private static final String TABLE_NAME = "news";
+    public static final String TABLE_NAME = "news";
     //Column Names
     public static final String ID = "id";
     public static final String TITLE = "title";
