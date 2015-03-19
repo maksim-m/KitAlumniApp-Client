@@ -30,7 +30,7 @@ public class NewsTable {
                     + URL + " TEXT, "
                     + IMAGE_URL + " TEXT, "
                     + DATE + " INTEGER"
-                + ")";
+                + ");";
     }
 
     /**

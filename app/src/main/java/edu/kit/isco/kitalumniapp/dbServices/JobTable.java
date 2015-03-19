@@ -7,7 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class JobTable {
 
-    private static final String TABLE_NAME = "job";
+    public static final String TABLE_NAME = "job";
     //Column Names
     public static final String ID = "id";
     public static final String TITLE = "title";
