@@ -33,12 +33,15 @@ public class DatabaseTest extends AndroidTestCase {
 
     public void testUpdateNews() {
         DataAccessNews testNews1 = new DataAccessNews(1, "t", "s", "text", "http://example.com/", "http://example.com/icon.png", "19.03.2015");
+        DataAccessNews testNews2 = new DataAccessNews(2, "tt", "ss", "text2", "http://example.edu/", "http://example.edu/icon.png", "20.03.2015");
         ArrayList<DataAccessNews> news = new ArrayList<>();
         news.add(testNews1);
+        news.add(testNews2);
         new DBHandlerClient(context).updateNews(news);
         ArrayList<DataAccessNews> newsFromDb = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getAllNews();
-        Assert.assertEquals(testNews1, newsFromDb.get(0));
+        Assert.assertEquals(news, newsFromDb);
     }
+
 
 
     @Override
