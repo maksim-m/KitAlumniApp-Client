@@ -11,6 +11,7 @@ public class JobTagTable {
     //Column names
     public static final String JOB_ID = "job_id";
     public static final String TAG_ID = "tag_id";
+    public static final String ID = "id";
 
     /**
      * SQL query for creating the table
@@ -18,8 +19,10 @@ public class JobTagTable {
      */
     public static String createSQL() {
         return "CREATE TABLE " + TABLE_NAME + "("
-                + JOB_ID + " INTEGER PRIMARY KEY,"
-                + TAG_ID + " INTEGER PRIMARY KEY)";
+                    + ID + " INTEGER PRIMARY KEY, "
+                    + JOB_ID + " INTEGER REFERENCES " + JobTable.TABLE_NAME + "(" + JobTable.ID +  "), "
+                    + TAG_ID + " INTEGER REFERENCES " + TagTable.TABLE_NAME + "(" + TagTable.ID + ")"
+                + ");";
     }
 
     /**

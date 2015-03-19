@@ -142,7 +142,7 @@ public class KitAtAGlanceFragment extends Fragment {
                 "working on research programs in natural sciences and engineering. Universität " +
                 "Karlsruhe was founded in 1825 as Polytechnical College and has become a " +
                 "modern location of research and education in natural sciences, engineering, " +
-                "economics, and the humanities. \n Source: KIT at a Glance Brochure");
+                "economics, and the humanities. \n Source: KIT at a Glance Brochure \n");
         adapter.addPdf("KIT at a glance","http://www.kit.edu/mediathek/print_forschung/Broschuere_KIT_Ueberblick_en.pdf");
         adapter.addPdf("Facts and Figures", "http://www.kit.edu/mediathek/print_forschung/Flyer_KIT_en.pdf");
         adapter.addPdf("Portrait: Energy Center","http://www.kit.edu/mediathek/print_forschung/Broschuere_Energie_en.pdf");

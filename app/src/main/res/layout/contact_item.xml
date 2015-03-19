@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/contactImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_launcher"
         android:layout_marginLeft="30dp"/>
 
