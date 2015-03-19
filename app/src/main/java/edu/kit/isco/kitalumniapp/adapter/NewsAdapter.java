@@ -2,6 +2,7 @@ package edu.kit.isco.kitalumniapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,13 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
+import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 
 /**
  * Created by Max on 09.02.2015.
@@ -46,8 +50,28 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         this.layoutInflater = ((Activity) context).getLayoutInflater();
         REST_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url);
         NEWS_SERVICE_URL = REST_SERVICE_URL + "news/";
+        ArrayList<DataAccessNews> newsFromDb = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getAllNews();
+        Collections.reverse(newsFromDb);
+        for (DataAccessNews n : newsFromDb) {
+            add(n);
+        }
     }
 
+    public void update() {
+        if (getCount() == 0) {
+            loadLatest();
+        } else {
+            loadLatest(getItem(0).getId());
+        }
+    }
+
+    private ArrayList<DataAccessNews> getItems() {
+        ArrayList<DataAccessNews> result = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            result.add(getItem(i));
+        }
+        return result;
+    }
 
 
     static class NewsHolder {
@@ -92,15 +116,24 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
     }
 
     public void loadLatest() {
+        loadLatest(-1);
+    }
+
+    public void loadLatest(long id) {
         // don't attempt to load more if a load is already in progress
         if (loadingOfLatest != null && !loadingOfLatest.isDone() && !loadingOfLatest.isCancelled()) {
             return;
         }
 
+        String url = NEWS_SERVICE_URL + "latest/";
+        url = url + "?id=" + id;
+        final String urlNews = url;
+
         // This request loads a URL as JsonArray and invokes
         // a callback on completion.
+        Log.d(TAG, "Loading more news from \"" + urlNews + "\"...");
         loadingOfLatest = Ion.with(getContext())
-                .load(NEWS_SERVICE_URL + "latest/")
+                .load(urlNews)
                 .as(new TypeToken<List<DataAccessNews>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessNews>>() {
@@ -112,12 +145,19 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                             return;
                         }
                         if (result != null) {
+                            Log.d(TAG, "Loaded " + result.size() + " more news from \"" + urlNews + "\".");
                             // add the news
                             Collections.reverse(result);
                             for (int i = 0; i < result.size(); i++) {
                                 add(result.get(i));
                             }
                             notifyDataSetChanged();
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    new DBHandlerClient(context).updateNews(getItems());
+                                }
+                            }.run();
                         }
                     }
                 });

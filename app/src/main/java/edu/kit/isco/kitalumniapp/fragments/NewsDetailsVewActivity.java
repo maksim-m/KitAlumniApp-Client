@@ -25,8 +25,9 @@ public class NewsDetailsVewActivity extends ActionBarActivity {
         WebView webView = (WebView) findViewById(R.id.webViewNewsDetails);
         webView.loadUrl(getIntent().getStringExtra("url"));
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -153,7 +153,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         //Make round avatar pictures.
         ImageView imageParent = (ImageView) convertView.findViewById(R.id.contactImage);
-        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_timer);
+        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_person_outline);
         RoundedAvatarDrawable roundedImage = new RoundedAvatarDrawable(bm);
         imageParent.setImageDrawable(roundedImage);
 

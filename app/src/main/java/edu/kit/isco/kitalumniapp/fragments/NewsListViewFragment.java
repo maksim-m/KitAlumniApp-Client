@@ -59,6 +59,7 @@ public class NewsListViewFragment extends Fragment {
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        adapter.update();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 3500);
@@ -101,7 +102,7 @@ public class NewsListViewFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        adapter.loadLatest();
+        adapter.update();
         return view;
 
     }

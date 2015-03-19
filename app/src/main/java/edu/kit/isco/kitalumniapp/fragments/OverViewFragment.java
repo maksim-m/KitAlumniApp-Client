@@ -36,15 +36,8 @@ public class OverViewFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        //adapter = new OverviewAdapter(getActivity(), 0);
-        //adapter.addItem(new OverviewListItem(header1, 3));
-        //adapter.loadLatestNews();
-        //adapter.addItem(new OverviewListItem(header2, 3));
-        //adapter.loadLatestEvents();
-        //adapter.addItem(new OverviewListItem(header3 ,3));
-    }
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

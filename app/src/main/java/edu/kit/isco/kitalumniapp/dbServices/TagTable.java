@@ -7,7 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class TagTable {
 
-    private static final String TABLE_NAME = "tag";
+    public static final String TABLE_NAME = "tag";
     //Column names
     public static final String ID = "id";
     public static final String NAME = "name";
