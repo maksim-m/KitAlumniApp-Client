@@ -58,7 +58,7 @@ public class ServerUtilities {
     private static final int MAX_ATTEMPTS = 5;
     private static final int BACKOFF_MILLI_SECONDS = 2000;
     private static final Random random = new Random();
-    BigInteger bigInteger;
+    private static BigInteger bigInteger = null;
     private List<DataAccessTag> fullTagsList;
 
     /**
@@ -109,14 +109,13 @@ public class ServerUtilities {
      * every other time.
      * @return password
      */
-    private BigInteger getPassword() {
+    private static BigInteger getPassword() {
         if (bigInteger == null) {
             SecureRandom password = new SecureRandom();
-            bigInteger = new BigInteger(64, password);
+            bigInteger= new BigInteger(64, password);
         }
         return bigInteger;
     }
-
     /**
      * Register this account/device pair within the server.
      */
