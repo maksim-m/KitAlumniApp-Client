@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:padding="20dp"
+                    android:paddingTop="20dp"
                     android:text="@string/impressum"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -59,9 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_provider_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -77,9 +77,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/providerText"
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_office_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -96,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/officeText"
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_contact_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -115,9 +115,9 @@
                 android:layout_height="wrap_content"
 
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_legalForm_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -132,18 +132,16 @@
                 android:id="@+id/authorizedRepresentativesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_authorizedRepresentatives_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/authorizedRepresentativesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/impressum_authorizedRepresentatives_text"
                 android:textSize="15sp" />
 
@@ -151,11 +149,10 @@
                 android:id="@+id/ust_identifikationsnumberTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_ust_identifikationsnumber_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -170,18 +167,16 @@
                 android:id="@+id/copyrightTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_horizontal"
-                android:padding="20dp"
+                android:paddingTop="20dp"
                 android:text="@string/impressum_copyright_title"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/copyrightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/impressum_copyright_text"
                 android:textSize="15sp" />
 
