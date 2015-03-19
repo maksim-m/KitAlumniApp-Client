@@ -116,8 +116,7 @@ public class ContactFragment extends Fragment {
                 "76131 Karlsruhe\n" +
                 "\n" +
                 "Campus Süd\n" +
-                "Gebäude 50.20  ", "+49 721 608-44946", "scholar@intl.kit.edu", "http://www.intl.kit.edu/intl/isco.php"));
-        //contacts.add(new Contact("Fikitv ", "", "0172345678", "muster@mann.org", "www.muster.man"));
+                "Gebäude 50.20  ", "+49 721 608-44946", "researchalumni@intl.kit.edu", "http://www.intl.kit.edu/intl/isco.php"));
         contacts.add(new Contact("Oliver Kaas", "Referent für internationale Forschermobilität\n" +
                 "Raum: Raum: 002, Gebäude 50.25, CS","+49 721 608 45323", "oliver.kaas@kit.edu", "https://www.intl.kit.edu/iforscher/3356_7179.php"));
         contacts.add(new Contact("Discover the Karlsruhe TechnologyRegion!", "", null, null, "http://welcome.technologieregion-karlsruhe.de/en/"));

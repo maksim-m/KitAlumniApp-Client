@@ -39,6 +39,12 @@
         <intent
             android:action="edu.kit.isco.kitalumniapp.settings.AboutActivity"/>
     </Preference>
+    <Preference
+        android:key="impressum_section"
+        android:title="@string/title_activity_impressum">
+        <intent
+            android:action="edu.kit.isco.kitalumniapp.settings.ImpressumActivity"/>
+    </Preference>
 
 
 </PreferenceScreen>
