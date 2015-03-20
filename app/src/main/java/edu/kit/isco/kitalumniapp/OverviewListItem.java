@@ -6,6 +6,12 @@ package edu.kit.isco.kitalumniapp;
 public class OverviewListItem<DataAccesObject> {
 
     Object object;
+
+    //ID to identify the object
+    //0 = DataAccessNews
+    //1 = DataAccessJobs
+    //2 = DataAccessEvents
+    //3 = String
     int id;
 
     public OverviewListItem (Object object, int id) {
