@@ -57,12 +57,13 @@ public class EventListViewFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                eventAdapter.update();
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 4500);
+                }, 3500);
             }
         });
         // sets the colors used in the refresh animation

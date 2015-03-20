@@ -7,7 +7,7 @@ package edu.kit.isco.kitalumniapp.dbServices;
  */
 public class EventTable {
 
-    private static final String TABLE_NAME = "event";
+    public static final String TABLE_NAME = "event";
     //Column Names
     public static final String ID = "id";
     public static final String TITLE = "title";

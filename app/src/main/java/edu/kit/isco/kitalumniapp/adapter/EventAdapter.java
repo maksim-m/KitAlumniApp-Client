@@ -94,11 +94,6 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         eventTitle.setText(event.getTitle());
         TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventDate);
         eventShortDescription.setText(event.getShortInfo());
-
-        // We're near the end of the list adapter, so load more items.
-        if (position >= getCount() - 3) {
-            //loadPrevious();
-        }
         return convertView;
     }
 
@@ -134,6 +129,8 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                             return;
                         }
+                        clear();
+                        Collections.reverse(result);
                         // add the events
                         for (int i = 0; i < result.size(); i++) {
                             add(result.get(i));
