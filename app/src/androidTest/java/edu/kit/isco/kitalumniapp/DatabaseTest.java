@@ -10,8 +10,13 @@ import junit.framework.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
@@ -42,7 +47,31 @@ public class DatabaseTest extends AndroidTestCase {
         Assert.assertEquals(news, newsFromDb);
     }
 
+    public void testUpdateEvents() {
+        final DataAccessEvent testEvent1 = new DataAccessEvent("e1", "s1", "<html><body>hello!</body></html>", "http://example.com/", Calendar.getInstance());
+        final DataAccessEvent testEvent2 = new DataAccessEvent("e2", "s2", "<html><body>hello2!</body></html>", "http://example.de/", Calendar.getInstance());
+        List<DataAccessEvent> events = new ArrayList<DataAccessEvent>() {{
+            add(testEvent1);
+            add(testEvent2);
+        }};
+        new DBHandlerClient(context).updateEvents(events);
+        ArrayList<DataAccessEvent> eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getAllEvents();
+        Assert.assertEquals(events, eventsFromDb);
+    }
 
+    public void testUpdateJobs() {
+        ArrayList<DataAccessTag> tagsSet1 = new ArrayList<DataAccessTag>() {{
+            add(DataAccessTag.ENGINEER);
+            add(DataAccessTag.PROFESSOR);
+        }};
+        ArrayList<DataAccessTag> tagsSet2 = new ArrayList<DataAccessTag>() {{
+            add(DataAccessTag.ADMINISTRATION);
+            add(DataAccessTag.SCIENTIST);
+            add(DataAccessTag.DOCTORAND);
+        }};
+
+        DataAccessJob testJob1 = new DataAccessJob();
+    }
 
     @Override
     public void tearDown() throws Exception {
