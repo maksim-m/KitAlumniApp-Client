@@ -102,7 +102,7 @@ public class EventListViewFragment extends Fragment {
             }
         });
 
-        eventAdapter.loadLatest();
+        eventAdapter.update();
         return view;
 
     }

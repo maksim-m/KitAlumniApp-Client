@@ -20,6 +20,7 @@ import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 
@@ -101,7 +102,15 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         return convertView;
     }
 
-    public void loadLatest() {
+    private ArrayList<DataAccessEvent> getItems() {
+        ArrayList<DataAccessEvent> result = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            result.add(getItem(i));
+        }
+        return result;
+    }
+
+    public void update() {
         // don't attempt to load more if a load is already in progress
         if (loading != null && !loading.isDone() && !loading.isCancelled()) {
             return;
@@ -130,6 +139,12 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                             add(result.get(i));
                         }
                         notifyDataSetChanged();
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                new DBHandlerClient(context).updateEvents(getItems());
+                            }
+                        }.run();
                     }
                 });
     }
