@@ -56,10 +56,10 @@ public class NewsListViewFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                adapter.update();
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        adapter.update();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 3500);

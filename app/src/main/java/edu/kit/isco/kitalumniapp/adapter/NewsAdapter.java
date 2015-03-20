@@ -2,7 +2,6 @@ package edu.kit.isco.kitalumniapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import java.util.List;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
-import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 
 /**
  * Created by Max on 09.02.2015.
@@ -115,11 +113,11 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         return convertView;
     }
 
-    public void loadLatest() {
+    private void loadLatest() {
         loadLatest(-1);
     }
 
-    public void loadLatest(long id) {
+    private void loadLatest(long id) {
         // don't attempt to load more if a load is already in progress
         if (loadingOfLatest != null && !loadingOfLatest.isDone() && !loadingOfLatest.isCancelled()) {
             return;
@@ -147,11 +145,14 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                         if (result != null) {
                             Log.d(TAG, "Loaded " + result.size() + " more news from \"" + urlNews + "\".");
                             // add the news
-                            Collections.reverse(result);
+                            //Collections.reverse(result);
                             for (int i = 0; i < result.size(); i++) {
-                                add(result.get(i));
+                                insert(result.get(i), 0);
+
+                                //add(result.get(i));
                             }
                             notifyDataSetChanged();
+
                             new Runnable() {
                                 @Override
                                 public void run() {
