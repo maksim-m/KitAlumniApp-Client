@@ -28,7 +28,7 @@
             android:id="@+id/chooseTags"
             android:padding="20dp"
             android:gravity="center_horizontal"
-            android:text="@string/some_text"
+            android:text="@string/choose_tags_activity_text"
             android:textSize="20sp" />
 
         </RelativeLayout>
