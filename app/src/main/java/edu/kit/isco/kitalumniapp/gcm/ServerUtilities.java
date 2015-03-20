@@ -1,6 +1,5 @@
 package edu.kit.isco.kitalumniapp.gcm;
 
-
 /*
  * Copyright 2012 Google Inc.
  *
@@ -29,7 +28,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
@@ -41,7 +39,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessUser;
  */
 public class ServerUtilities {
 
-    static final String SERVER_URL = "yourURL";
+    static final String SERVER_URL = "http://kitalumni.jelastic.dogado.eu/rest/service/users";
     /**
      * Tag used on log messages.
      */
@@ -55,9 +53,6 @@ public class ServerUtilities {
      * Intent's extra that contains the message to be displayed.
      */
     static final String EXTRA_MESSAGE = "message";
-    private static final int MAX_ATTEMPTS = 5;
-    private static final int BACKOFF_MILLI_SECONDS = 2000;
-    private static final Random random = new Random();
     private static BigInteger bigInteger = null;
     private List<DataAccessTag> fullTagsList;
 
@@ -77,7 +72,22 @@ public class ServerUtilities {
     }
 
     /**
+     * Generates password the first time and then returns it
+     * every other time.
+     *
+     * @return password
+     */
+    private static BigInteger getPassword() {
+        if (bigInteger == null) {
+            SecureRandom password = new SecureRandom();
+            bigInteger = new BigInteger(64, password);
+        }
+        return bigInteger;
+    }
+
+    /**
      * Checks if the list has been created and if it hasn`t, then it puts all Tags in one single list.
+     *
      * @return fully populated List of DataAccessTags
      */
 
@@ -105,66 +115,28 @@ public class ServerUtilities {
     }
 
     /**
-     * Generates password the first time and then returns it
-     * every other time.
-     * @return password
-     */
-    private static BigInteger getPassword() {
-        if (bigInteger == null) {
-            SecureRandom password = new SecureRandom();
-            bigInteger= new BigInteger(64, password);
-        }
-        return bigInteger;
-    }
-    /**
      * Register this account/device pair within the server.
      */
     public void register(final Context context, final String regId) {
-        if (regId == null)
+        if (regId == null || context == null)
             throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
         DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
-        long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
         // Once GCM returns a registration id, we need to register it in the
         // app server. The registration will be repeated maximal 5 times.
-        for (int i = 1; i <= MAX_ATTEMPTS; i++) {
-            Log.d(TAG, "Attempt #" + i + " to register");
-            try {
-                displayMessage(context, context.getString(
-                        R.string.server_registering, i, MAX_ATTEMPTS));
-                Ion.with(context)
-                        .load("POST", SERVER_URL)
-                        .setJsonPojoBody(user)
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                Log.i(TAG, "Registration delivered to APP Server");
-                            }
-                        });
-                String message = context.getString(R.string.server_registered);
-                displayMessage(context, message);
-                return;
-            } catch (Exception e) {
-                Log.e(TAG, "Failed to register on attempt " + i + ":" + e);
-                if (i == MAX_ATTEMPTS) {
-                    break;
-                }
-                try {
-                    Log.d(TAG, "Sleeping for " + backoff + " ms before retry");
-                    Thread.sleep(backoff);
-                } catch (InterruptedException e1) {
-                    // Activity finished before we complete - exit.
-                    Log.d(TAG, "Thread interrupted: abort remaining retries!");
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-                // increase backoff exponentially
-                backoff *= 2;
-            }
-        }
-        String message = context.getString(R.string.server_register_error,
-                MAX_ATTEMPTS);
+        displayMessage(context, context.getString(
+                R.string.server_registering));
+        Ion.with(context)
+                .load("POST", SERVER_URL)
+                .setJsonPojoBody(user)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.i(TAG, "Registration delivered to APP Server");
+                    }
+                });
+        String message = context.getString(R.string.server_registered);
         displayMessage(context, message);
     }
 
@@ -172,85 +144,46 @@ public class ServerUtilities {
      * Unregister this account/device pair within the server.
      */
     public void unregister(final Context context, final String regId) {
-        if (regId == null)
+        if (regId == null || context == null)
             throw new IllegalArgumentException();
         Log.i(TAG, "unregistering device (regId = " + regId + ")");
         DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
-        try {
-            Ion.with(context)
-                    .load("DELETE", SERVER_URL)
-                    .setJsonPojoBody(user)
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                            Log.i(TAG, "Unregistrating Success");
-                        }
-                    });
-            String message = context.getString(R.string.server_unregistered);
-            displayMessage(context, message);
-        } catch (Exception e) {
-            // At this point the device is unregistered from GCM, but still
-            // registered in the server.
-            // We could try to unregister again, but it is not necessary:
-            // if the server tries to send a message to the device, it will get
-            // a "NotRegistered" error message and should unregister the device.
-            String message = context.getString(R.string.server_unregister_error,
-                    e.getMessage());
-            displayMessage(context, message);
-        }
+        Ion.with(context)
+                .load("DELETE", SERVER_URL)
+                .setJsonPojoBody(user)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.i(TAG, "Unregistrating Success");
+                    }
+                });
+        String message = context.getString(R.string.server_unregistered);
+        displayMessage(context, message);
     }
 
     /**
      * Updating user
      */
-
     public void updateUser(Context context, List<DataAccessTag> tags, String regId) {
-        if (regId == null)
+        if (regId == null || context == null)
             throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
         fullTagsList = tags;
         DataAccessUser user = new DataAccessUser(regId, tags, getPassword().toString(32));
-        long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
-        // The update will be repeated maximal 5 times.
-        for (int i = 1; i <= MAX_ATTEMPTS; i++) {
-            Log.d(TAG, "Attempt #" + i + " to update");
-            try {
-                displayMessage(context, context.getString(
-                        R.string.server_registering, i, MAX_ATTEMPTS));
-                Ion.with(context)
-                        .load("PUT", SERVER_URL)
-                        .setJsonPojoBody(user)
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                Log.i(TAG, "Updating info for user on APP Server");
-                            }
-                        });
-                String message = context.getString(R.string.server_registered);
-                displayMessage(context, message);
-                return;
-            } catch (Exception e) {
-                Log.e(TAG, "Failed to update on attempt " + i + ":" + e);
-                if (i == MAX_ATTEMPTS) {
-                    break;
-                }
-                try {
-                    Log.d(TAG, "Sleeping for " + backoff + " ms before retry");
-                    Thread.sleep(backoff);
-                } catch (InterruptedException e1) {
-                    // Activity finished before we complete - exit.
-                    Log.d(TAG, "Thread interrupted: abort remaining retries!");
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-                // increase backoff exponentially
-                backoff *= 2;
-            }
-        }
-        String message = context.getString(R.string.server_register_error,
-                MAX_ATTEMPTS);
+        displayMessage(context, context.getString(
+                R.string.server_registering));
+        Ion.with(context)
+                .load("PUT", SERVER_URL)
+                .setJsonPojoBody(user)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.i(TAG, "Updating info for user on APP Server");
+                    }
+                });
+        String message = context.getString(R.string.server_registered);
         displayMessage(context, message);
     }
 }
