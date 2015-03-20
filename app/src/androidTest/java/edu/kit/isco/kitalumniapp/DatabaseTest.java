@@ -49,7 +49,9 @@ public class DatabaseTest extends AndroidTestCase {
 
     public void testUpdateEvents() {
         final DataAccessEvent testEvent1 = new DataAccessEvent("e1", "s1", "<html><body>hello!</body></html>", "http://example.com/", Calendar.getInstance());
+        testEvent1.setId(1);
         final DataAccessEvent testEvent2 = new DataAccessEvent("e2", "s2", "<html><body>hello2!</body></html>", "http://example.de/", Calendar.getInstance());
+        testEvent2.setId(2);
         List<DataAccessEvent> events = new ArrayList<DataAccessEvent>() {{
             add(testEvent1);
             add(testEvent2);

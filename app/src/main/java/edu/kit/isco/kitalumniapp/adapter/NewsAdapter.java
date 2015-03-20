@@ -53,6 +53,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         for (DataAccessNews n : newsFromDb) {
             add(n);
         }
+        notifyDataSetChanged();
     }
 
     public void update() {

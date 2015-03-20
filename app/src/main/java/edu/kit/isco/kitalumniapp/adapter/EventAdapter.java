@@ -14,10 +14,13 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 
 /**
@@ -48,6 +51,12 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         this.layoutEventResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
         EVENT_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "events/";
+        ArrayList<DataAccessEvent> eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getAllEvents();
+        Collections.reverse(eventsFromDb);
+        for (DataAccessEvent e : eventsFromDb) {
+            add(e);
+        }
+        notifyDataSetChanged();
     }
 
     /**
@@ -123,10 +132,6 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                         notifyDataSetChanged();
                     }
                 });
-    }
-
-    private void loadPrevious() {
-
     }
 
     /**
