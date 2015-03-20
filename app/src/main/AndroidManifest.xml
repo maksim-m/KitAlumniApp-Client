@@ -71,7 +71,6 @@
             android:label="@string/title_activity_impressum" >
             <intent-filter>
                 <action android:name="edu.kit.isco.kitalumniapp.settings.ImpressumActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
