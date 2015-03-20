@@ -216,6 +216,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert events != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL("delete from " + JobTable.TABLE_NAME);
 
         try {
             for (DataAccessEvent e : events) {

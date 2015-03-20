@@ -33,7 +33,6 @@ public class DatabaseTest extends AndroidTestCase {
         this.context = new RenamingDelegatingContext(getContext(), "test_");
         DatabaseManager.initializeInstance(new DBHandlerClient(context));
         db = DatabaseManager.getInstance().openDatabase();
-        //db.execSQL("delete from " + NewsTable.TABLE_NAME);
     }
 
     public void testUpdateNews() {
