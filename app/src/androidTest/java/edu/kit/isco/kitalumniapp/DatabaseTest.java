@@ -71,7 +71,16 @@ public class DatabaseTest extends AndroidTestCase {
             add(DataAccessTag.DOCTORAND);
         }};
 
-        DataAccessJob testJob1 = new DataAccessJob();
+        DataAccessJob testJob1 = new DataAccessJob(tagsSet1, "Wizard", "Task: kill all dragons in Karlsruhe", "http://example.com/");
+        testJob1.setId(1);
+        DataAccessJob testJob2 = new DataAccessJob(tagsSet2, "Title2", "Description", "http://example.de/");
+        testJob2.setId(2);
+        ArrayList<DataAccessJob> jobs = new ArrayList<>();
+        jobs.add(testJob1);
+        jobs.add(testJob2);
+        new DBHandlerClient(context).updateJobs(jobs);
+        ArrayList<DataAccessJob> jobsFromDb = (ArrayList<DataAccessJob>) new DBHandlerClient(context).getAllJobs();
+        assertEquals(jobs, jobsFromDb);
     }
 
     @Override
