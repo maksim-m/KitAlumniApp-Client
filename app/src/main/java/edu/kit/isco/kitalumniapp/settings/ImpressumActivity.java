@@ -1,13 +1,19 @@
 package edu.kit.isco.kitalumniapp.settings;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import edu.kit.isco.kitalumniapp.R;
 
 public class ImpressumActivity extends ActionBarActivity {
+
+    private TextView contactText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +21,14 @@ public class ImpressumActivity extends ActionBarActivity {
         setContentView(R.layout.activity_impressum);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        contactText = (TextView) findViewById(R.id.contactText);
+        contactText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getResources().getString(R.string.contact_email), null));
+                startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.sendEmail)));
+            }
+        });
     }
 
 

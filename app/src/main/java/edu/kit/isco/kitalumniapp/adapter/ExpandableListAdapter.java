@@ -1,12 +1,11 @@
 package edu.kit.isco.kitalumniapp.adapter;
 
 /**
+ * Adapter for a expandable Listview
  * Created by Yannick on 15.02.15 | KW 7.
  */
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,16 +31,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private ArrayList<Contact> contacts;
     private HashMap<Contact, ArrayList<Child>> _listDataChild;
 
+    /**
+     * Constructor of the Adapter
+     * @param context Current context
+     * @param contacts List with all the contacts wich will be displayed
+     */
     public ExpandableListAdapter(Context context, ArrayList<Contact> contacts) {
         this._context = context;
         this.contacts = contacts;
         _listDataChild = new HashMap<Contact, ArrayList<Child>>();
 
         /**
-         * In each contact you can find an email address, website url or phone number
-         *But it is possible that, some contacts doesn't have any.
-         *So we first proof if one of the information could be null.
-         *If not, create a child object and add it to the parent/child hash-map.
+         * In each contact you can find an email address, website url or phone number.
+         * But it is possible that some contacts doesn't have any.
+         * So we first proof if one of the information could be null.
+         * If not, create a child object and add it to the parent/child hash-map.
          */
         for (Contact contact : contacts) {
             ArrayList<Child> _children = new ArrayList<Child>();
