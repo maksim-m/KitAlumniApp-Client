@@ -61,5 +61,5 @@ The merger in KIT is the logical continuation of a long-lasting close cooperatio
     <string name="tr_name">Discover the Karlsruhe TechnologyRegion!</string>
     <string name="tr_short_description">Nestling in an unique natural landscape between the Black Forest, the River Rhine, the Palatinate, and Alsace, you will find the sunniest region in Germany, an ideal living and working environment, with an optimal infrastructure, excellent shopping opportunities, and a rich and diverse range of cultural and leisure activities for the whole family.</string>
     <string name="tr_web">http://welcome.technologieregion-karlsruhe.de/en/</string>
-
+    <string name="save_tags_button_text">Save</string>
 </resources>

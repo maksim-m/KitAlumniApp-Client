@@ -2,40 +2,35 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:background="@color/background_material_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:textSize="20sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/saveButton"
-            />
-
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chooseTags"
             android:padding="20dp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:text="@string/choose_tags_activity_text"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000" />
 
-        </RelativeLayout>
+        <ListView android:id="@+id/listView1" android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            />
 
-
-
-    <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+    <Button
+            android:background="@color/kit_lighter_green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/save_tags_button_text"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/saveButton"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fff" />
 
 </LinearLayout>
