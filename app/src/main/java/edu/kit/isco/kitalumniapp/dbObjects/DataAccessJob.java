@@ -18,7 +18,6 @@ public class DataAccessJob implements DataAccessObject {
     private String allText;
     private String url;
     private List<DataAccessTag> tags;
-    private boolean star = false;
 
     public DataAccessJob() {
     }
@@ -78,14 +77,6 @@ public class DataAccessJob implements DataAccessObject {
         this.shortInfo = short_info;
     }
 
-    public boolean isStar() {
-        return star;
-    }
-
-    public void setStar(boolean star) {
-        this.star = star;
-    }
-
     @Override
     public String toString() {
         return new StringBuffer(" ID : ").append(this.getId())
@@ -103,7 +94,6 @@ public class DataAccessJob implements DataAccessObject {
         values.put(JobTable.SHORT_INFO, shortInfo);
         values.put(JobTable.FULL_TEXT, allText);
         values.put(JobTable.URL, url);
-        values.put(JobTable.STAR, (star ? 1 : 0));
         return values;
     }
 

@@ -26,8 +26,7 @@ public class JobTable {
                     + TITLE + " TEXT, "
                     + SHORT_INFO + " TEXT, "
                     + FULL_TEXT + " TEXT, "
-                    + URL + " TEXT, "
-                    + STAR + " INTEGER DEFAULT 0"
+                    + URL + " TEXT "
                 + ");";
     }
 

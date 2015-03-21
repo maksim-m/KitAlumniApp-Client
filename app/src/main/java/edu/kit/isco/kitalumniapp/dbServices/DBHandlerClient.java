@@ -18,7 +18,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "DatabaseClient.db";
     private static final String LOG = "DBHandlerClient";
     public static final int NEWS_IN_DB = 30;
@@ -27,6 +27,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     public DBHandlerClient(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -38,11 +39,14 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(oldVersion == 1) {
+            context.deleteDatabase("Database_Client");
+        }
         db.execSQL(NewsTable.dropSQL());
         db.execSQL(EventTable.dropSQL());
         db.execSQL(JobTable.dropSQL());
         db.execSQL("DROP TABLE IF EXISTS job_tag;");
-        db.execSQL("DROP TABLE IF EXISTS tag");
+        db.execSQL("DROP TABLE IF EXISTS tag;");
 
         onCreate(db);
     }
@@ -103,8 +107,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                     job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                     job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                    //job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
-                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
 
                     jobs.add(job);
                 } while (c.moveToNext());
@@ -380,7 +382,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                     job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                     job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
 
                     jobs.add(job);
                     i++;
