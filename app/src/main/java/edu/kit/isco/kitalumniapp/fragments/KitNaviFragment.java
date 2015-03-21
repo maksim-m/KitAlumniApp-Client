@@ -1,7 +1,6 @@
 package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import edu.kit.isco.kitalumniapp.R;
 
 
 /**
- * This Class
+ * This Class generate a webview which display the campusplan of the KIT
  * A simple {@link Fragment} subclass.
  */
 public class KitNaviFragment extends Fragment {
@@ -51,7 +50,7 @@ public class KitNaviFragment extends Fragment {
         }
     }
 
-  
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

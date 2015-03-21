@@ -20,11 +20,11 @@ public class Contact {
 
     /**
      * A contact with different information stored
-     * @param name
-     * @param shortDescription
-     * @param phoneNumber
-     * @param mailAddress
-     * @param website
+     * @param name Name of the Contact
+     * @param shortDescription A little description about the contact.
+     * @param phoneNumber The phone number of the contact
+     * @param mailAddress The mail address of the contact
+     * @param website The website-url of the contact
      */
     public Contact (String name, String shortDescription, String phoneNumber, String mailAddress, String website) {
         this.name = name;
@@ -100,7 +100,7 @@ public class Contact {
 
     /**
      * Get the website of the contact
-     * @return
+     * @return Return the Website-URL of the contact
      */
     public String getWebsite() {
         return website;
