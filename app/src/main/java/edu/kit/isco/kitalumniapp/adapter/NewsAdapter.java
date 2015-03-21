@@ -146,7 +146,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                         if (result != null) {
                             Log.d(TAG, "Loaded " + result.size() + " more news from \"" + urlNews + "\".");
                             // add the news
-                            //Collections.reverse(result);
+                            Collections.reverse(result);
                             for (int i = 0; i < result.size(); i++) {
                                 insert(result.get(i), 0);
 
