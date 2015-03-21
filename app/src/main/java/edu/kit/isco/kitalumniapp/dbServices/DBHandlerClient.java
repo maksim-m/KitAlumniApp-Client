@@ -325,7 +325,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     /**
      * Returns a list of events of a certain length
-     * @param x number of news that should be returned
+     * @param x number of events that should be returned
      * @return list of events with length x
      */
     public List<DataAccessEvent> getXevents (int x) {
@@ -358,6 +358,42 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
 
         return events;
+    }
+
+    /**
+     * Returns a list of jobs of a certain length
+     * @param x number of jobs that should be returned
+     * @return list of jobs with length x
+     */
+    public List<DataAccessJob> getXjobs (int x) {
+        List<DataAccessJob> jobs = new ArrayList<DataAccessJob>();
+        String selectQuery = "SELECT * FROM " + JOB_TABLE;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        try {
+            if (c.moveToLast()) {
+                int i = 0;
+                do {
+                    DataAccessJob job = new DataAccessJob();
+                    job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
+                    job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
+                    job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                    job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
+                    job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
+                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
+
+                    jobs.add(job);
+                    i++;
+                } while (c.moveToPrevious() && i < x);
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+        return jobs;
     }
 
     /**

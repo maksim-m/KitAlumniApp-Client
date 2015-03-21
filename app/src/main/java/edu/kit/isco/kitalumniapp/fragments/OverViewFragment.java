@@ -45,7 +45,6 @@ public class OverViewFragment extends Fragment {
         final ListView listView = (ListView) view.findViewById(R.id.Overview);
         adapter = new OverviewAdapter(getActivity(), 0);
         adapter.update();
-        adapter.loadLatestJobs();
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

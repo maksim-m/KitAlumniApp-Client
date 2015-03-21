@@ -50,6 +50,7 @@ public class OverviewAdapter extends ArrayAdapter {
     private final String SERVICE_URL;
     private ArrayList<DataAccessNews> newsFromDB;
     private ArrayList<DataAccessEvent> eventsFromDB;
+    private ArrayList<DataAccessJob> jobsFromDB;
 
     /**
      * Constructor of OverviewAdapter
@@ -65,6 +66,7 @@ public class OverviewAdapter extends ArrayAdapter {
         DBHandlerClient dbHandler = new DBHandlerClient(context);
         newsFromDB = (ArrayList<DataAccessNews>) dbHandler.getXnews(3);
         eventsFromDB = (ArrayList<DataAccessEvent>) dbHandler.getXevents(1);
+        jobsFromDB = (ArrayList<DataAccessJob>) dbHandler.getXjobs(3);
     }
 
     /**
@@ -138,6 +140,14 @@ public class OverviewAdapter extends ArrayAdapter {
         } else {
             addItem(new OverviewListItem("Next Event", TYPE_HEADER));
             addItem(new OverviewListItem(eventsFromDB.get(0), TYPE_EVENTS));
+        }
+
+        if(jobsFromDB.size() == 0) {
+            loadLatestJobs();
+        } else {
+            addItem(new OverviewListItem("Latest Jobs", TYPE_HEADER));
+            for (DataAccessJob i : jobsFromDB)
+            addItem(new OverviewListItem(i, TYPE_JOBS));
         }
     }
 
@@ -291,13 +301,26 @@ public class OverviewAdapter extends ArrayAdapter {
                             Toast.makeText(getContext(), "Error loading jobs.", Toast.LENGTH_LONG).show();
                             return;
                         }
+
                         addItem(new OverviewListItem("Newest Jobs", TYPE_HEADER));
                         if (result != null) {
+                            Collections.reverse(result);
+                            final ArrayList<DataAccessJob> j = new ArrayList<DataAccessJob>();
                             // add the jobs
-                            for (int i = 0; i < 3 && i < result.size(); i++) {
-                                addItem(new OverviewListItem(result.get(i), TYPE_JOBS));
+                            for (int i = 0; i < result.size(); i++) {
+                                if (i < 3) {
+                                    addItem(new OverviewListItem(result.get(i), TYPE_JOBS));
+                                }
+                                j.add(result.get(i));
                             }
                             notifyDataSetChanged();
+
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    new DBHandlerClient(context).updateJobs(j);
+                                }
+                            }.run();
                         }
                     }
                 });
