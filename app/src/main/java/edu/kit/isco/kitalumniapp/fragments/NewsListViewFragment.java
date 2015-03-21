@@ -93,7 +93,7 @@ public class NewsListViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAccessNews news = adapter.getItem(position);
-                Intent intent = new Intent(view.getContext(), NewsDetailsVewActivity.class);
+                Intent intent = new Intent(view.getContext(), NewsDetailsViewActivity.class);
                 intent.putExtra("fullText", news.getText());
                 intent.putExtra("urlImage", news.getImageUrl());
                 intent.putExtra("title", news.getTitle());
