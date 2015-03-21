@@ -179,7 +179,11 @@ public class OverviewAdapter extends ArrayAdapter {
                     }
                     DataAccessEvent event = (DataAccessEvent) getItem(position);
                     holder.textview1.setText(event.getTitle());
-                    holder.textview2.setText(DateFormat.format("dd.MM.yyyy hh:mm", Long.parseLong(event.getDate())).toString());
+                    try {
+                        holder.textview2.setText(DateFormat.format("dd.MM.yyyy", Long.parseLong(event.getDate())).toString());
+                    } catch (NumberFormatException e) {
+                        holder.textview2.setText("");
+                    }
                     break;
 
                 case TYPE_JOBS:
