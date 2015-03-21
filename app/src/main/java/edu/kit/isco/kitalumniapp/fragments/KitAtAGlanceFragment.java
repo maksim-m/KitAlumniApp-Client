@@ -129,7 +129,7 @@ public class KitAtAGlanceFragment extends Fragment {
     }
 
     /**
-     * Class to download a file in background.
+     * Subclass to download a file in background.
      */
     private class DownloadFile extends AsyncTask<String, String, String> {
 
@@ -188,12 +188,14 @@ public class KitAtAGlanceFragment extends Fragment {
             return null;
         }
 
-
+        @Override
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
             pDialog.setProgress(Integer.parseInt(progress[0]));
         }
 
+
+        @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             pDialog.dismiss();
@@ -217,7 +219,10 @@ public class KitAtAGlanceFragment extends Fragment {
     /**
      * Download PDF from param URL and save it in folder /KITAlumniApp/
      * If a PDF with the URL already exists then open it instead.
-     * @param url
+     * @param url the URL to the file which should be downloaded.
+     * @param viewPDF true when the file should be displayed directly after downloading.
+     * @param showProcess true when a dialog should show the process. Otherwise do in background.
+     * @return the PDF as a File
      */
     public File download(String url, boolean viewPDF, boolean showProcess)
     {
@@ -238,11 +243,11 @@ public class KitAtAGlanceFragment extends Fragment {
 
     /**
      * Show PDF with fileName in installed PDF-Viewer
-     * @param fileName
+     * @param fileName Name of the PDF
      */
     public void view(String fileName)
     {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);  // -> filename = maven.pdf
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);  // -> filename = example.pdf
         Uri path = Uri.fromFile(pdfFile);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
         pdfIntent.setDataAndType(path, "application/pdf");

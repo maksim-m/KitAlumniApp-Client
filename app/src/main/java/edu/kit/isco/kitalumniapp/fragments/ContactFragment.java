@@ -2,10 +2,12 @@ package edu.kit.isco.kitalumniapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +59,7 @@ public class ContactFragment extends Fragment {
         ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        //ListView listView = (ListView) view.findViewById(R.id.contactListView);
         ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.contactListView);
-        //ListView listView = (ListView) this.getActivity().findViewById(R.id.contactListView);
 
         //create a clickListener to click on the children in the List.
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -84,14 +84,14 @@ public class ContactFragment extends Fragment {
                         startActivity(Intent.createChooser(websiteIntent, getActivity().getString(R.string.openSite)));
                         break;
                     case 2:
-                        //boolean hasPhone = getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
+                        //proof telephony-function before intent
+                        if (!isTelephonyEnabled()) {
+                            Toast.makeText(getActivity(), "No SIM-Card installed!", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
                         phoneIntent.setData(Uri.parse("tel:" + txt));
-                        try {
-                            startActivity(phoneIntent);
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), "This is not a phone!", Toast.LENGTH_SHORT).show();
-                        }
+                        startActivity(phoneIntent);
                         break;
                     default:
                         break;
@@ -108,20 +108,19 @@ public class ContactFragment extends Fragment {
      * to the contact-list.
      */
     private void prepareData() {
+        contacts.add(new Contact(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
+        contacts.add(new Contact(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
+        contacts.add(new Contact(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
+    }
 
-        contacts.add(new Contact("International Scholars & Welcome Office (IScO)", "Dr. Petra Roth\n" +
-                "Leiterin\n" +
-                "Karlsruher Institut für Technologie (KIT)\n" +
-                "Adenauerring 2\n" +
-                "76131 Karlsruhe\n" +
-                "\n" +
-                "Campus Süd\n" +
-                "Gebäude 50.20  ", "+49 721 608-44946", "researchalumni@intl.kit.edu", "http://www.intl.kit.edu/intl/isco.php"));
-        contacts.add(new Contact("Oliver Kaas", "Referent für internationale Forschermobilität\n" +
-                "Raum: Raum: 002, Gebäude 50.25, CS","+49 721 608 45323", "oliver.kaas@kit.edu", "https://www.intl.kit.edu/iforscher/3356_7179.php"));
-        contacts.add(new Contact("Discover the Karlsruhe TechnologyRegion!", "", null, null, "http://welcome.technologieregion-karlsruhe.de/en/"));
-
-
+    /**
+     * Check if you can make phone calls with the device.
+     * The device could be a tablet or has no SIM-Card installed.
+     * @return true when there is telephony enabled
+     */
+    private boolean isTelephonyEnabled(){
+        TelephonyManager tm = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null && tm.getSimState()== TelephonyManager.SIM_STATE_READY;
     }
 
     @Override

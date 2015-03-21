@@ -15,12 +15,14 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
  * This Class ist connecting the Caption and
@@ -52,6 +54,12 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         this.layoutResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
         JOBS_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "jobs/";
+        ArrayList<DataAccessJob> jobsFromDb = (ArrayList<DataAccessJob>) new DBHandlerClient(context).getAllJobs();
+        Collections.reverse(jobsFromDb);
+        for (DataAccessJob j : jobsFromDb) {
+            add(j);
+        }
+        notifyDataSetChanged();
     }
 
     /**
@@ -89,11 +97,19 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         return convertView;
     }
 
-    public void loadLatest() {
+    private void loadLatest() {
+        loadLatest(-1);
+    }
+
+    private void loadLatest(long id) {
         // don't attempt to load more if a load is already in progress
         if (loading != null && !loading.isDone() && !loading.isCancelled()) {
             return;
         }
+
+        String url = JOBS_SERVICE_URL + "latest/";
+        url = url + "?id=" + id;
+        final String jobsUrl = url;
 
         /**
          * Ion is a general purpose networking library,
@@ -102,7 +118,7 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
          * and invokes a callback on completion.
          */
         loading = Ion.with(getContext())
-                .load(JOBS_SERVICE_URL + "latest/")
+                .load(jobsUrl)
                 .as(new TypeToken<List<DataAccessJob>>() {
                 })
                 .setCallback(new FutureCallback<List<DataAccessJob>>() {
@@ -115,11 +131,33 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
                         }
                         // add the jobs
                         for (int i = 0; i < result.size(); i++) {
-                            add(result.get(i));
+                            insert(result.get(i), 0);
                         }
                         notifyDataSetChanged();
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                new DBHandlerClient(context).updateJobs(getItems());
+                            }
+                        }.run();
                     }
                 });
+    }
+
+    private ArrayList<DataAccessJob> getItems() {
+        ArrayList<DataAccessJob> result = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            result.add(getItem(i));
+        }
+        return result;
+    }
+
+    public void update() {
+        if (getCount() == 0) {
+            loadLatest();
+        } else {
+            loadLatest(getItem(0).getId());
+        }
     }
 
     private void loadPrevious(long id) {

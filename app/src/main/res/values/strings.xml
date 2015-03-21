@@ -6,13 +6,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_overview_fragment">Hello Overview fragment</string>
-    <string name="hello_job_fragment">Hello job fragment</string>
-    <string name="hello_news_fragment">Hello news fragment</string>
-    <string name="hello_kitAtaGlance_fragment">Hello kitAtaGlance fragment</string>
-    <string name="hello_event_fragment">Hello event fragment</string>
-    <string name="hello_contact_fragment">Hello contact fragment</string>
     <string name="gcm_registered">From GCM: device successfully registered (regId = %1$s)!</string>
     <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
     <string name="gcm_message">From GCM: you got message!</string>
@@ -34,6 +27,7 @@
     <string name="title_activity_jobs_details_view" />
     <string name="search_hint">Search in KIT</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="save_tags_button_text">Save</string>
     <string name="title_activity_impressum">Impressum</string>
     <string name="impressum_provider_title">Provider</string>
     <string name="impressum_provider_text">Provider of services in the sense of Art. 5 of the State Agreement on Media Services and Art. 55 of German Act on Teleservices.</string>
@@ -41,11 +35,32 @@
     <string name="impressum_office_text">International Scholars and Welcome Office, Adenauerring 8, 76131 Karlsruhe</string>
     <string name="impressum_contact_title">Contact</string>
     <string name="impressum_contact_text">E-mail: researchalumni@intl.kit.edu</string>
+    <string name="impressum_legalForm_title">Legal Form</string>
+    <string name="impressum_legalForm_text">Corporation governed by public law</string>
+    <string name="impressum_authorizedRepresentatives_title">Authorized Representatives</string>
+    <string name="impressum_authorizedRepresentatives_text">Prof.Dr.Holger Hanselka(President of KIT)</string>
+    <string name="impressum_ust_identifikationsnumber_title">Ust-Identifikation Number</string>
+    <string name="impressum_ust_identifikationsnumber_number">DE266749428</string>
+    <string name="impressum_copyright_title">Copyright</string>
+    <string name="impressum_copyright_text">This application serves for information only. Their contents were complied with due diligence. However, Karlsruhe Institute of Technology shall not assume any liability, neither expressly nor implied, for the type or correctness of the material offered and shall not be liable(including liability for indirect loss ot loss of profit) for the material or use of this material. In ase contents of websites of the Karlsruhe Institut of Technology violate valid legal regulations, we kindly ask you to inform us immediately. We will then remove the site or the respective contents as quickly as possible.</string>
     <string name="glance_info_text">Unique in German Research
 In October 2009, the Karlsruhe Institute of Technology (KIT) was established by a merger of Forschungszentrum Karlsruhe GmbH and Universität Karlsruhe (TH). The KIT pursues both the mission of a university with teaching and research tasks and the mission
 of a national research center of the Helmholtz Association conducting program-oriented provident research. Within these missions, KIT is operating along the three strategic fields of action of research, teaching, and innovation.
 KIT’s activities are organized in five divisions: Biology, Chemistry, and Process Engineering; Informatics, Economics, and Society; Mechanical and Electrical Engineering; Natural and Built Environ­ment; Physics and Mathematics. These divisions pool the research, education, and innovation activities of the affiliated institutes. The divisions also cover the work accomplished by the KIT depart­ments and under the program-oriented funding programs of the Helmholtz Association.
 With about 9400 employees, including 6000 staff members in the science and education sector, and 24,500 students, KIT is one of the biggest research and education institutions in Europe.
 The merger in KIT is the logical continuation of a long-lasting close cooperation of two research and education institutions having a rich tradition. Forschungszentrum Karlsruhe was founded in 1956 as Nuclear Reactor Building and Operation Company and has turned into a multidisciplinary large-scale research center of the Helmholtz Association working on research programs in natural sciences and engineering. Universität Karlsruhe was founded in 1825 as Polytechnical College and has become a modern location of research and education in natural sciences, engineering, economics, and the humanities.\nSource: KIT at a Glance Brochure\n</string>
-
+    <string name="isco_name">International Scholars and Welcome Office (IScO)</string>
+    <string name="isco_short_description">Dr. Petra Roth\nLeiterin\nKarlsruher Institut für Technologie (KIT)\nAdenauerring 2\n76131 Karlsruhe\n\nCampus Süd\nGebäude 50.20</string>
+    <string name="isco_phone">+49 721 608-44946</string>
+    <string name="isco_mail">researchalumni@intl.kit.edu</string>
+    <string name="isco_web">http://www.intl.kit.edu/intl/isco.php</string>
+    <string name="ok_name">Oliver Kaas</string>
+    <string name="ok_short_description">Advice for internationally mobile researchers\noffice hours: by appointment\nroom: 002 Gebäude 50.25</string>
+    <string name="ok_phone">+49 721 608- 45323</string>
+    <string name="ok_mail">oliver.kaas@kit.edu</string>
+    <string name="ok_web">https://www.intl.kit.edu/iforscher/3356_7179.php</string>
+    <string name="tr_name">Discover the Karlsruhe TechnologyRegion!</string>
+    <string name="tr_short_description">Nestling in an unique natural landscape between the Black Forest, the River Rhine, the Palatinate, and Alsace, you will find the sunniest region in Germany, an ideal living and working environment, with an optimal infrastructure, excellent shopping opportunities, and a rich and diverse range of cultural and leisure activities for the whole family.</string>
+    <string name="tr_web">http://welcome.technologieregion-karlsruhe.de/en/</string>
+    <string name="navi_url">http://www.kit.edu/campusplan/map.php</string>
 </resources>

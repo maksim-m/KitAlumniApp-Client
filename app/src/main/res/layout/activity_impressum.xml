@@ -1,90 +1,186 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.kit.isco.kitalumniapp.settings.ImpressumActivity" >
-
-        <ImageView
-            android:background="@color/background_material_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/kitLogo"
-            android:src="@drawable/kit_logo"
-            />
+    app:navigationIcon="@drawable/ic_arrow_back_white"
+    tools:context="edu.kit.isco.kitalumniapp.settings.ImpressumActivity">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/TitleImpressum"
-            android:padding="20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/impressum"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/providerTitle"
-        android:padding="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/impressum_provider_title"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/kitLogo"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/providerText"
-        android:text="@string/impressum_provider_text"
-        android:textSize="15sp"
-        android:layout_below="@id/providerTitle"/>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/officeTitle"
-        android:padding="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/impressum_office_title"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/providerText"/>
+                <TextView
+                    android:id="@+id/TitleImpressum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="20dp"
+                    android:text="@string/impressum"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/officeText"
-        android:text="@string/impressum_office_text"
-        android:textSize="15sp"
-        android:layout_below="@id/officeTitle"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/contactTitle"
-        android:padding="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/impressum_contact_title"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/officeText"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/contactText"
-        android:text="@string/impressum_contact_text"
-        android:textSize="15sp"
-        android:layout_below="@id/contactTitle"/>
+                <ImageView
+                    android:id="@+id/kitLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/background_material_light"
+                    android:src="@drawable/kit_logo"
+                    android:textSize="20sp" />
 
 
+            </RelativeLayout>
 
+            <TextView
+                android:id="@+id/providerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_provider_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/providerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/impressum_provider_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/officeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/providerText"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_office_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/officeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/officeTitle"
+                android:text="@string/impressum_office_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/contactTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/officeText"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_contact_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/contactText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contactTitle"
+                android:text="@string/impressum_contact_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/legalFormTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_legalForm_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/legalFormText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/impressum_legalForm_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/authorizedRepresentativesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_authorizedRepresentatives_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/authorizedRepresentativesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/impressum_authorizedRepresentatives_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ust_identifikationsnumberTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_ust_identifikationsnumber_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ust_identifikationsnumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/impressum_ust_identifikationsnumber_number"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/copyrightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/impressum_copyright_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/copyrightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/impressum_copyright_text"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

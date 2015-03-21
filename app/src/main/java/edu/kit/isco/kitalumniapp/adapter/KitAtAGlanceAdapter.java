@@ -15,7 +15,9 @@ import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
 
 /**
+ * This class adapt the objetc from the KitAtAGlanceFragment to a List
  * Created by Yannick on 18.02.15 | KW 8.
+ *
  */
 public class KitAtAGlanceAdapter extends BaseAdapter {
 
@@ -25,7 +27,6 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
     private ArrayList<String> name = new ArrayList<String>();
     private ArrayList<String> information = new ArrayList<String>();
     private TreeSet<Integer> text_layout = new TreeSet<Integer>();
-
     private LayoutInflater mInflater;
 
     public KitAtAGlanceAdapter(Context context) {
@@ -55,6 +56,8 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
         int rowType = getItemViewType(position);
 
         if (convertView == null) {
+
+            //There are two types of items and they should displayed in different layouts.
             switch (rowType) {
                 case SHORT_INFORMATION:
                     convertView = mInflater.inflate(R.layout.list_view_item_glance, null);
@@ -76,11 +79,24 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+    /**
+     * Add a PDF which should be shown in the list.
+     * A PDF item also can be downloaded.
+     * @param name Name of the PDF
+     * @param url URL which point to the PDF
+     */
     public void addPdf(String name, String url) {
         this.information.add(name);
         this.name.add(url);
     }
 
+    /**
+     *  Add a InfoText to the list which should be shown.
+     *  A InfoText is just to show and not to be downloaded.
+     * @param title The title of the item
+     * @param information The information which will be displayed under the title
+     */
     public void addInfoText(String title, String information) {
         this.information.add(information);
         this.name.add(title);
