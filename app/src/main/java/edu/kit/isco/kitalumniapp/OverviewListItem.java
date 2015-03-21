@@ -2,9 +2,13 @@ package edu.kit.isco.kitalumniapp;
 
 /**
  * Created by Andre on 22.02.2015.
+ *
+ * Container class to store objects shown in OverViewFragment
  */
 public class OverviewListItem<DataAccesObject> {
 
+    //stored object
+    //MUST contain DataAccessNews, DataAccessEvent, DataAccessJob or String only!
     Object object;
 
     //ID to identify the object

@@ -1,15 +1,12 @@
 package edu.kit.isco.kitalumniapp.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,15 +28,19 @@ import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
  * Created by Andre on 22.02.2015.
+ * An adapter class to get the objects shown in OverViewFragment
  */
 public class OverviewAdapter extends ArrayAdapter {
 
+    //a list of all objects shown in Overview
     ArrayList<OverviewListItem> objects = new ArrayList<OverviewListItem>();
 
+    //static ids to distinguish the list objects
     private static final int TYPE_NEWS = 0;
     private static final int TYPE_JOBS = 1;
     private static final int TYPE_EVENTS = 2;
     private static final int TYPE_HEADER = 3;
+
     private LayoutInflater mInflater;
     Future<List<DataAccessNews>> loadNews;
     Future<List<DataAccessJob>> loadJobs;
@@ -48,18 +49,31 @@ public class OverviewAdapter extends ArrayAdapter {
     Context context;
     private final String SERVICE_URL;
     private ArrayList<DataAccessNews> newsFromDB;
+    private ArrayList<DataAccessEvent> eventsFromDB;
 
 
+    /**
+     * Constructor of OverviewAdapter
+     * @param context
+     * @param resource
+     */
     public OverviewAdapter (Context context, int resource) {
         super(context, resource);
         this.context = context;
         this.resource = resource;
-        mInflater = ((Activity) context).getLayoutInflater();
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url);
-        newsFromDB = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getXnews(3);
-
+        DBHandlerClient dbHandler = new DBHandlerClient(context);
+        newsFromDB = (ArrayList<DataAccessNews>) dbHandler.getXnews(3);
+        eventsFromDB = (ArrayList<DataAccessEvent>) dbHandler.getXevents(1);
     }
 
+    /**
+     * returns the object id of the object in a certain position of the list,
+     * to determine the view to be used
+     * @param position the postion of the object in the list
+     * @return object id
+     */
     public int getItemViewType(int position) {
         int type = -1;
         if(objects.get(position).getId() == 0 ||
@@ -68,11 +82,23 @@ public class OverviewAdapter extends ArrayAdapter {
                 objects.get(position).getId() == 3) {
             type = objects.get(position).getId();
         }
-        return objects.get(position).getId();
+        return type;
     }
 
+    /**
+     * adds a new item to the list of Overview Objects
+     * @param item the OverviewListItem to be added
+     */
     public void addItem(OverviewListItem item) {
-        objects.add(item);
+        if(item.getObject().getClass()== DataAccessNews.class ||
+                item.getObject().getClass() == DataAccessJob.class ||
+                item.getObject().getClass() == DataAccessEvent.class ||
+                item.getObject().getClass() == String.class) {
+
+            objects.add(item);
+        } else {
+            throw new IllegalArgumentException("The Object of OverviewListItem must be DataAccessNews, DataAccessJob, DataAccesEvent or String");
+        }
     }
 
     @Override
@@ -95,6 +121,9 @@ public class OverviewAdapter extends ArrayAdapter {
         return 4;
     }
 
+    /**
+     * Method to get the objects shown in overview either from local database or the server database
+     */
     public void update() {
         if(newsFromDB.size() == 0) {
             loadLatestNews();
@@ -103,6 +132,13 @@ public class OverviewAdapter extends ArrayAdapter {
             for (DataAccessNews n : newsFromDB) {
                 addItem(new OverviewListItem(n, TYPE_NEWS));
             }
+        }
+
+        if(eventsFromDB.size() == 0) {
+            loadLatestEvents();
+        } else {
+            addItem(new OverviewListItem("Next Event", TYPE_HEADER));
+            addItem(new OverviewListItem(eventsFromDB.get(0), TYPE_EVENTS));
         }
     }
 
@@ -290,14 +326,29 @@ public class OverviewAdapter extends ArrayAdapter {
                         }
                         // add the event
                         addItem(new OverviewListItem("Next Event", TYPE_HEADER));
+                        final ArrayList<DataAccessEvent> ev = new ArrayList<DataAccessEvent>();
                         if (result != null) {
                             addItem(new OverviewListItem(result.get(0), TYPE_EVENTS));
+                            for (int i = 0; i <result.size(); i++) {
+                                ev.add(result.get(i));
+                            }
                         }
+
                         notifyDataSetChanged();
+
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                new DBHandlerClient(context).updateEvents(ev);
+                            }
+                        }.run();
                     }
                 });
     }
 
+    /**
+     * Container class for the objects to be viewed
+     */
     static class ViewHolder {
         TextView textview1;
         TextView textview2;
