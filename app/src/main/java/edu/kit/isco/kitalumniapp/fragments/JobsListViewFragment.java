@@ -54,6 +54,7 @@ public class JobsListViewFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                jobsAdapter.update();
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -96,7 +97,7 @@ public class JobsListViewFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        jobsAdapter.loadLatest();
+        jobsAdapter.update();
         return view;
 
     }

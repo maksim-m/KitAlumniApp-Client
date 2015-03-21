@@ -25,6 +25,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private static final String EVENT_TABLE = "event";
     private static final String NEWS_TABLE = "news";
     public static final int NEWS_IN_DB = 30;
+    public static final int JOBS_IN_DB = 30;
     private Context context;
 
     public DBHandlerClient(Context context) {
@@ -180,21 +181,13 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert jobs != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.execSQL("delete from " + JobTable.TABLE_NAME);
+        clearJobs();
 
         try {
-            for (DataAccessJob j : jobs) {
-
+            for (int i = 0; i < jobs.size() && i < JOBS_IN_DB; i++) {
+                DataAccessJob j = jobs.get(i);
                 long id = db.insert(JOB_TABLE, null, j.toContentValues());
                 j.setId(id);
-
-                /*for (DataAccessTag t : j.getTags()) {
-                    long tagID = getTagID(t);
-                    values = new ContentValues();
-                    values.put(JobTagTable.JOB_ID, id);
-                    values.put(JobTagTable.TAG_ID, tagID);
-                    db.insert(JOB_TAG_TABLE, null, values);
-                }*/
             }
         } finally {
             DatabaseManager.getInstance().closeDatabase();
@@ -227,7 +220,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private void clearJobs() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         try {
-            db.delete(JOB_TABLE, null, null);
+            db.execSQL("delete from " + JobTable.TABLE_NAME);
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }
