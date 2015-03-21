@@ -191,7 +191,7 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
                     public void onCompleted(Exception e, List<DataAccessNews> result) {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
                         if (e != null) {
-                            Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(), "Error loading news.", Toast.LENGTH_LONG).show();
                             Log.d(TAG, "Error loading news from \"" + newsUrl + "\". Exception message: " + e.getLocalizedMessage());
                             return;
                         }
