@@ -108,20 +108,9 @@ public class ContactFragment extends Fragment {
      * to the contact-list.
      */
     private void prepareData() {
-
-        contacts.add(new Contact("International Scholars & Welcome Office (IScO)", "Dr. Petra Roth\n" +
-                "Leiterin\n" +
-                "Karlsruher Institut für Technologie (KIT)\n" +
-                "Adenauerring 2\n" +
-                "76131 Karlsruhe\n" +
-                "\n" +
-                "Campus Süd\n" +
-                "Gebäude 50.20  ", "+49 721 608-44946", "researchalumni@intl.kit.edu", "http://www.intl.kit.edu/intl/isco.php"));
-        contacts.add(new Contact("Oliver Kaas", "Referent für internationale Forschermobilität\n" +
-                "Raum: Raum: 002, Gebäude 50.25, CS","+49 721 608 45323", "oliver.kaas@kit.edu", "https://www.intl.kit.edu/iforscher/3356_7179.php"));
-        contacts.add(new Contact("Discover the Karlsruhe TechnologyRegion!", "", null, null, "http://welcome.technologieregion-karlsruhe.de/en/"));
-
-
+        contacts.add(new Contact(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
+        contacts.add(new Contact(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
+        contacts.add(new Contact(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
     }
 
     @Override

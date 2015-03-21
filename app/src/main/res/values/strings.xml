@@ -47,5 +47,18 @@ of a national research center of the Helmholtz Association conducting program-or
 KIT’s activities are organized in five divisions: Biology, Chemistry, and Process Engineering; Informatics, Economics, and Society; Mechanical and Electrical Engineering; Natural and Built Environ­ment; Physics and Mathematics. These divisions pool the research, education, and innovation activities of the affiliated institutes. The divisions also cover the work accomplished by the KIT depart­ments and under the program-oriented funding programs of the Helmholtz Association.
 With about 9400 employees, including 6000 staff members in the science and education sector, and 24,500 students, KIT is one of the biggest research and education institutions in Europe.
 The merger in KIT is the logical continuation of a long-lasting close cooperation of two research and education institutions having a rich tradition. Forschungszentrum Karlsruhe was founded in 1956 as Nuclear Reactor Building and Operation Company and has turned into a multidisciplinary large-scale research center of the Helmholtz Association working on research programs in natural sciences and engineering. Universität Karlsruhe was founded in 1825 as Polytechnical College and has become a modern location of research and education in natural sciences, engineering, economics, and the humanities.\nSource: KIT at a Glance Brochure\n</string>
+    <string name="isco_name">International Scholars and Welcome Office (IScO)</string>
+    <string name="isco_short_description">Dr. Petra Roth\nLeiterin\nKarlsruher Institut für Technologie (KIT)\nAdenauerring 2\n76131 Karlsruhe\n\nCampus Süd\nGebäude 50.20</string>
+    <string name="isco_phone">+49 721 608-44946</string>
+    <string name="isco_mail">researchalumni@intl.kit.edu</string>
+    <string name="isco_web">http://www.intl.kit.edu/intl/isco.php</string>
+    <string name="ok_name">Oliver Kaas</string>
+    <string name="ok_short_description">Advice for internationally mobile researchers\noffice hours: by appointment\nroom: 002 Gebäude 50.25</string>
+    <string name="ok_phone">+49 721 608- 45323</string>
+    <string name="ok_mail">oliver.kaas@kit.edu</string>
+    <string name="ok_web">https://www.intl.kit.edu/iforscher/3356_7179.php</string>
+    <string name="tr_name">Discover the Karlsruhe TechnologyRegion!</string>
+    <string name="tr_short_description">Nestling in an unique natural landscape between the Black Forest, the River Rhine, the Palatinate, and Alsace, you will find the sunniest region in Germany, an ideal living and working environment, with an optimal infrastructure, excellent shopping opportunities, and a rich and diverse range of cultural and leisure activities for the whole family.</string>
+    <string name="tr_web">http://welcome.technologieregion-karlsruhe.de/en/</string>
 
 </resources>
