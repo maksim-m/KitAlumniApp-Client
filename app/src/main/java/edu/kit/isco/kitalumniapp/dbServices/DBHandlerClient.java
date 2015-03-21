@@ -17,15 +17,13 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "DatabaseClient.db";
     private static final String LOG = "DBHandlerClient";
     //Table Names
     private static final String JOB_TABLE = "job";
     private static final String EVENT_TABLE = "event";
     private static final String NEWS_TABLE = "news";
-    private static final String JOB_TAG_TABLE = "job_tag";
-    private static final String TAG_TABLE = "tag";
     public static final int NEWS_IN_DB = 30;
     private Context context;
 
@@ -35,23 +33,18 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(EventTable.createSQL());
-        db.execSQL(TagTable.createSQL());
-        db.execSQL(JobTable.createSQL());
         db.execSQL(NewsTable.createSQL());
-        db.execSQL(JobTagTable.createSQL());
+        db.execSQL(EventTable.createSQL());
+        db.execSQL(JobTable.createSQL());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion == 1) {
-            context.deleteDatabase("Database_Client");
-        }
-        db.execSQL(EventTable.dropSQL());
-        db.execSQL(TagTable.dropSQL());
-        db.execSQL(JobTable.dropSQL());
         db.execSQL(NewsTable.dropSQL());
-        db.execSQL(JobTagTable.dropSQL());
+        db.execSQL(EventTable.dropSQL());
+        db.execSQL(JobTable.dropSQL());
+        db.execSQL("DROP TABLE IF EXISTS job_tag;");
+        db.execSQL("DROP TABLE IF EXISTS tag");
 
         onCreate(db);
     }
@@ -112,7 +105,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                     job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                     job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                    job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
+                    //job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
                     job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
 
                     jobs.add(job);
@@ -187,7 +180,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert jobs != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        ContentValues values;
+        db.execSQL("delete from " + JobTable.TABLE_NAME);
 
         try {
             for (DataAccessJob j : jobs) {
@@ -195,13 +188,13 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 long id = db.insert(JOB_TABLE, null, j.toContentValues());
                 j.setId(id);
 
-                for (DataAccessTag t : j.getTags()) {
+                /*for (DataAccessTag t : j.getTags()) {
                     long tagID = getTagID(t);
                     values = new ContentValues();
                     values.put(JobTagTable.JOB_ID, id);
                     values.put(JobTagTable.TAG_ID, tagID);
                     db.insert(JOB_TAG_TABLE, null, values);
-                }
+                }*/
             }
         } finally {
             DatabaseManager.getInstance().closeDatabase();
@@ -264,7 +257,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
     }
 
-    public List<DataAccessJob> getJobsByTag(DataAccessTag tag) {
+    /*public List<DataAccessJob> getJobsByTag(DataAccessTag tag) {
         List<DataAccessJob> jobs = new ArrayList<DataAccessJob>();
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         String select = "SELECT * FROM "+ JOB_TABLE + " jt, "
@@ -296,12 +289,12 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
 
         return jobs;
-    }
+    }*/
 
     /**
      * Returns a list of news of a certain length
      * @param x number of news that should be returned
-     * @return list of news
+     * @return list of news with length x
      */
     public List<DataAccessNews> getXnews(int x) {
         List<DataAccessNews> news = new ArrayList<DataAccessNews>();
@@ -313,21 +306,22 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         Cursor c = db.rawQuery(selectQuery, null);
 
         try {
-            if (c.moveToFirst()) {
-                for(int i = 0; i<x ; i++) {
-                    if (c.moveToNext()) {
-                        DataAccessNews n = new DataAccessNews();
-                        n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
-                        n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
-                        n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
-                        n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
-                        n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
-                        n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
-                        n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
-                        news.add(n);
-                    }
-                }
+            if (c.moveToLast()) {
+                int i = 0;
+                do {
+                    DataAccessNews n = new DataAccessNews();
+                    n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
+                    n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
+                    n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
+                    n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
+                    n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
+                    n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
+                    n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
+                    news.add(n);
+                    i++;
+                } while (i < x && c.moveToPrevious());
             }
+
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }
@@ -340,7 +334,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      * @param jobID the ID of the job
      * @return List of tags
      */
-    private List<DataAccessTag> getJobTags(long jobID) {
+    /*private List<DataAccessTag> getJobTags(long jobID) {
         List<DataAccessTag> tags = new ArrayList<DataAccessTag>();
         String select = "SELECT " + JobTagTable.TAG_ID + " FROM " + JOB_TAG_TABLE + " tt WHERE tt."
                 + JobTagTable.JOB_ID + " = " + jobID;
@@ -364,14 +358,14 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
 
         return tags;
-    }
+    }*/
 
     /**
      * Returns the id that is affiliated with a certain tag
      * @param tag
      * @return the id of the tag
      */
-    private long getTagID(DataAccessTag tag) {
+    /*private long getTagID(DataAccessTag tag) {
         long id = -1;
         String select = "SELECT " + TagTable.ID + " FROM " + TAG_TABLE + " tt WHERE tt."
                 + TagTable.NAME + " = '" + tag.getName() + "'";
@@ -388,6 +382,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             DatabaseManager.getInstance().closeDatabase();
         }
         return id;
-    }
+    }*/
 
 }

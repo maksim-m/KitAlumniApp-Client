@@ -47,7 +47,7 @@ public class OverViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_over_view, container, false);
         final ListView listView = (ListView) view.findViewById(R.id.Overview);
         adapter = new OverviewAdapter(getActivity(), 0);
-        adapter.loadLatestNews();
+        adapter.update();
         adapter.loadLatestJobs();
         adapter.loadLatestEvents();
         listView.setAdapter(adapter);
