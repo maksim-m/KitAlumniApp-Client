@@ -2,8 +2,6 @@ package edu.kit.isco.kitalumniapp.dbObjects;
 
 import android.content.ContentValues;
 
-import edu.kit.isco.kitalumniapp.dbServices.TagTable;
-
 /**
  * Dao for Tags
  * Created by Andre on 04.02.2015.
@@ -50,9 +48,19 @@ public class DataAccessTag implements DataAccessObject {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DataAccessTag that = (DataAccessTag) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        return prime * result + ((name == null) ? 0 : name.hashCode());
+        return name != null ? name.hashCode() : 0;
     }
 }
