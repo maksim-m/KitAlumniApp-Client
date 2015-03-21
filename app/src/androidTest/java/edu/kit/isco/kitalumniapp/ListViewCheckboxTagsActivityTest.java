@@ -30,9 +30,10 @@ public class ListViewCheckboxTagsActivityTest extends ActivityInstrumentationTes
         saveButtonTest=(Button) listViewCheckboxTagsActivity.findViewById(R.id.saveButton);
     }
     /*Test that verify if the test fixture has been set up correctly.*/
-    public void testTextPreconditions() {
+    public void testPreconditions() {
         assertNotNull("listViewCheckboxTagsActivity is null",listViewCheckboxTagsActivity);
         assertNotNull("chooseTagsTextTest is null", chooseTagsTextTest);
+        assertNotNull("saveButtonText is null", listViewCheckboxTagsActivity);
     }
 
     /*Test that check if  the TextView of Tags has the correct label text. */
@@ -42,13 +43,7 @@ public class ListViewCheckboxTagsActivityTest extends ActivityInstrumentationTes
         assertEquals(expected, actual);
     }
 
-    /*Test that verify if the test fixture has been set up correctly.*/
-    public void testButtonPreconditions() {
-        assertNotNull("listViewCheckboxTagsActivity is null",listViewCheckboxTagsActivity);
-        assertNotNull("saveButtonText is null", listViewCheckboxTagsActivity);
-    }
     /*Test that verify if the saveButton is displayed correctly in  ListViewCheckboxTagsActivity.*/
-
     public void testClickSaveButton_layout(){
         final View decorView = listViewCheckboxTagsActivity.getWindow().getDecorView();
 
