@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -320,6 +321,43 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
 
         return news;
+    }
+
+    /**
+     * Returns a list of events of a certain length
+     * @param x number of news that should be returned
+     * @return list of events with length x
+     */
+    public List<DataAccessEvent> getXevents (int x) {
+        List<DataAccessEvent> events = new ArrayList<DataAccessEvent>();
+        String selectQuery = "SELECT * FROM " + EVENT_TABLE;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        try {
+            if (c.moveToLast()) {
+                int i = 0;
+                do {
+                    DataAccessEvent ev = new DataAccessEvent();
+                    ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
+                    ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
+                    ev.setShortInfo(c.getString(c.getColumnIndex(EventTable.SHORT_INFO)));
+                    ev.setText(c.getString(c.getColumnIndex(EventTable.FULL_TEXT)));
+                    ev.setUrl(c.getString(c.getColumnIndex(EventTable.URL)));
+                    ev.setDate(c.getString(c.getColumnIndex(EventTable.DATE)));
+
+                    events.add(ev);
+                    i++;
+                } while (c.moveToPrevious() && i < x);
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+
+        return events;
     }
 
     /**

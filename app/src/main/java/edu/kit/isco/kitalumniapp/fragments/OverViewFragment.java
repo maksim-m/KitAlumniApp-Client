@@ -28,9 +28,6 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 public class OverViewFragment extends Fragment {
 
     private OverviewAdapter adapter;
-    private String header1 = "Latest News";
-    private String header2 = "Next Event";
-    private String header3 = "Newest Jobs";
 
     public OverViewFragment() {
         // Required empty public constructor
@@ -49,7 +46,6 @@ public class OverViewFragment extends Fragment {
         adapter = new OverviewAdapter(getActivity(), 0);
         adapter.update();
         adapter.loadLatestJobs();
-        adapter.loadLatestEvents();
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
