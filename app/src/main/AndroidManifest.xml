@@ -8,7 +8,6 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -110,10 +109,6 @@
             android:name=".fragments.JobsDetailsViewActivity"
             android:label="@string/title_activity_jobs_details_view"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".TestMainActivity"
-            android:label="@string/title_activity_test_main" >
-        </activity>
     </application>
 
 </manifest>
