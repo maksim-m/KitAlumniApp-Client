@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+<android.support.v4.widget.SwipeRefreshLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context="edu.kit.isco.kitalumniapp.fragments.JobsListViewFragment"
@@ -8,11 +8,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" >
 
-    <FrameLayout android:layout_height="match_parent" android:layout_width="match_parent">
+        <ListView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/jobsListView" />
 
-    <ListView android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/jobsListView"/>
-
-</FrameLayout>
+    </FrameLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
