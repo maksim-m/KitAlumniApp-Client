@@ -21,7 +21,6 @@ import java.util.HashMap;
 import edu.kit.isco.kitalumniapp.Child;
 import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
-import edu.kit.isco.kitalumniapp.RoundedAvatarDrawable;
 
 /**
  * Adapter that shows parents (contacts) with their children
@@ -150,12 +149,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListerHeaderDes.setText(headerDescription);
 
-
-        //Make round avatar pictures.
         ImageView imageParent = (ImageView) convertView.findViewById(R.id.contactImage);
-        Bitmap bm = BitmapFactory.decodeResource(convertView.getContext().getResources(), R.drawable.ic_person_outline);
-        RoundedAvatarDrawable roundedImage = new RoundedAvatarDrawable(bm);
-        imageParent.setImageDrawable(roundedImage);
+        imageParent.setImageResource(R.drawable.ic_person_outline);
+
 
         return convertView;
     }
