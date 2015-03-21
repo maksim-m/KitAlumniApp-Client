@@ -51,7 +51,6 @@ public class OverviewAdapter extends ArrayAdapter {
     private ArrayList<DataAccessNews> newsFromDB;
     private ArrayList<DataAccessEvent> eventsFromDB;
 
-
     /**
      * Constructor of OverviewAdapter
      * @param context
@@ -147,72 +146,72 @@ public class OverviewAdapter extends ArrayAdapter {
         ViewHolder holder = new ViewHolder();
         int rowType = getItemViewType(position);
 
-            switch (rowType) {
-                case TYPE_NEWS:
-                    if(convertView == null) {
-                        convertView = mInflater.inflate(R.layout.list_view_item_news, null);
-                        holder.image = (ImageView) convertView.findViewById(R.id.newsImage);
-                        holder.textview1 = (TextView) convertView.findViewById(R.id.newsCaption);
-                        holder.textview2 = (TextView) convertView.findViewById(R.id.newsShortDescription);
-                        convertView.setTag(holder);
-                    } else {
-                        holder = (ViewHolder) convertView.getTag();
-                    }
-                    DataAccessNews news = (DataAccessNews) getItem(position);
-                    Ion.with(holder.image)
-                            .placeholder(R.drawable.placeholder)
-                            .error(R.drawable.default_news_image)
-                            .load(news.getImageUrl());
-                    holder.textview1.setText(news.getTitle());
-                    holder.textview2.setText(news.getShortDescription());
-                    break;
+        switch (rowType) {
+            case TYPE_NEWS:
+                if(convertView == null) {
+                    convertView = mInflater.inflate(R.layout.list_view_item_news, null);
+                    holder.image = (ImageView) convertView.findViewById(R.id.newsImage);
+                    holder.textview1 = (TextView) convertView.findViewById(R.id.newsCaption);
+                    holder.textview2 = (TextView) convertView.findViewById(R.id.newsShortDescription);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                DataAccessNews news = (DataAccessNews) getItem(position);
+                Ion.with(holder.image)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.default_news_image)
+                    .load(news.getImageUrl());
+                holder.textview1.setText(news.getTitle());
+                holder.textview2.setText(news.getShortDescription());
+                break;
 
-                case TYPE_EVENTS:
-                    if(convertView == null) {
-                        convertView = mInflater.inflate(R.layout.list_view_item_events, null);
-                        holder.image = null;
-                        holder.textview1 = (TextView) convertView.findViewById(R.id.eventTitle);
-                        holder.textview2 = (TextView) convertView.findViewById(R.id.eventDate);
-                        convertView.setTag(holder);
-                    } else {
-                        holder = (ViewHolder) convertView.getTag();
-                    }
-                    DataAccessEvent event = (DataAccessEvent) getItem(position);
-                    holder.textview1.setText(event.getTitle());
-                    holder.textview2.setText(DateFormat.format("dd.MM.yyyy hh:mm", Long.parseLong(event.getDate())).toString());
-                    break;
+            case TYPE_EVENTS:
+                if(convertView == null) {
+                    convertView = mInflater.inflate(R.layout.list_view_item_events, null);
+                    holder.image = null;
+                    holder.textview1 = (TextView) convertView.findViewById(R.id.eventTitle);
+                    holder.textview2 = (TextView) convertView.findViewById(R.id.eventDate);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                DataAccessEvent event = (DataAccessEvent) getItem(position);
+                holder.textview1.setText(event.getTitle());
+                holder.textview2.setText(DateFormat.format("dd.MM.yyyy hh:mm", Long.parseLong(event.getDate())).toString());
+                break;
 
-                case TYPE_JOBS:
-                    if(convertView == null) {
-                        convertView = mInflater.inflate(R.layout.list_view_item_jobs, null);
-                        holder.image = null;
-                        holder.textview1 = (TextView) convertView.findViewById(R.id.jobsCaption);
-                        holder.textview2 = (TextView) convertView.findViewById(R.id.jobsShortDescription);
-                        convertView.setTag(holder);
-                    } else {
-                        holder = (ViewHolder) convertView.getTag();
-                    }
-                    DataAccessJob job = (DataAccessJob) getItem(position);
-                    holder.textview1.setText(job.getTitle());
-                    holder.textview2.setText(job.getShortInfo());
-                    break;
+            case TYPE_JOBS:
+                if(convertView == null) {
+                    convertView = mInflater.inflate(R.layout.list_view_item_jobs, null);
+                    holder.image = null;
+                    holder.textview1 = (TextView) convertView.findViewById(R.id.jobsCaption);
+                    holder.textview2 = (TextView) convertView.findViewById(R.id.jobsShortDescription);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                DataAccessJob job = (DataAccessJob) getItem(position);
+                holder.textview1.setText(job.getTitle());
+                holder.textview2.setText(job.getShortInfo());
+                break;
 
-                case TYPE_HEADER:
-                    if(convertView == null) {
-                        convertView = mInflater.inflate(R.layout.overview_header, null);
-                        holder.image = null;
-                        holder.textview1 = (TextView) convertView.findViewById(R.id.section_header);
-                        holder.textview2 = null;
-                        convertView.setTag(holder);
-                    } else {
-                        holder = (ViewHolder) convertView.getTag();
-                    }
-                    holder.textview1.setText((String) objects.get(position).getObject());
-                    break;
+            case TYPE_HEADER:
+                if(convertView == null) {
+                    convertView = mInflater.inflate(R.layout.overview_header, null);
+                    holder.image = null;
+                    holder.textview1 = (TextView) convertView.findViewById(R.id.section_header);
+                    holder.textview2 = null;
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                holder.textview1.setText((String) objects.get(position).getObject());
+                break;
 
-                default:
-                    break;
-            }
+            default:
+                break;
+        }
 
         return convertView;
     }
@@ -325,6 +324,7 @@ public class OverviewAdapter extends ArrayAdapter {
                             return;
                         }
                         // add the event
+                        Collections.reverse(result);
                         addItem(new OverviewListItem("Next Event", TYPE_HEADER));
                         final ArrayList<DataAccessEvent> ev = new ArrayList<DataAccessEvent>();
                         if (result != null) {
