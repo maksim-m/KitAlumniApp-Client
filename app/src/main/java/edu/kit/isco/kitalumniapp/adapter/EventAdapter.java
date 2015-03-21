@@ -14,10 +14,14 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 
 /**
@@ -48,6 +52,12 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         this.layoutEventResId = resource;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
         EVENT_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "events/";
+        ArrayList<DataAccessEvent> eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getAllEvents();
+        Collections.reverse(eventsFromDb);
+        for (DataAccessEvent e : eventsFromDb) {
+            add(e);
+        }
+        notifyDataSetChanged();
     }
 
     /**
@@ -84,15 +94,18 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         eventTitle.setText(event.getTitle());
         TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventDate);
         eventShortDescription.setText(event.getShortInfo());
-
-        // We're near the end of the list adapter, so load more items.
-        if (position >= getCount() - 3) {
-            //loadPrevious();
-        }
         return convertView;
     }
 
-    public void loadLatest() {
+    private ArrayList<DataAccessEvent> getItems() {
+        ArrayList<DataAccessEvent> result = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            result.add(getItem(i));
+        }
+        return result;
+    }
+
+    public void update() {
         // don't attempt to load more if a load is already in progress
         if (loading != null && !loading.isDone() && !loading.isCancelled()) {
             return;
@@ -116,17 +129,21 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                             return;
                         }
+                        clear();
+                        Collections.reverse(result);
                         // add the events
                         for (int i = 0; i < result.size(); i++) {
                             add(result.get(i));
                         }
                         notifyDataSetChanged();
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                new DBHandlerClient(context).updateEvents(getItems());
+                            }
+                        }.run();
                     }
                 });
-    }
-
-    private void loadPrevious() {
-
     }
 
     /**

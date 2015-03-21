@@ -10,8 +10,13 @@ import junit.framework.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 import edu.kit.isco.kitalumniapp.dbServices.NewsTable;
@@ -28,7 +33,6 @@ public class DatabaseTest extends AndroidTestCase {
         this.context = new RenamingDelegatingContext(getContext(), "test_");
         DatabaseManager.initializeInstance(new DBHandlerClient(context));
         db = DatabaseManager.getInstance().openDatabase();
-        //db.execSQL("delete from " + NewsTable.TABLE_NAME);
     }
 
     public void testUpdateNews() {
@@ -42,7 +46,42 @@ public class DatabaseTest extends AndroidTestCase {
         Assert.assertEquals(news, newsFromDb);
     }
 
+    public void testUpdateEvents() {
+        final DataAccessEvent testEvent1 = new DataAccessEvent("e1", "s1", "<html><body>hello!</body></html>", "http://example.com/", Calendar.getInstance());
+        testEvent1.setId(1);
+        final DataAccessEvent testEvent2 = new DataAccessEvent("e2", "s2", "<html><body>hello2!</body></html>", "http://example.de/", Calendar.getInstance());
+        testEvent2.setId(2);
+        List<DataAccessEvent> events = new ArrayList<DataAccessEvent>() {{
+            add(testEvent1);
+            add(testEvent2);
+        }};
+        new DBHandlerClient(context).updateEvents(events);
+        ArrayList<DataAccessEvent> eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getAllEvents();
+        Assert.assertEquals(events, eventsFromDb);
+    }
 
+    public void testUpdateJobs() {
+        ArrayList<DataAccessTag> tagsSet1 = new ArrayList<DataAccessTag>() {{
+            add(DataAccessTag.ENGINEER);
+            add(DataAccessTag.PROFESSOR);
+        }};
+        ArrayList<DataAccessTag> tagsSet2 = new ArrayList<DataAccessTag>() {{
+            add(DataAccessTag.ADMINISTRATION);
+            add(DataAccessTag.SCIENTIST);
+            add(DataAccessTag.DOCTORAND);
+        }};
+
+        DataAccessJob testJob1 = new DataAccessJob(tagsSet1, "Wizard", "Task: kill all dragons in Karlsruhe", "http://example.com/");
+        testJob1.setId(1);
+        DataAccessJob testJob2 = new DataAccessJob(tagsSet2, "Title2", "Description", "http://example.de/");
+        testJob2.setId(2);
+        ArrayList<DataAccessJob> jobs = new ArrayList<>();
+        jobs.add(testJob1);
+        jobs.add(testJob2);
+        new DBHandlerClient(context).updateJobs(jobs);
+        ArrayList<DataAccessJob> jobsFromDb = (ArrayList<DataAccessJob>) new DBHandlerClient(context).getAllJobs();
+        assertEquals(jobs, jobsFromDb);
+    }
 
     @Override
     public void tearDown() throws Exception {

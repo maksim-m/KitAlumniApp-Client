@@ -60,6 +60,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String KEY_VIBRATE = "notifications_new_message_vibrate";
     public static final String PROPERTY_REG_ID = "registration_id";
     public static final String VIBRATE_CHECKBOX = "vibrate";
+    public static final String NOTIFICATION_CHECKBOX = "notification_checkBox";
 
     /**
      * Tag used on log messages.
@@ -130,8 +131,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      */
     String SENDER_ID = "1044572950898";
     GoogleCloudMessaging gcm;
-    AtomicInteger msgId = new AtomicInteger();
-    SharedPreferences prefs;
     Context context;
     String regid;
 
@@ -255,6 +254,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         if (key.equals(KEY_NOTIFICATIONS)){
             CheckBoxPreference checkBox = (CheckBoxPreference) findPreference(KEY_NOTIFICATIONS);
             if (checkBox.isChecked()){
+                final SharedPreferences prefs = getGCMPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(NOTIFICATION_CHECKBOX, true);
+                editor.apply();
                 context = getApplicationContext();
                 // Check device for Play Services APK. If check succeeds, proceed with
                 //  GCM registration.
@@ -271,6 +274,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     Log.i(TAG, "No valid Google Play Services APK found.");
                 }
             } else {
+                final SharedPreferences prefs = getGCMPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(NOTIFICATION_CHECKBOX, false);
+                editor.apply();
                 context = getApplicationContext();
                 regid = getRegistrationId(context);
                 deleteRegistrationIdFromBackend();
@@ -285,7 +292,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 editor.apply();
             } else {
                 final SharedPreferences prefs = getGCMPreferences(context);
-                Log.i(TAG, "Saving Vibrate on.");
+                Log.i(TAG, "Saving Vibrate off.");
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(VIBRATE_CHECKBOX, false);
                 editor.apply();

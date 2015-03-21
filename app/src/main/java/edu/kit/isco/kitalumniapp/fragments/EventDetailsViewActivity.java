@@ -57,7 +57,6 @@ public class EventDetailsViewActivity extends ActionBarActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 }
