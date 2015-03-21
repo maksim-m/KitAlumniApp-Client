@@ -51,7 +51,6 @@ public class OverviewAdapter extends ArrayAdapter {
     private ArrayList<DataAccessNews> newsFromDB;
     private ArrayList<DataAccessEvent> eventsFromDB;
 
-
     /**
      * Constructor of OverviewAdapter
      * @param context
@@ -217,7 +216,6 @@ public class OverviewAdapter extends ArrayAdapter {
                 default:
                     break;
             }
-
         return convertView;
     }
 
@@ -329,6 +327,7 @@ public class OverviewAdapter extends ArrayAdapter {
                             return;
                         }
                         // add the event
+                        Collections.reverse(result);
                         addItem(new OverviewListItem("Next Event", TYPE_HEADER));
                         final ArrayList<DataAccessEvent> ev = new ArrayList<DataAccessEvent>();
                         if (result != null) {

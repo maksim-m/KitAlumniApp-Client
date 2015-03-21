@@ -130,6 +130,7 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
                             return;
                         }
                         // add the jobs
+                        Collections.reverse(result);
                         for (int i = 0; i < result.size(); i++) {
                             insert(result.get(i), 0);
                         }
