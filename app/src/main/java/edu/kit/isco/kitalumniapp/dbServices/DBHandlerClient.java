@@ -160,7 +160,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert news != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.execSQL("delete from " + NewsTable.TABLE_NAME);
+        clearNews();
 
         try {
             for (int i = 0; i < news.size() && i < NEWS_IN_DB; i++) {
@@ -202,7 +202,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         assert events != null;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.execSQL("delete from " + EventTable.TABLE_NAME);
+        clearEvents();
 
         try {
             for (DataAccessEvent e : events) {
@@ -232,7 +232,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private void clearNews() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         try {
-            db.delete(NEWS_TABLE, null, null);
+            db.execSQL("delete from " + NewsTable.TABLE_NAME);
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }
@@ -244,7 +244,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     private void clearEvents() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         try {
-            db.delete(EVENT_TABLE, null, null);
+            db.execSQL("delete from " + EventTable.TABLE_NAME);
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }
