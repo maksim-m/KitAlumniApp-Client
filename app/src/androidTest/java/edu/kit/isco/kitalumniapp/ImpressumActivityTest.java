@@ -31,7 +31,7 @@ public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<Impr
     }
     /*Test that check if  the TextView of Impressum Title has the correct label text. */
     public void testImpressumTextView(){
-        final String expected = impressumActivity.getString(R.string.title_activity_impressum);
+        final String expected = impressumActivity.getString(R.string.app_name);
         final String actual = titleImpressumTextTest.getText().toString();
         assertEquals(expected, actual);
     }

@@ -11,32 +11,19 @@ import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
  */
 public class MainActivityTest extends android.test.ActivityInstrumentationTestCase2<MainActivity> {
     MainActivity mainActivity;
-    EventListViewFragment eventListViewFragment;
-    private ListView eventListViewTest;
 
-    public MainActivityTest(){
+
+    public MainActivityTest() {
         super(MainActivity.class);
 
     }
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mainActivity = getActivity();
-        startFragment();
-    }
-
-    private void startFragment() {
-        FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-        eventListViewFragment = new EventListViewFragment();
-        transaction.add(R.id.container, eventListViewFragment).commitAllowingStateLoss();
-
 
     }
 
-    public void testPreConditions() {
-        assertNotNull(mainActivity);
-        assertNotNull(eventListViewFragment);
 
-    }
-
-    }
+}

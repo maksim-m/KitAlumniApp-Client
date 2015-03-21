@@ -50,8 +50,7 @@ public class ListViewCheckboxTagsActivityTest extends ActivityInstrumentationTes
         ViewAsserts.assertOnScreen(decorView, saveButtonTest);
         final ViewGroup.LayoutParams layoutParams = saveButtonTest.getLayoutParams();
         assertNotNull(layoutParams);
-        assertEquals(layoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+        assertEquals(layoutParams.width, WindowManager.LayoutParams.MATCH_PARENT);
         assertEquals(layoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
     }
-
 }
