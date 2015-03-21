@@ -12,14 +12,18 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import edu.kit.isco.kitalumniapp.BuildConfig;
 import edu.kit.isco.kitalumniapp.R;
 
 public class AboutActivity extends Activity {
+
+    TextView versionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
+        versionName = (TextView) findViewById(R.id.versionName);
+        versionName.setText("Version " + BuildConfig.VERSION_NAME);
     }
 }
