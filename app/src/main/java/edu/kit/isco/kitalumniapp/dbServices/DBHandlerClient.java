@@ -300,7 +300,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     /**
      * Returns a list of news of a certain length
      * @param x number of news that should be returned
-     * @return list of news
+     * @return list of news with length x
      */
     public List<DataAccessNews> getXnews(int x) {
         List<DataAccessNews> news = new ArrayList<DataAccessNews>();
@@ -312,21 +312,22 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         Cursor c = db.rawQuery(selectQuery, null);
 
         try {
-            if (c.moveToFirst()) {
-                for(int i = 0; i<x ; i++) {
-                    if (c.moveToNext()) {
-                        DataAccessNews n = new DataAccessNews();
-                        n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
-                        n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
-                        n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
-                        n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
-                        n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
-                        n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
-                        n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
-                        news.add(n);
-                    }
-                }
+            if (c.moveToLast()) {
+                int i = 0;
+                do {
+                    DataAccessNews n = new DataAccessNews();
+                    n.setId(c.getLong(c.getColumnIndex(NewsTable.ID)));
+                    n.setTitle(c.getString(c.getColumnIndex(NewsTable.TITLE)));
+                    n.setShortDescription(c.getString(c.getColumnIndex(NewsTable.SHORT_INFO)));
+                    n.setText(c.getString(c.getColumnIndex(NewsTable.FULL_TEXT)));
+                    n.setUrl(c.getString(c.getColumnIndex(NewsTable.URL)));
+                    n.setDate(c.getString(c.getColumnIndex(NewsTable.DATE)));
+                    n.setImageUrl(c.getString(c.getColumnIndex(NewsTable.IMAGE_URL)));
+                    news.add(n);
+                    i++;
+                } while (i < x && c.moveToPrevious());
             }
+
         } finally {
             DatabaseManager.getInstance().closeDatabase();
         }

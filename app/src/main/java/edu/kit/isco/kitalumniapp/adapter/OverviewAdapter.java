@@ -27,6 +27,7 @@ import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
+import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
  * Created by Andre on 22.02.2015.
@@ -46,6 +47,8 @@ public class OverviewAdapter extends ArrayAdapter {
     int resource;
     Context context;
     private final String SERVICE_URL;
+    private ArrayList<DataAccessNews> newsFromDB;
+
 
     public OverviewAdapter (Context context, int resource) {
         super(context, resource);
@@ -53,6 +56,8 @@ public class OverviewAdapter extends ArrayAdapter {
         this.resource = resource;
         mInflater = ((Activity) context).getLayoutInflater();
         SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url);
+        newsFromDB = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getXnews(3);
+
     }
 
     public int getItemViewType(int position) {
@@ -90,12 +95,22 @@ public class OverviewAdapter extends ArrayAdapter {
         return 4;
     }
 
+    public void update() {
+        if(newsFromDB.size() == 0) {
+            loadLatestNews();
+        } else {
+            addItem(new OverviewListItem("Latest News", TYPE_HEADER));
+            for (DataAccessNews n : newsFromDB) {
+                addItem(new OverviewListItem(n, TYPE_NEWS));
+            }
+        }
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        ViewHolder holder = new ViewHolder();
         int rowType = getItemViewType(position);
 
-            holder = new ViewHolder();
             switch (rowType) {
                 case TYPE_NEWS:
                     if(convertView == null) {
@@ -115,6 +130,7 @@ public class OverviewAdapter extends ArrayAdapter {
                     holder.textview1.setText(news.getTitle());
                     holder.textview2.setText(news.getShortDescription());
                     break;
+
                 case TYPE_EVENTS:
                     if(convertView == null) {
                         convertView = mInflater.inflate(R.layout.list_view_item_events, null);
@@ -129,6 +145,7 @@ public class OverviewAdapter extends ArrayAdapter {
                     holder.textview1.setText(event.getTitle());
                     holder.textview2.setText(DateFormat.format("dd.MM.yyyy hh:mm", Long.parseLong(event.getDate())).toString());
                     break;
+
                 case TYPE_JOBS:
                     if(convertView == null) {
                         convertView = mInflater.inflate(R.layout.list_view_item_jobs, null);
@@ -143,6 +160,7 @@ public class OverviewAdapter extends ArrayAdapter {
                     holder.textview1.setText(job.getTitle());
                     holder.textview2.setText(job.getShortInfo());
                     break;
+
                 case TYPE_HEADER:
                     if(convertView == null) {
                         convertView = mInflater.inflate(R.layout.overview_header, null);
@@ -155,6 +173,7 @@ public class OverviewAdapter extends ArrayAdapter {
                     }
                     holder.textview1.setText((String) objects.get(position).getObject());
                     break;
+
                 default:
                     break;
             }
@@ -188,11 +207,23 @@ public class OverviewAdapter extends ArrayAdapter {
                         addItem(new OverviewListItem("Latest News", TYPE_HEADER));
                         if (result != null) {
                             // add the news
+                            final ArrayList<DataAccessNews> n = new ArrayList<DataAccessNews>();
                             Collections.reverse(result);
-                            for (int i = 0; i < 10 && i < result.size(); i++) {
-                                addItem(new OverviewListItem(result.get(i), TYPE_NEWS));
+                            for (int i = 0; i < result.size(); i++) {
+                                n.add(result.get(i));
+                            }
+                            for (int j = 0; j < 3 && j < result.size(); j++) {
+                                addItem(new OverviewListItem(result.get(j), TYPE_NEWS));
+
                             }
                             notifyDataSetChanged();
+
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    new DBHandlerClient(context).updateNews(n);
+                                }
+                            }.run();
                         }
 
                     }
@@ -225,7 +256,7 @@ public class OverviewAdapter extends ArrayAdapter {
                         addItem(new OverviewListItem("Newest Jobs", TYPE_HEADER));
                         if (result != null) {
                             // add the jobs
-                            for (int i = 0; i < 10 && i < result.size(); i++) {
+                            for (int i = 0; i < 3 && i < result.size(); i++) {
                                 addItem(new OverviewListItem(result.get(i), TYPE_JOBS));
                             }
                             notifyDataSetChanged();
