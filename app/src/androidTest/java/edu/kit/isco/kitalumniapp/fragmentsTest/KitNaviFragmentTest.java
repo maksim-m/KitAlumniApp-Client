@@ -1,20 +1,21 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.fragmentsTest;
 
 import android.app.FragmentTransaction;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.AndroidTestCase;
 
-import edu.kit.isco.kitalumniapp.fragments.ContactFragment;
+import edu.kit.isco.kitalumniapp.MainActivity;
+import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.fragments.KitNaviFragment;
 import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 
 /**
  * Created by Yannick on 22.03.15 | KW 12.
  */
-public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class KitNaviFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private MainActivity mainActivity;
-    ContactFragment contactFragment;
+    KitNaviFragment kitNaviFragment;
 
-    public ContactFragmentTest() {
+    public KitNaviFragmentTest() {
         super(MainActivity.class);
     }
 
@@ -27,12 +28,12 @@ public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainAc
 
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-        contactFragment = new ContactFragment();
-        transaction.add(R.id.container, contactFragment).commitAllowingStateLoss();
+        kitNaviFragment = new KitNaviFragment();
+        transaction.add(R.id.container, kitNaviFragment).commitAllowingStateLoss();
     }
 
     public void testPreConditions() {
         assertNotNull(mainActivity);
-        assertNotNull(contactFragment);
+        assertNotNull(kitNaviFragment);
     }
 }

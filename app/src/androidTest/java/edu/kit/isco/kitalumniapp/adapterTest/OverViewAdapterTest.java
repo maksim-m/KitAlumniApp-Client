@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.adapterTest;
 
 
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
+import edu.kit.isco.kitalumniapp.OverviewListItem;
 import edu.kit.isco.kitalumniapp.adapter.OverviewAdapter;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;

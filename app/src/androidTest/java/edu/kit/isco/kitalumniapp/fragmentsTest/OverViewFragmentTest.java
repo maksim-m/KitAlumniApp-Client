@@ -1,8 +1,10 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.fragmentsTest;
 
 import android.app.FragmentTransaction;
 import android.test.ActivityInstrumentationTestCase2;
 
+import edu.kit.isco.kitalumniapp.MainActivity;
+import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 
 /**
