@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.kit.isco.kitalumniapp.KitAtAGlanceParentItem;
+import edu.kit.isco.kitalumniapp.ContactParentItem;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
 
@@ -33,7 +33,7 @@ public class ContactFragment extends Fragment {
      *
      * @since 1.0
      */
-    ArrayList<KitAtAGlanceParentItem> kitAtAGlanceContacts;
+    ArrayList<ContactParentItem> kitAtAGlanceContacts;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -48,9 +48,9 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ArrayList<KitAtAGlanceParentItem> arrayOfUsers = new ArrayList<KitAtAGlanceParentItem>();
+        ArrayList<ContactParentItem> arrayOfUsers = new ArrayList<ContactParentItem>();
         //create list with contacts
-        kitAtAGlanceContacts = new ArrayList<KitAtAGlanceParentItem>();
+        kitAtAGlanceContacts = new ArrayList<ContactParentItem>();
         //fill contacts-list with Data
         prepareData();
 
@@ -107,9 +107,9 @@ public class ContactFragment extends Fragment {
      * to the contact-list.
      */
     private void prepareData() {
-        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
-        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
-        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
+        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
+        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
+        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
     }
 
     /**

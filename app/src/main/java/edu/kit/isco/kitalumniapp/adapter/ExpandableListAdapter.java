@@ -17,8 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import edu.kit.isco.kitalumniapp.KitAtAGlanceChildItem;
-import edu.kit.isco.kitalumniapp.KitAtAGlanceParentItem;
+import edu.kit.isco.kitalumniapp.ContactChildItem;
+import edu.kit.isco.kitalumniapp.ContactParentItem;
 import edu.kit.isco.kitalumniapp.R;
 
 /**
@@ -28,18 +28,18 @@ import edu.kit.isco.kitalumniapp.R;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    private ArrayList<KitAtAGlanceParentItem> kitAtAGlanceContacts;
-    private HashMap<KitAtAGlanceParentItem, ArrayList<KitAtAGlanceChildItem>> _listDataChild;
+    private ArrayList<ContactParentItem> kitAtAGlanceContacts;
+    private HashMap<ContactParentItem, ArrayList<ContactChildItem>> _listDataChild;
 
     /**
      * Constructor of the Adapter
      * @param context Current context
      * @param kitAtAGlanceContacts List with all the contacts wich will be displayed
      */
-    public ExpandableListAdapter(Context context, ArrayList<KitAtAGlanceParentItem> kitAtAGlanceContacts) {
+    public ExpandableListAdapter(Context context, ArrayList<ContactParentItem> kitAtAGlanceContacts) {
         this._context = context;
         this.kitAtAGlanceContacts = kitAtAGlanceContacts;
-        _listDataChild = new HashMap<KitAtAGlanceParentItem, ArrayList<KitAtAGlanceChildItem>>();
+        _listDataChild = new HashMap<ContactParentItem, ArrayList<ContactChildItem>>();
 
         /**
          * In each contact you can find an email address, website url or phone number.
@@ -47,16 +47,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
          * So we first proof if one of the information could be null.
          * If not, create a child object and add it to the parent/child hash-map.
          */
-        for (KitAtAGlanceParentItem kitAtAGlanceContact : kitAtAGlanceContacts) {
-            ArrayList<KitAtAGlanceChildItem> _children = new ArrayList<KitAtAGlanceChildItem>();
+        for (ContactParentItem kitAtAGlanceContact : kitAtAGlanceContacts) {
+            ArrayList<ContactChildItem> _children = new ArrayList<ContactChildItem>();
             if (kitAtAGlanceContact.getMailAddress() != null) {
-                _children.add(new KitAtAGlanceChildItem(kitAtAGlanceContact.getMailAddress(), 0));
+                _children.add(new ContactChildItem(kitAtAGlanceContact.getMailAddress(), 0));
             }
             if (kitAtAGlanceContact.getWebsite() != null) {
-                _children.add(new KitAtAGlanceChildItem(kitAtAGlanceContact.getWebsite(), 1));
+                _children.add(new ContactChildItem(kitAtAGlanceContact.getWebsite(), 1));
             }
             if (kitAtAGlanceContact.getPhoneNumber() != null) {
-                _children.add(new KitAtAGlanceChildItem(kitAtAGlanceContact.getPhoneNumber(), 2));
+                _children.add(new ContactChildItem(kitAtAGlanceContact.getPhoneNumber(), 2));
             }
             _listDataChild.put(kitAtAGlanceContact, _children);
         }
@@ -71,13 +71,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         //return the Id which the child object contains.
-        return ((KitAtAGlanceChildItem) getChild(groupPosition, childPosition)).getId();
+        return ((ContactChildItem) getChild(groupPosition, childPosition)).getId();
     }
 
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        KitAtAGlanceChildItem current = (KitAtAGlanceChildItem) getChild(groupPosition, childPosition);
+        ContactChildItem current = (ContactChildItem) getChild(groupPosition, childPosition);
         final String childText = current.getContent();
 
         if (convertView == null) {
@@ -136,8 +136,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
 
-        String headerTitle = ((KitAtAGlanceParentItem) getGroup(groupPosition)).getName();
-        String headerDescription = ((KitAtAGlanceParentItem) getGroup(groupPosition)).getShortDescription();
+        String headerTitle = ((ContactParentItem) getGroup(groupPosition)).getName();
+        String headerDescription = ((ContactParentItem) getGroup(groupPosition)).getShortDescription();
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
