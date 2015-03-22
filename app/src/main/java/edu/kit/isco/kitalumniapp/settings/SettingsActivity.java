@@ -129,10 +129,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      * Substitute you own sender ID here. This is the project number you got
      * from the API Console, as described in "Getting Started."
      */
-    String SENDER_ID = "1044572950898";
-    GoogleCloudMessaging gcm;
-    Context context;
-    String regid;
+    private String SENDER_ID = "1044572950898";
+    private GoogleCloudMessaging gcm;
+    private Context context;
+    private String regid;
 
     /**
      * Helper method to determine if the device has an extra-large screen. For

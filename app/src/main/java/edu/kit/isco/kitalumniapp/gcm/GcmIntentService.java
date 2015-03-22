@@ -24,8 +24,8 @@ import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 public class GcmIntentService extends IntentService {
 
     public static final String VIBRATE_CHECKBOX = "vibrate";
-    public static int NOTIFICATION_ID = 1;
-    public static String jobUrl;
+    private static int NOTIFICATION_ID = 1;
+    private static String jobUrl;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.

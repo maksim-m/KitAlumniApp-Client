@@ -23,7 +23,6 @@ public class DataAccessEvent implements DataAccessObject {
     }
 
     public DataAccessEvent(String title, String shortInfo, String allText, String url, Calendar date) {
-        this.id = id;
         this.title = title;
         this.shortInfo = shortInfo;
         this.allText = allText;

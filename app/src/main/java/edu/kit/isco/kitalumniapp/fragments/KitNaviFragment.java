@@ -27,7 +27,7 @@ public class KitNaviFragment extends Fragment {
     /**
      * WebViewClient subclass loads all hyperlinks in the existing WebView
      */
-    public class GeoWebViewClient extends WebViewClient {
+    static public class GeoWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // When user clicks a hyperlink, load in the existing WebView
@@ -40,7 +40,7 @@ public class KitNaviFragment extends Fragment {
      * WebChromeClient subclass handles UI-related calls
      * Note: think chrome as in decoration, not the Chrome browser
      */
-    public class GeoWebChromeClient extends WebChromeClient {
+    static public class GeoWebChromeClient extends WebChromeClient {
         @Override
         public void onGeolocationPermissionsShowPrompt(String origin,
                                                        GeolocationPermissions.Callback callback) {

@@ -20,7 +20,6 @@ public class OverViewAdapterTest extends AndroidTestCase {
     private SQLiteDatabase db;
     private Context context;
 
-
     @Override
     public void setUp () throws Exception{
         this.context = new RenamingDelegatingContext(getContext(), "test_");
@@ -47,7 +46,6 @@ public class OverViewAdapterTest extends AndroidTestCase {
         try {
             testClass.addItem(new OverviewListItem(4, 3));
         } catch (IllegalArgumentException e) {}
-
     }
 
     @Override

@@ -3,6 +3,8 @@ package edu.kit.isco.kitalumniapp;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
+import com.robotium.solo.Solo;
+
 import edu.kit.isco.kitalumniapp.settings.ImpressumActivity;
 
 /**
@@ -11,6 +13,7 @@ import edu.kit.isco.kitalumniapp.settings.ImpressumActivity;
 public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<ImpressumActivity> {
     private ImpressumActivity impressumActivity;
     private TextView titleImpressumTextTest;
+    private Solo solo;
 
     public ImpressumActivityTest() {
         super(ImpressumActivity.class);
@@ -20,6 +23,7 @@ public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<Impr
     protected void setUp() throws Exception {
         super.setUp();
         impressumActivity = getActivity();
+        solo = new Solo(getInstrumentation(), getActivity());
         titleImpressumTextTest = (TextView) impressumActivity.findViewById(R.id.TitleImpressum);
     }
 
@@ -34,5 +38,14 @@ public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<Impr
         final String expected = impressumActivity.getString(R.string.app_name);
         final String actual = titleImpressumTextTest.getText().toString();
         assertEquals(expected, actual);
+    }
+
+    /**
+     * Tests if the activity has been closed after pressing
+     * ActionBarHomeButton
+     */
+    public void testHomeUp() {
+        solo.clickOnActionBarHomeButton();
+        assertFalse(solo.getCurrentActivity() != impressumActivity);
     }
 }

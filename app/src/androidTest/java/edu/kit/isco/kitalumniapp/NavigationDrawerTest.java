@@ -10,6 +10,7 @@ public class NavigationDrawerTest extends ActivityInstrumentationTestCase2<MainA
     MainActivity mainActivity;
     NavigationDrawerFragment navigationDrawerFragment;
 
+    //Constructor
     public NavigationDrawerTest() {
         super(MainActivity.class);
     }
