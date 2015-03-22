@@ -12,7 +12,8 @@ import edu.kit.isco.kitalumniapp.settings.ImpressumActivity;
  */
 public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<ImpressumActivity> {
     private ImpressumActivity impressumActivity;
-    private TextView titleImpressumTextTest;
+    private TextView providerTitleTextViewTest;
+    private TextView providerTextTextViewTest;
     private Solo solo;
 
     public ImpressumActivityTest() {
@@ -24,19 +25,26 @@ public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<Impr
         super.setUp();
         impressumActivity = getActivity();
         solo = new Solo(getInstrumentation(), getActivity());
-        titleImpressumTextTest = (TextView) impressumActivity.findViewById(R.id.TitleImpressum);
+        providerTitleTextViewTest = (TextView) impressumActivity.findViewById(R.id.providerTitle);
+        providerTextTextViewTest = (TextView) impressumActivity.findViewById(R.id.providerText);
     }
 
     /*Test that verify if the test fixture has been set up correctly.*/
     public void testPreconditions() {
         assertNotNull(impressumActivity);
-        assertNotNull(titleImpressumTextTest);
+        assertNotNull(providerTitleTextViewTest);
+        assertNotNull(providerTextTextViewTest);
     }
 
     /*Test that check if  the TextView of Impressum Title has the correct label text. */
-    public void testImpressumTextView() {
-        final String expected = impressumActivity.getString(R.string.app_name);
-        final String actual = titleImpressumTextTest.getText().toString();
+    public void testProviderTitleTextView() {
+        final String expected = impressumActivity.getString(R.string.impressum_provider_title);
+        final String actual = providerTitleTextViewTest.getText().toString();
+        assertEquals(expected, actual);
+    }
+    public  void testProviderTextTextView(){
+        final String expected = impressumActivity.getString(R.string.impressum_provider_text);
+        final String actual = providerTextTextViewTest.getText().toString();
         assertEquals(expected, actual);
     }
 

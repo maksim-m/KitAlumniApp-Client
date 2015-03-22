@@ -48,4 +48,9 @@ public class EventDetailsViewActivityTest extends ActivityInstrumentationTestCas
     public void testPreConditions() {
         assertNotNull(eventDetailsViewActivity);
     }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 }
