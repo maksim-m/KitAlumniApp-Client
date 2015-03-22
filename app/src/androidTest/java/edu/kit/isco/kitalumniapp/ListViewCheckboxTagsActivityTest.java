@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity;
 
 /**
@@ -17,6 +18,7 @@ public class ListViewCheckboxTagsActivityTest extends ActivityInstrumentationTes
     private ListViewCheckboxTagsActivity listViewCheckboxTagsActivity;
     private TextView chooseTagsTextTest;
     private Button saveButtonTest;
+
 
     public ListViewCheckboxTagsActivityTest() {
         super(ListViewCheckboxTagsActivity.class);
