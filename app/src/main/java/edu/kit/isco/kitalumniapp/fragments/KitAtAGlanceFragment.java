@@ -97,8 +97,18 @@ public class KitAtAGlanceFragment extends Fragment {
 
                 TextView tv = (TextView)view.findViewById(R.id.pdfShortDescription);
                 String url = tv.getText().toString();
+
+                Intent sendIntent = new Intent();
+                sendIntent.setType("text/plain");
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+                /*
+                //Use this code snippet if you want to send the complete pdf
+                //instead of just sending the url.
                 File pdf = download(url, false, false);
-                //Toast.makeText(getActivity(), "Name " + pdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 if (pdf != null) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
@@ -106,6 +116,7 @@ public class KitAtAGlanceFragment extends Fragment {
                     sendIntent.setType("application/pdf");
                     startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
                 }
+                */
                 return true;
             }
         });
@@ -144,7 +155,7 @@ public class KitAtAGlanceFragment extends Fragment {
 
             //pDialog = ProgressDialog.show(getActivity(), "Download","Downloading PDF...", true);
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Downloading file. Please wait...");
+            pDialog.setMessage(getResources().getString(R.string.download));
             pDialog.setIndeterminate(false);
             pDialog.setMax(100);
             pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -197,7 +208,7 @@ public class KitAtAGlanceFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            return null;
+            return fileName;
         }
 
         @Override
@@ -211,6 +222,7 @@ public class KitAtAGlanceFragment extends Fragment {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             pDialog.dismiss();
+            /*
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             // Setting Dialog Title
             alertDialog.setTitle("PDF Download");
@@ -224,6 +236,10 @@ public class KitAtAGlanceFragment extends Fragment {
             });
             // Showing Alert Message
             alertDialog.show();
+            */
+            if (file_url != null) {
+                view(file_url);
+            }
         }
     }
 
@@ -245,7 +261,7 @@ public class KitAtAGlanceFragment extends Fragment {
         } else if (!pdfFile.exists() && isNetworkAvailable()) {
             new DownloadFile().execute(url, fileName);
         } else if (!isNetworkAvailable() && !pdfFile.exists()) {
-            Toast.makeText(getActivity(), "There is no internet connecting", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_connecting), Toast.LENGTH_SHORT).show();
             pdfFile = null;
         }
         return pdfFile;
@@ -266,7 +282,7 @@ public class KitAtAGlanceFragment extends Fragment {
         try{
             startActivity(pdfIntent);
         }catch(ActivityNotFoundException e){
-            Toast.makeText(getActivity(), "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_application), Toast.LENGTH_SHORT).show();
         }
     }
 
