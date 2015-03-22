@@ -1,9 +1,9 @@
 package edu.kit.isco.kitalumniapp;
 
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
-
 import edu.kit.isco.kitalumniapp.fragments.NewsDetailsViewActivity;
 
 /**

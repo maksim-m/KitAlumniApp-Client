@@ -1,6 +1,10 @@
 package edu.kit.isco.kitalumniapp;
 
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ActivityUnitTestCase;
+import android.test.AndroidTestCase;
+import android.webkit.WebView;
 
 import com.robotium.solo.Solo;
 
