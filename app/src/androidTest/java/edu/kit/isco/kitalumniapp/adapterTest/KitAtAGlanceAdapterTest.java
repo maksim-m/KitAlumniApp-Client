@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.adapterTest;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;

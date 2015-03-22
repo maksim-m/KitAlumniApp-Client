@@ -4,14 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import edu.kit.isco.kitalumniapp.Contact;
 import edu.kit.isco.kitalumniapp.R;
 
 /**
@@ -55,29 +53,43 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
         // Check if an existing view is being reused, otherwise inflate the view
         int rowType = getItemViewType(position);
 
+        ViewHolder holder;
         if (convertView == null) {
-
+            holder = new ViewHolder();
             //There are two types of items and they should displayed in different layouts.
             switch (rowType) {
                 case SHORT_INFORMATION:
                     convertView = mInflater.inflate(R.layout.list_view_item_glance, null);
-                    TextView title = (TextView) convertView.findViewById(R.id.glanceName);
-                    TextView description = (TextView) convertView.findViewById(R.id.glanceDescription);
-                    title.setText(name.get(position));
-                    description.setText(information.get(position));
+                    holder.title = (TextView) convertView.findViewById(R.id.glanceName);
+                    holder.description = (TextView) convertView.findViewById(R.id.glanceDescription);
+                    convertView.setTag(holder);
+
+                    //title.setText(name.get(position));
+                    //description.setText(information.get(position));
                     break;
                 case DOWNLOAD:
                     convertView = mInflater.inflate(R.layout.list_view_item_pdf, null);
-                    TextView title2 = (TextView) convertView.findViewById(R.id.pdfName);
-                    TextView url = (TextView) convertView.findViewById(R.id.pdfShortDescription);
-                    title2.setText(information.get(position));
-                    url.setText(name.get(position));
+                    holder.title = (TextView) convertView.findViewById(R.id.pdfName);
+                    holder.description = (TextView) convertView.findViewById(R.id.pdfShortDescription);
+                    convertView.setTag(holder);
+                    //title2.setText(information.get(position));
+                    //url.setText(name.get(position));
                     break;
             }
-
+        } else {
+            holder = (ViewHolder)convertView.getTag();
         }
+
+        holder.title.setText(name.get(position));
+        holder.description.setText(information.get(position));
         return convertView;
     }
+
+    static class ViewHolder {
+        TextView title;
+        TextView description;
+    }
+
 
 
     /**
@@ -87,8 +99,8 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
      * @param url URL which point to the PDF
      */
     public void addPdf(String name, String url) {
-        this.information.add(name);
-        this.name.add(url);
+        this.information.add(url);
+        this.name.add(name);
     }
 
     /**
@@ -102,6 +114,8 @@ public class KitAtAGlanceAdapter extends BaseAdapter {
         this.name.add(title);
         this.text_layout.add(this.information.size() - 1);
     }
+
+
 
     @Override
     public int getViewTypeCount() {
