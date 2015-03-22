@@ -33,7 +33,7 @@ import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 public class OverviewAdapter extends ArrayAdapter {
 
     //a list of all objects shown in Overview
-    ArrayList<OverviewListItem> objects = new ArrayList<OverviewListItem>();
+    private ArrayList<OverviewListItem> objects = new ArrayList<OverviewListItem>();
 
     //static ids to distinguish the list objects
     private static final int TYPE_NEWS = 0;
@@ -45,8 +45,8 @@ public class OverviewAdapter extends ArrayAdapter {
     Future<List<DataAccessNews>> loadNews;
     Future<List<DataAccessJob>> loadJobs;
     Future<List<DataAccessEvent>> loadEvents;
-    int resource;
-    Context context;
+    private int resource;
+    private Context context;
     private final String SERVICE_URL;
     private ArrayList<DataAccessNews> newsFromDB;
     private ArrayList<DataAccessEvent> eventsFromDB;
@@ -231,7 +231,7 @@ public class OverviewAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    public void loadLatestNews() {
+    private void loadLatestNews() {
         // don't attempt to load more if a load is already in progress
         if (loadNews != null && !loadNews.isDone() && !loadNews.isCancelled()) {
             return;
@@ -280,7 +280,7 @@ public class OverviewAdapter extends ArrayAdapter {
                 });
     }
 
-    public void loadLatestJobs() {
+    private void loadLatestJobs() {
         // don't attempt to load more if a load is already in progress
         if (loadJobs != null && !loadJobs.isDone() && !loadJobs.isCancelled()) {
             return;
@@ -328,7 +328,7 @@ public class OverviewAdapter extends ArrayAdapter {
                 });
     }
 
-    public void loadLatestEvents() {
+    private void loadLatestEvents() {
         // don't attempt to load more if a load is already in progress
         if (loadEvents != null && !loadEvents.isDone() && !loadEvents.isCancelled()) {
             return;
