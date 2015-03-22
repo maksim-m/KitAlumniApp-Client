@@ -22,7 +22,7 @@ public class EventDetailsViewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details_view);
         WebView webView = (WebView) findViewById(R.id.webViewEventDetails);
-        webView.loadData(getIntent().getStringExtra("html"), "text/html", null);
+        webView.loadData(getIntent().getStringExtra("html"), "text/html; charset=UTF-8", null);
     }
 
     @Override
