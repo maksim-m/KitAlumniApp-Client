@@ -19,6 +19,9 @@ public class JobsDetailsViewActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState == null){
+            throw new IllegalStateException();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_details_view);
         WebView webView = (WebView) findViewById(R.id.webViewJobDetails);
