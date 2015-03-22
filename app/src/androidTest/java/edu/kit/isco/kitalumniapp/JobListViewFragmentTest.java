@@ -39,5 +39,4 @@ public class JobListViewFragmentTest extends ActivityInstrumentationTestCase2<Ma
         assertNotNull(mainActivity);
         assertNotNull(jobsListViewFragment);
     }
-
 }

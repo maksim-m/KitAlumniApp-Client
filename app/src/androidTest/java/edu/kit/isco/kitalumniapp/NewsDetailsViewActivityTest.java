@@ -45,4 +45,9 @@ public class NewsDetailsViewActivityTest extends ActivityInstrumentationTestCase
     public void testPreConditions() {
         assertNotNull(newsDetailsViewActivity);
     }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 }
