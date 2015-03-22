@@ -49,6 +49,7 @@ public class KitAtAGlanceFragment extends Fragment {
 
     // Progress Dialog
     private ProgressDialog pDialog;
+    private String directory_name;
 
     // Progress dialog type (0 - for Horizontal progress bar)
     public static final int progress_bar_type = 0;
@@ -74,6 +75,8 @@ public class KitAtAGlanceFragment extends Fragment {
         final ListView listView = (ListView) view.findViewById(R.id.glanceView);
         //Fill adapter with content
         prepareData(adapter);
+
+        directory_name = getResources().getString(R.string.directory_name);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
@@ -169,7 +172,7 @@ public class KitAtAGlanceFragment extends Fragment {
             String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
             String fileName = strings[1];  // -> maven.pdf
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File folder = new File(extStorageDirectory, "KITAlumniApp");
+            File folder = new File(extStorageDirectory, directory_name);
             folder.mkdir();
 
             File pdfFile = new File(folder, fileName);
@@ -244,7 +247,7 @@ public class KitAtAGlanceFragment extends Fragment {
 
 
     /**
-     * Download PDF from param URL and save it in folder /KITAlumniApp/
+     * Download PDF from param URL and save it in folder /directory_name/
      * If a PDF with the URL already exists then open it instead.
      * @param url the URL to the file which should be downloaded.
      * @param viewPDF true when the file should be displayed directly after downloading.
@@ -254,7 +257,7 @@ public class KitAtAGlanceFragment extends Fragment {
     {
         String fileExtenstion = MimeTypeMap.getFileExtensionFromUrl(url);
         String fileName = URLUtil.guessFileName(url, null, fileExtenstion);
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory_name + "/" + fileName);
         if (pdfFile.exists() && viewPDF) {
             view(fileName);
         } else if (!pdfFile.exists() && isNetworkAvailable()) {
@@ -272,7 +275,7 @@ public class KitAtAGlanceFragment extends Fragment {
      */
     public void view(String fileName)
     {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);  // -> filename = example.pdf
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory_name + "/" + fileName);  // -> filename = example.pdf
         Uri path = Uri.fromFile(pdfFile);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
         pdfIntent.setDataAndType(path, "application/pdf");
