@@ -4,7 +4,7 @@ package edu.kit.isco.kitalumniapp;
  * This class represent the Contacts in ContactFragment
  * Created by Yannick on 14.02.15 | KW 7.
  */
-public class Contact {
+public class KitAtAGlanceParentItem {
 
     //Name of the contact
     private String name;
@@ -26,7 +26,7 @@ public class Contact {
      * @param mailAddress The mail address of the contact
      * @param website The website-url of the contact
      */
-    public Contact (String name, String shortDescription, String phoneNumber, String mailAddress, String website) {
+    public KitAtAGlanceParentItem(String name, String shortDescription, String phoneNumber, String mailAddress, String website) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.phoneNumber = phoneNumber;

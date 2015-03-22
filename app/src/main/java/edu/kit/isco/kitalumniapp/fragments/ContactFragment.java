@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.kit.isco.kitalumniapp.Contact;
+import edu.kit.isco.kitalumniapp.KitAtAGlanceParentItem;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
 
@@ -34,7 +33,7 @@ public class ContactFragment extends Fragment {
      *
      * @since 1.0
      */
-    ArrayList<Contact> contacts;
+    ArrayList<KitAtAGlanceParentItem> kitAtAGlanceContacts;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -49,14 +48,14 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ArrayList<Contact> arrayOfUsers = new ArrayList<Contact>();
+        ArrayList<KitAtAGlanceParentItem> arrayOfUsers = new ArrayList<KitAtAGlanceParentItem>();
         //create list with contacts
-        contacts = new ArrayList<Contact>();
+        kitAtAGlanceContacts = new ArrayList<KitAtAGlanceParentItem>();
         //fill contacts-list with Data
         prepareData();
 
         // Create the adapter to convert the array to views
-        ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
+        ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), kitAtAGlanceContacts);
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.contactListView);
@@ -108,9 +107,9 @@ public class ContactFragment extends Fragment {
      * to the contact-list.
      */
     private void prepareData() {
-        contacts.add(new Contact(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
-        contacts.add(new Contact(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
-        contacts.add(new Contact(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
+        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
+        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
+        kitAtAGlanceContacts.add(new KitAtAGlanceParentItem(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
     }
 
     /**

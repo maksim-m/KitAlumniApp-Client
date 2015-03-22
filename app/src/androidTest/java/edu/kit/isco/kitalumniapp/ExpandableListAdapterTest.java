@@ -2,19 +2,16 @@ package edu.kit.isco.kitalumniapp;
 
 import android.test.AndroidTestCase;
 
-import junit.framework.TestCase;
-
 import java.util.ArrayList;
 
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
-import edu.kit.isco.kitalumniapp.adapter.KitAtAGlanceAdapter;
 
 /**
  * Created by Yannick on 21.03.15 | KW 12.
  */
 public class ExpandableListAdapterTest extends AndroidTestCase {
     ExpandableListAdapter testAdapter;
-    ArrayList<Contact> current = new ArrayList<Contact>();
+    ArrayList<KitAtAGlanceParentItem> current = new ArrayList<KitAtAGlanceParentItem>();
 
 
     @Override
@@ -26,8 +23,8 @@ public class ExpandableListAdapterTest extends AndroidTestCase {
 
     public void testCount() {
         current.clear();
-        current.add(new Contact("Test","Hello", "", null, null));
-        current.add(new Contact("Test2","MyInfo", "1234567", "muster@mann.de", "www.website.com"));
+        current.add(new KitAtAGlanceParentItem("Test","Hello", "", null, null));
+        current.add(new KitAtAGlanceParentItem("Test2","MyInfo", "1234567", "muster@mann.de", "www.website.com"));
         testAdapter = new ExpandableListAdapter(getContext(), current);
         int i = testAdapter.getGroupCount();
         assertEquals(2,i);

@@ -15,6 +15,7 @@ public class JobListViewFragmentTest extends ActivityInstrumentationTestCase2<Ma
     MainActivity mainActivity;
     JobsListViewFragment jobsListViewFragment;
 
+    //Constructor
     public JobListViewFragmentTest () {
         super(MainActivity.class);
     }
@@ -26,6 +27,9 @@ public class JobListViewFragmentTest extends ActivityInstrumentationTestCase2<Ma
         startFragment();
     }
 
+    /**
+     * Starts a fragment
+     */
     public void startFragment () {
         FragmentTransaction fragmentTransaction = mainActivity.getFragmentManager().beginTransaction();
         jobsListViewFragment = new JobsListViewFragment();
@@ -37,5 +41,4 @@ public class JobListViewFragmentTest extends ActivityInstrumentationTestCase2<Ma
         assertNotNull(mainActivity);
         assertNotNull(jobsListViewFragment);
     }
-
 }

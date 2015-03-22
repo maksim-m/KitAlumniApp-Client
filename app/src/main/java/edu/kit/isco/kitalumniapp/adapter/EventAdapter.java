@@ -129,6 +129,9 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                             //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                             return;
                         }
+                        if (result == null)  {
+                            return;
+                        }
                         clear();
                         Collections.reverse(result);
                         // add the events

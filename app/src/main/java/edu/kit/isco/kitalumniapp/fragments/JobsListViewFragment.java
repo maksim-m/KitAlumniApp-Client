@@ -26,12 +26,6 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
  */
 public class JobsListViewFragment extends Fragment {
     private JobsAdapter jobsAdapter;
-    // This "Future" tracks loading operations.
-    // A Future is an object that manages the state of an operation
-    // in progress that will have a "Future" result.
-    // You can attach callbacks (setCallback) for when the result is ready,
-    // or cancel() it if you no longer need the result.
-    private Future<List<DataAccessJob>> loading;
     private SwipeRefreshLayout swipeRefreshLayout;
 
 

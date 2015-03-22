@@ -5,8 +5,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +22,7 @@ import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -44,6 +49,7 @@ public class KitAtAGlanceFragment extends Fragment {
 
     // Progress Dialog
     private ProgressDialog pDialog;
+    private String directory_name;
 
     // Progress dialog type (0 - for Horizontal progress bar)
     public static final int progress_bar_type = 0;
@@ -62,7 +68,6 @@ public class KitAtAGlanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_kit_at_aglance, container, false);
-        ArrayList<String> arrayOfPdfs = new ArrayList<String>();
         // Create the adapter to convert the array to views
         KitAtAGlanceAdapter adapter = new KitAtAGlanceAdapter(getActivity());
         // Attach the adapter to a ListView
@@ -71,16 +76,17 @@ public class KitAtAGlanceFragment extends Fragment {
         //Fill adapter with content
         prepareData(adapter);
 
+        directory_name = getResources().getString(R.string.directory_name);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                //Toast.makeText(getActivity(), "myPos " + i, Toast.LENGTH_SHORT).show();
                 if (i != 0) {
-                    String url = (String)listView.getItemAtPosition(i);
-                    File pdf = download(url, true, true);
 
-                    //Object objects = listView.getItemAtPosition(i);
-                    //System.out.println(objects);
-                    //pDialog = ProgressDialog.show(getActivity(), "dialog title","dialog message", true);
+                    TextView tv = (TextView)view.findViewById(R.id.pdfShortDescription);
+                    String url = tv.getText().toString();
+                    //String url = (String)listView.getItemAtPosition(i);
+                    download(url, true, true);
+
                 }
             }
         });
@@ -92,17 +98,27 @@ public class KitAtAGlanceFragment extends Fragment {
                     return false;
                 }
 
-
-                String url = (String)listView.getItemAtPosition(i);
-                File pdf = download(url, false, false);
-                //Toast.makeText(getActivity(), "Name " + pdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                TextView tv = (TextView)view.findViewById(R.id.pdfShortDescription);
+                String url = tv.getText().toString();
 
                 Intent sendIntent = new Intent();
+                sendIntent.setType("text/plain");
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdf));
-                sendIntent.setType("application/pdf");
-                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+                startActivity(sendIntent);
 
+                /*
+                //Use this code snippet if you want to send the complete pdf
+                //instead of just sending the url.
+                File pdf = download(url, false, false);
+                if (pdf != null) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdf));
+                    sendIntent.setType("application/pdf");
+                    startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
+                }
+                */
                 return true;
             }
         });
@@ -133,11 +149,20 @@ public class KitAtAGlanceFragment extends Fragment {
      */
     private class DownloadFile extends AsyncTask<String, String, String> {
 
+
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            pDialog = ProgressDialog.show(getActivity(), "Download","Downloading PDF...", true);
+            //pDialog = ProgressDialog.show(getActivity(), "Download","Downloading PDF...", true);
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage(getResources().getString(R.string.download));
+            pDialog.setIndeterminate(false);
+            pDialog.setMax(100);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            pDialog.setCancelable(true);
+            pDialog.show();
 
         }
 
@@ -147,7 +172,7 @@ public class KitAtAGlanceFragment extends Fragment {
             String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
             String fileName = strings[1];  // -> maven.pdf
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File folder = new File(extStorageDirectory, "KITAlumniApp");
+            File folder = new File(extStorageDirectory, directory_name);
             folder.mkdir();
 
             File pdfFile = new File(folder, fileName);
@@ -185,7 +210,7 @@ public class KitAtAGlanceFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            return null;
+            return fileName;
         }
 
         @Override
@@ -199,6 +224,7 @@ public class KitAtAGlanceFragment extends Fragment {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             pDialog.dismiss();
+            /*
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             // Setting Dialog Title
             alertDialog.setTitle("PDF Download");
@@ -212,33 +238,35 @@ public class KitAtAGlanceFragment extends Fragment {
             });
             // Showing Alert Message
             alertDialog.show();
+            */
+            if (file_url != null) {
+                view(file_url);
+            }
         }
     }
 
 
     /**
-     * Download PDF from param URL and save it in folder /KITAlumniApp/
+     * Download PDF from param URL and save it in folder /directory_name/
      * If a PDF with the URL already exists then open it instead.
      * @param url the URL to the file which should be downloaded.
      * @param viewPDF true when the file should be displayed directly after downloading.
      * @param showProcess true when a dialog should show the process. Otherwise do in background.
-     * @return the PDF as a File
      */
     public File download(String url, boolean viewPDF, boolean showProcess)
     {
-
         String fileExtenstion = MimeTypeMap.getFileExtensionFromUrl(url);
         String fileName = URLUtil.guessFileName(url, null, fileExtenstion);
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory_name + "/" + fileName);
         if (pdfFile.exists() && viewPDF) {
             view(fileName);
-            //Toast.makeText(getActivity(), url + ":" + fileName, Toast.LENGTH_SHORT).show();
-        } else if (!pdfFile.exists()) {
+        } else if (!pdfFile.exists() && isNetworkAvailable()) {
             new DownloadFile().execute(url, fileName);
-            //Toast.makeText(getActivity(), "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+        } else if (!isNetworkAvailable() && !pdfFile.exists()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_connecting), Toast.LENGTH_SHORT).show();
+            pdfFile = null;
         }
         return pdfFile;
-
     }
 
     /**
@@ -247,7 +275,7 @@ public class KitAtAGlanceFragment extends Fragment {
      */
     public void view(String fileName)
     {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/KITAlumniApp/" + fileName);  // -> filename = example.pdf
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory_name + "/" + fileName);  // -> filename = example.pdf
         Uri path = Uri.fromFile(pdfFile);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
         pdfIntent.setDataAndType(path, "application/pdf");
@@ -256,11 +284,16 @@ public class KitAtAGlanceFragment extends Fragment {
         try{
             startActivity(pdfIntent);
         }catch(ActivityNotFoundException e){
-            Toast.makeText(getActivity(), "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_application), Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 
     @Override
