@@ -28,12 +28,6 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 public class NewsListViewFragment extends Fragment {
 
     private NewsAdapter adapter;
-    // This "Future" tracks loading operations.
-    // A Future is an object that manages the state of an operation
-    // in progress that will have a "Future" result.
-    // You can attach callbacks (setCallback) for when the result is ready,
-    // or cancel() it if you no longer need the result.
-    private Future<List<DataAccessNews>> loading;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     public NewsListViewFragment() {

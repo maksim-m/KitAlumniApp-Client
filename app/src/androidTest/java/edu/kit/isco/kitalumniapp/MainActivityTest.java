@@ -22,7 +22,6 @@ public class MainActivityTest extends android.test.ActivityInstrumentationTestCa
     protected void setUp() throws Exception {
         super.setUp();
         mainActivity = getActivity();
-
     }
 
 

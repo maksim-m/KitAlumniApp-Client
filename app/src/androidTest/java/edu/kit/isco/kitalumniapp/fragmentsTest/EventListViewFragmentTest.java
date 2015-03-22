@@ -3,7 +3,9 @@ package edu.kit.isco.kitalumniapp.fragmentsTest;
 import android.app.Fragment;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.ListView;
 
 import edu.kit.isco.kitalumniapp.MainActivity;
@@ -15,8 +17,11 @@ import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
  */
 public class EventListViewFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private MainActivity mainActivity;
-    EventListViewFragment eventListViewFragment;
+    private EventListViewFragment eventListViewFragment;
+    private ListView eventListView;
+    private View detailsListView;
 
+    //Constructor
     public EventListViewFragmentTest(){
         super(MainActivity.class);
     }
@@ -27,7 +32,12 @@ public class EventListViewFragmentTest extends ActivityInstrumentationTestCase2<
         mainActivity = getActivity();
         startFragment();
     }
+    public void testPerformItemClick(){
+    }
 
+    /**
+     * Starts a fragment
+     */
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
         eventListViewFragment = new EventListViewFragment();
