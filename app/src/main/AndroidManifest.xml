@@ -102,7 +102,7 @@
             android:label="@string/title_activity_event_details_view"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".fragments.NewsDetailsVewActivity"
+            android:name=".fragments.NewsDetailsViewActivity"
             android:label="@string/title_activity_news_details_vew"
             android:screenOrientation="portrait" />
         <activity

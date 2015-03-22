@@ -18,19 +18,16 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "DatabaseClient.db";
     private static final String LOG = "DBHandlerClient";
-    //Table Names
-    private static final String JOB_TABLE = "job";
-    private static final String EVENT_TABLE = "event";
-    private static final String NEWS_TABLE = "news";
     public static final int NEWS_IN_DB = 30;
     public static final int JOBS_IN_DB = 30;
     private Context context;
 
     public DBHandlerClient(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -42,11 +39,14 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(oldVersion == 1) {
+            context.deleteDatabase("Database_Client");
+        }
         db.execSQL(NewsTable.dropSQL());
         db.execSQL(EventTable.dropSQL());
         db.execSQL(JobTable.dropSQL());
         db.execSQL("DROP TABLE IF EXISTS job_tag;");
-        db.execSQL("DROP TABLE IF EXISTS tag");
+        db.execSQL("DROP TABLE IF EXISTS tag;");
 
         onCreate(db);
     }
@@ -57,7 +57,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      */
     public List<DataAccessEvent> getAllEvents() {
         List<DataAccessEvent> events = new ArrayList<DataAccessEvent>();
-        String selectQuery = "SELECT * FROM " + EVENT_TABLE;
+        String selectQuery = "SELECT * FROM " + EventTable.TABLE_NAME;
 
         Log.e(LOG, selectQuery);
 
@@ -91,7 +91,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      */
     public List<DataAccessJob> getAllJobs() {
         List<DataAccessJob> jobs = new ArrayList<DataAccessJob>();
-        String selectQuery = "SELECT * FROM " + JOB_TABLE;
+        String selectQuery = "SELECT * FROM " + JobTable.TABLE_NAME;
 
         Log.e(LOG, selectQuery);
 
@@ -107,8 +107,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                     job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
                     job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
                     job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
-                    //job.setTags(getJobTags(c.getLong(c.getColumnIndex(JobTable.ID))));
-                    job.setStar(c.getInt(c.getColumnIndex(JobTable.STAR)) != 0);
 
                     jobs.add(job);
                 } while (c.moveToNext());
@@ -125,7 +123,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      */
     public List<DataAccessNews> getAllNews() {
         List<DataAccessNews> news = new ArrayList<DataAccessNews>();
-        String selectQuery = "SELECT * FROM " + NEWS_TABLE;
+        String selectQuery = "SELECT * FROM " + NewsTable.TABLE_NAME;
 
         Log.e(LOG, selectQuery);
 
@@ -166,7 +164,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         try {
             for (int i = 0; i < news.size() && i < NEWS_IN_DB; i++) {
                 DataAccessNews n = news.get(i);
-                long id = db.insert(NEWS_TABLE, null, n.toContentValues());
+                long id = db.insert(NewsTable.TABLE_NAME, null, n.toContentValues());
                 n.setId(id);
             }
         } finally {
@@ -187,7 +185,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         try {
             for (int i = 0; i < jobs.size() && i < JOBS_IN_DB; i++) {
                 DataAccessJob j = jobs.get(i);
-                long id = db.insert(JOB_TABLE, null, j.toContentValues());
+                long id = db.insert(JobTable.TABLE_NAME, null, j.toContentValues());
                 j.setId(id);
             }
         } finally {
@@ -207,7 +205,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
         try {
             for (DataAccessEvent e : events) {
-                long id = db.insert(EVENT_TABLE, null, e.toContentValues());
+                long id = db.insert(EventTable.TABLE_NAME, null, e.toContentValues());
                 e.setId(id);
             }
         } finally {
@@ -292,7 +290,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
      */
     public List<DataAccessNews> getXnews(int x) {
         List<DataAccessNews> news = new ArrayList<DataAccessNews>();
-        String selectQuery = "SELECT * FROM " + NEWS_TABLE;
+        String selectQuery = "SELECT * FROM " + NewsTable.TABLE_NAME;
 
         Log.e(LOG, selectQuery);
 
@@ -325,12 +323,12 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     /**
      * Returns a list of events of a certain length
-     * @param x number of news that should be returned
+     * @param x number of events that should be returned
      * @return list of events with length x
      */
     public List<DataAccessEvent> getXevents (int x) {
         List<DataAccessEvent> events = new ArrayList<DataAccessEvent>();
-        String selectQuery = "SELECT * FROM " + EVENT_TABLE;
+        String selectQuery = "SELECT * FROM " + EventTable.TABLE_NAME;
 
         Log.e(LOG, selectQuery);
 
@@ -358,6 +356,41 @@ public class DBHandlerClient extends SQLiteOpenHelper{
         }
 
         return events;
+    }
+
+    /**
+     * Returns a list of jobs of a certain length
+     * @param x number of jobs that should be returned
+     * @return list of jobs with length x
+     */
+    public List<DataAccessJob> getXjobs (int x) {
+        List<DataAccessJob> jobs = new ArrayList<DataAccessJob>();
+        String selectQuery = "SELECT * FROM " + JobTable.TABLE_NAME;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        try {
+            if (c.moveToLast()) {
+                int i = 0;
+                do {
+                    DataAccessJob job = new DataAccessJob();
+                    job.setId(c.getLong(c.getColumnIndex(JobTable.ID)));
+                    job.setTitle(c.getString(c.getColumnIndex(JobTable.TITLE)));
+                    job.setShortDescription(c.getString(c.getColumnIndex(JobTable.SHORT_INFO)));
+                    job.setAllText(c.getString(c.getColumnIndex(JobTable.FULL_TEXT)));
+                    job.setUrl(c.getString(c.getColumnIndex(JobTable.URL)));
+
+                    jobs.add(job);
+                    i++;
+                } while (c.moveToPrevious() && i < x);
+            }
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+        return jobs;
     }
 
     /**

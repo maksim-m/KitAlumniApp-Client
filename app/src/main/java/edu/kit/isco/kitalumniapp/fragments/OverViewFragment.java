@@ -4,17 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
-import edu.kit.isco.kitalumniapp.OverviewListItem;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.adapter.OverviewAdapter;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
@@ -45,7 +42,6 @@ public class OverViewFragment extends Fragment {
         final ListView listView = (ListView) view.findViewById(R.id.Overview);
         adapter = new OverviewAdapter(getActivity(), 0);
         adapter.update();
-        adapter.loadLatestJobs();
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -70,7 +66,7 @@ public class OverViewFragment extends Fragment {
                 switch(itemType) {
                     case 0:
                         DataAccessNews news = (DataAccessNews) adapter.getItem(position);
-                        Intent newsIntent = new Intent(view.getContext(), NewsDetailsVewActivity.class);
+                        Intent newsIntent = new Intent(view.getContext(), NewsDetailsViewActivity.class);
                         newsIntent.putExtra("fullText", news.getText());
                         newsIntent.putExtra("urlImage", news.getImageUrl());
                         newsIntent.putExtra("title", news.getTitle());

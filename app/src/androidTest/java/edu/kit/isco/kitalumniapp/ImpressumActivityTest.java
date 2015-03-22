@@ -12,29 +12,27 @@ public class ImpressumActivityTest extends ActivityInstrumentationTestCase2<Impr
     private ImpressumActivity impressumActivity;
     private TextView titleImpressumTextTest;
 
-    public ImpressumActivityTest(){
+    public ImpressumActivityTest() {
         super(ImpressumActivity.class);
     }
-
-
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         impressumActivity = getActivity();
-        titleImpressumTextTest=(TextView) impressumActivity.findViewById(R.id.TitleImpressum);
+        titleImpressumTextTest = (TextView) impressumActivity.findViewById(R.id.TitleImpressum);
     }
+
     /*Test that verify if the test fixture has been set up correctly.*/
-    public void testPreconditions(){
+    public void testPreconditions() {
         assertNotNull(impressumActivity);
         assertNotNull(titleImpressumTextTest);
     }
+
     /*Test that check if  the TextView of Impressum Title has the correct label text. */
-    public void testImpressumTextView(){
+    public void testImpressumTextView() {
         final String expected = impressumActivity.getString(R.string.app_name);
         final String actual = titleImpressumTextTest.getText().toString();
         assertEquals(expected, actual);
     }
-
-
-    }
+}

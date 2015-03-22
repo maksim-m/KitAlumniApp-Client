@@ -15,12 +15,12 @@ import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 /**
  * This activity contains the detail information about each news.
  */
-public class NewsDetailsVewActivity extends ActionBarActivity {
+public class NewsDetailsViewActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_details_vew);
+        setContentView(R.layout.activity_news_details_view);
        
         WebView webView = (WebView) findViewById(R.id.webViewNewsDetails);
         webView.loadUrl(getIntent().getStringExtra("url"));
