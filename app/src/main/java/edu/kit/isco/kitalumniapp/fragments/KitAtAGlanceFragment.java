@@ -102,7 +102,6 @@ public class KitAtAGlanceFragment extends Fragment {
                 sendIntent.setType("text/plain");
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, url);
-                sendIntent.setType("text/plain");
                 startActivity(sendIntent);
 
                 /*
