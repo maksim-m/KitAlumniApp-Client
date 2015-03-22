@@ -34,7 +34,7 @@ public class ExpandableListAdapterTest extends AndroidTestCase {
         assertEquals(1,testAdapter.getChildrenCount(i-2));
         assertEquals(3,testAdapter.getChildrenCount(i-1));
     }
-    
+
 
     @Override
     public void tearDown() throws Exception {
