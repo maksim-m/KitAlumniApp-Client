@@ -27,12 +27,6 @@ import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
  */
 public class EventListViewFragment extends Fragment {
     EventAdapter eventAdapter;
-    // This "Future" tracks loading operations.
-    // A Future is an object that manages the state of an operation
-    // in progress that will have a "Future" result.
-    // You can attach callbacks (setCallback) for when the result is ready,
-    // or cancel() it if you no longer need the result.
-    Future<List<DataAccessEvent>> loading;
     ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
 

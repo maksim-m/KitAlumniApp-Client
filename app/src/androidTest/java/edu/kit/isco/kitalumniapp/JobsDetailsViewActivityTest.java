@@ -2,6 +2,8 @@ package edu.kit.isco.kitalumniapp;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.robotium.solo.Solo;
+
 import edu.kit.isco.kitalumniapp.fragments.JobsDetailsViewActivity;
 
 /**
@@ -9,7 +11,9 @@ import edu.kit.isco.kitalumniapp.fragments.JobsDetailsViewActivity;
  */
 public class JobsDetailsViewActivityTest extends ActivityInstrumentationTestCase2<JobsDetailsViewActivity> {
     JobsDetailsViewActivity jobsDetailsViewActivity;
+    private Solo solo;
 
+    //Constructor
     public JobsDetailsViewActivityTest () {
         super(JobsDetailsViewActivity.class);
     }
@@ -18,6 +22,25 @@ public class JobsDetailsViewActivityTest extends ActivityInstrumentationTestCase
     protected void setUp() throws Exception {
         super.setUp();
         jobsDetailsViewActivity = getActivity();
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    /**
+     * Tests if Settings starts after pressing ActionBarItem Settings
+     */
+    public void testSettings() {
+        solo.sendKey(Solo.MENU);
+        solo.clickOnMenuItem("Settings");
+        assertTrue(solo.waitForActivity("SettingsActivity", 500));
+    }
+
+    /**
+     * Tests if the activity has been closed after pressing
+     * ActionBarHomeButton
+     */
+    public void testHomeUp() {
+        solo.clickOnActionBarHomeButton();
+        assertFalse(solo.getCurrentActivity() != jobsDetailsViewActivity);
     }
 
     public void testPreConditions() {

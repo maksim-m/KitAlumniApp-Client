@@ -77,7 +77,6 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         ImageView newsImage;
         TextView newsCaption;
         TextView newsShortDescription;
-        TextView newsId;
     }
 
     @Override

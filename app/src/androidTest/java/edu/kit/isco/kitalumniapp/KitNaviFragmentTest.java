@@ -1,22 +1,19 @@
 package edu.kit.isco.kitalumniapp;
 
-import android.app.Fragment;
-
 import android.app.FragmentTransaction;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.ListView;
 
-import edu.kit.isco.kitalumniapp.fragments.EventListViewFragment;
+import edu.kit.isco.kitalumniapp.fragments.KitNaviFragment;
 
 /**
- * Created by Kristina on 21.3.2015 г..
+ * Created by Stelian Stoev on 22.3.2015 г..
  */
-public class EventListViewFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    private MainActivity mainActivity;
-    EventListViewFragment eventListViewFragment;
+public class KitNaviFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
+    MainActivity mainActivity;
+    KitNaviFragment kitNaviFragment;
 
     //Constructor
-    public EventListViewFragmentTest(){
+    public KitNaviFragmentTest() {
         super(MainActivity.class);
     }
 
@@ -32,13 +29,12 @@ public class EventListViewFragmentTest extends ActivityInstrumentationTestCase2<
      */
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-        eventListViewFragment = new EventListViewFragment();
-        transaction.add(R.id.container, eventListViewFragment).commitAllowingStateLoss();
+        kitNaviFragment = new KitNaviFragment();
+        transaction.add(R.id.container, kitNaviFragment).commitAllowingStateLoss();
     }
 
     public void testPreConditions() {
         assertNotNull(mainActivity);
-        assertNotNull(eventListViewFragment);
+        assertNotNull(kitNaviFragment);
     }
 }
-

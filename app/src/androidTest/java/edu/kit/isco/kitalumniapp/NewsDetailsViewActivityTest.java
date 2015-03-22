@@ -2,6 +2,8 @@ package edu.kit.isco.kitalumniapp;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.robotium.solo.Solo;
+
 import edu.kit.isco.kitalumniapp.fragments.NewsDetailsViewActivity;
 
 /**
@@ -9,7 +11,8 @@ import edu.kit.isco.kitalumniapp.fragments.NewsDetailsViewActivity;
  */
 public class NewsDetailsViewActivityTest extends ActivityInstrumentationTestCase2<NewsDetailsViewActivity> {
     NewsDetailsViewActivity newsDetailsViewActivity;
-
+    private Solo solo;
+    //Constructor
     public NewsDetailsViewActivityTest() {
         super(NewsDetailsViewActivity.class);
     }
@@ -18,6 +21,25 @@ public class NewsDetailsViewActivityTest extends ActivityInstrumentationTestCase
     protected void setUp() throws Exception {
         super.setUp();
         newsDetailsViewActivity = getActivity();
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    /**
+     * Tests if Settings starts after pressing ActionBarItem Settings
+     */
+    public void testSettings() {
+        solo.sendKey(Solo.MENU);
+        solo.clickOnMenuItem("Settings");
+        assertTrue(solo.waitForActivity("SettingsActivity", 500));
+    }
+
+    /**
+     * Tests if the activity has been closed after pressing
+     * ActionBarHomeButton
+     */
+    public void testHomeUp() {
+        solo.clickOnActionBarHomeButton();
+        assertFalse(solo.getCurrentActivity() != newsDetailsViewActivity);
     }
 
     public void testPreConditions() {
