@@ -58,16 +58,19 @@ public class KitNaviFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_kit_navi, container, false);
         WebView webView = (WebView) rootView.findViewById(R.id.webViewCampus);
+        webView.loadUrl(getResources().getString(R.string.navi_url));
+
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
         webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setSupportZoom(false);
         webView.setWebViewClient(new GeoWebViewClient());
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setGeolocationEnabled(true);
         webView.setWebChromeClient(new GeoWebChromeClient());
 
-        webView.loadUrl(getResources().getString(R.string.navi_url));
         return rootView;
     }
 
