@@ -40,8 +40,11 @@ public class JobsAdapterTest extends AndroidTestCase {
     public void testGetViewTest() {
         testClass.update();
         int i = testClass.getCount();
-        View view = testClass.getView(i-1, null, null);
-        assertNotNull(view);
+        if (i != 0) {
+            View view = testClass.getView(i-1, null, null);
+            assertNotNull(view);
+        }
+
     }
 
     @Override

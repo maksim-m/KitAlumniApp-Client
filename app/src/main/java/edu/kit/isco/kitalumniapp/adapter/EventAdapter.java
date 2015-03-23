@@ -126,11 +126,8 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
                     @Override
                     public void onCompleted(Exception e, List<DataAccessEvent> result) {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
-                        if (e != null) {
+                        if (e != null || result == null) {
                             //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        if (result == null)  {
                             return;
                         }
                         clear();

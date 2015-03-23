@@ -7,7 +7,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:id="@+id/appIcon"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/ic_launcher2"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="25dp"
         android:layout_gravity="center_horizontal" />
