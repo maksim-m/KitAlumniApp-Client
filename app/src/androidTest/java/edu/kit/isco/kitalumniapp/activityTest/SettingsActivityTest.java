@@ -46,17 +46,4 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
         solo.clickOnText("About");
         solo.assertCurrentActivity("Activity About was not started", AboutActivity.class);
     }
-
-    /**
-     * Tests if the correct activity was started
-     */
-    public void testTags() {
-        solo.clickOnText("Tags");
-        solo.assertCurrentActivity("Activity ListTagsActivity was not started", ListViewCheckboxTagsActivity.class);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
 }

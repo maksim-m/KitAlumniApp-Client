@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="menuTitles">
-        <item>Overview/Home</item>
+        <item>Overview</item>
         <item>Job Market</item>
         <item>News</item>
         <item>KIT at a Glance</item>
