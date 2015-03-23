@@ -50,7 +50,8 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         super(context, resource);
         this.context = context;
         this.layoutEventResId = resource;
-        this.layoutInflater = ((Activity) context).getLayoutInflater();
+        //this.layoutInflater = ((Activity) context).getLayoutInflater();
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         EVENT_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "events/";
         ArrayList<DataAccessEvent> eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getAllEvents();
         Collections.reverse(eventsFromDb);

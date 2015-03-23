@@ -7,7 +7,6 @@ import android.test.RenamingDelegatingContext;
 import android.view.View;
 
 import edu.kit.isco.kitalumniapp.adapter.EventAdapter;
-import edu.kit.isco.kitalumniapp.adapter.JobsAdapter;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
 
@@ -38,8 +37,11 @@ public class EventAdapterTest extends AndroidTestCase {
     public void testGetViewTest() {
         testClass.update();
         int i = testClass.getCount();
-        View view = testClass.getView(i-1, null, null);
-        assertNotNull(view);
+        if (i != 0) {
+            View view = testClass.getView(i-1, null, null);
+            assertNotNull(view);
+        }
+
     }
 
     @Override
