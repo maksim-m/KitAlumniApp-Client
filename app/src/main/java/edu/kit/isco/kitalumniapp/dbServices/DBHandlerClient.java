@@ -32,6 +32,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        context.deleteDatabase("test_DatabaseClient.db");
         db.execSQL(NewsTable.createSQL());
         db.execSQL(EventTable.createSQL());
         db.execSQL(JobTable.createSQL());

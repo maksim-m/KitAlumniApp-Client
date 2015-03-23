@@ -69,6 +69,7 @@ public class DatabaseTest extends AndroidTestCase {
         testJob2.setId(2);
     }
 
+
     public void testUpdateNews() {
         ArrayList<DataAccessNews> news = new ArrayList<>();
         news.add(testNews1);
@@ -79,6 +80,11 @@ public class DatabaseTest extends AndroidTestCase {
         newsFromDb = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getXnews(2);
         Collections.reverse(newsFromDb);
         assertEquals(news, newsFromDb);
+        try {
+            tearDown();
+        } catch (Exception e) {
+
+        }
     }
 
     public void testUpdateEvents() {
@@ -92,6 +98,11 @@ public class DatabaseTest extends AndroidTestCase {
         eventsFromDb = (ArrayList<DataAccessEvent>) new DBHandlerClient(context).getXevents(2);
         Collections.reverse(eventsFromDb);
         assertEquals(events, eventsFromDb);
+        try {
+            tearDown();
+        } catch (Exception e) {
+
+        }
     }
 
     public void testUpdateJobs() {
@@ -104,6 +115,11 @@ public class DatabaseTest extends AndroidTestCase {
         jobsFromDb = (ArrayList<DataAccessJob>) new DBHandlerClient(context).getXjobs(2);
         Collections.reverse(jobsFromDb);
         assertEquals(jobs, jobsFromDb);
+        try {
+            tearDown();
+        } catch (Exception e) {
+
+        }
     }
 
     public void testUpgrade() {
@@ -118,11 +134,6 @@ public class DatabaseTest extends AndroidTestCase {
         assertNotNull(eventTable);
         JobTable jobTable = new JobTable();
         assertNotNull(jobTable);
-
-    }
-
-    public void testGetXNews() {
-
 
     }
 
