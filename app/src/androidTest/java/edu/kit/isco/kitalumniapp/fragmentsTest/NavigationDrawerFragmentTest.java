@@ -1,22 +1,24 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.fragmentsTest;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.ListView;
 
 import com.robotium.solo.Solo;
 
+import edu.kit.isco.kitalumniapp.MainActivity;
+import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.fragments.NavigationDrawerFragment;
 
 /**
  * Created by Stelian Stoev on 21.3.2015 г..
  */
-public class NavigationDrawerTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class NavigationDrawerFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
     MainActivity mainActivity;
     NavigationDrawerFragment navigationDrawerFragment;
     private Solo solo;
 
     //Constructor
-    public NavigationDrawerTest() {
+    public NavigationDrawerFragmentTest() {
         super(MainActivity.class);
     }
 
