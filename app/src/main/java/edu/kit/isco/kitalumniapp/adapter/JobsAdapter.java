@@ -52,7 +52,8 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
         super(context, resource);
         this.context = context;
         this.layoutResId = resource;
-        this.layoutInflater = ((Activity) context).getLayoutInflater();
+        //this.layoutInflater = ((Activity) context).getLayoutInflater();
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         JOBS_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url) + "jobs/";
         ArrayList<DataAccessJob> jobsFromDb = (ArrayList<DataAccessJob>) new DBHandlerClient(context).getAllJobs();
         Collections.reverse(jobsFromDb);
@@ -127,6 +128,10 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
                         if (e != null) {
                             Toast.makeText(getContext(), "Error loading jobs.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (result == null) {
                             return;
                         }
                         // add the jobs
