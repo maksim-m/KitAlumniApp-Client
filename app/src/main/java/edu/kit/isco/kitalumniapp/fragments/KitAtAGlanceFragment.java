@@ -148,21 +148,24 @@ public class KitAtAGlanceFragment extends Fragment {
      * Subclass to download a file in background.
      */
     private class DownloadFile extends AsyncTask<String, String, String> {
-
-
+        boolean showProcess;
+        private DownloadFile(boolean showProcess) {
+            this.showProcess = showProcess;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            //pDialog = ProgressDialog.show(getActivity(), "Download","Downloading PDF...", true);
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage(getResources().getString(R.string.download));
             pDialog.setIndeterminate(false);
             pDialog.setMax(100);
             pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             pDialog.setCancelable(true);
-            pDialog.show();
+            if (showProcess) {
+                pDialog.show();
+            }
 
         }
 
@@ -223,22 +226,10 @@ public class KitAtAGlanceFragment extends Fragment {
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
-            pDialog.dismiss();
-            /*
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            // Setting Dialog Title
-            alertDialog.setTitle("PDF Download");
-            // Setting Dialog Message
-            alertDialog.setMessage("Download Complete");
-            // Setting OK Button
-            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(final DialogInterface dialog,
-                                    final int which) {
-                }
-            });
-            // Showing Alert Message
-            alertDialog.show();
-            */
+            if (showProcess) {
+                pDialog.dismiss();
+            }
+            //pDialog.dismiss();
             if (file_url != null) {
                 view(file_url);
             }
@@ -261,7 +252,7 @@ public class KitAtAGlanceFragment extends Fragment {
         if (pdfFile.exists() && viewPDF) {
             view(fileName);
         } else if (!pdfFile.exists() && isNetworkAvailable()) {
-            new DownloadFile().execute(url, fileName);
+            new DownloadFile(showProcess).execute(url, fileName);
         } else if (!isNetworkAvailable() && !pdfFile.exists()) {
             Toast.makeText(getActivity(), getResources().getString(R.string.no_connecting), Toast.LENGTH_SHORT).show();
             pdfFile = null;
