@@ -146,9 +146,15 @@ public class KitAtAGlanceFragment extends Fragment {
 
     /**
      * Subclass to download a file in background.
+     *
      */
     private class DownloadFile extends AsyncTask<String, String, String> {
-        boolean showProcess;
+        boolean showProcess; //show the process dialog or not
+
+        /**
+         * Constructor of the Class
+         * @param showProcess //show the process dialog or not
+         */
         private DownloadFile(boolean showProcess) {
             this.showProcess = showProcess;
         }
@@ -280,7 +286,7 @@ public class KitAtAGlanceFragment extends Fragment {
     }
 
     /**
-     * This method checks if there is a internet connecting available
+     * This method checks if there is an internet connecting available
      * @return True if there is a valid internet connecting
      */
     private boolean isNetworkAvailable() {
