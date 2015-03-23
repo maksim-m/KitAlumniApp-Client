@@ -45,7 +45,8 @@ public class NewsAdapter extends ArrayAdapter<DataAccessNews> {
         super(context, resource);
         this.context = context;
         this.layoutResId = resource;
-        this.layoutInflater = ((Activity) context).getLayoutInflater();
+        //this.layoutInflater = ((Activity) context).getLayoutInflater();
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         REST_SERVICE_URL = context.getResources().getString(R.string.rest_service_base_url);
         NEWS_SERVICE_URL = REST_SERVICE_URL + "news/";
         ArrayList<DataAccessNews> newsFromDb = (ArrayList<DataAccessNews>) new DBHandlerClient(context).getAllNews();

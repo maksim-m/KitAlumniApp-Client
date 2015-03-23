@@ -351,6 +351,10 @@ public class OverviewAdapter extends ArrayAdapter {
                             Toast.makeText(getContext(), "Error loading events.", Toast.LENGTH_LONG).show();
                             return;
                         }
+                        if (result == null) {
+                            return;
+                        }
+
                         // add the event
                         Collections.reverse(result);
                         addItem(new OverviewListItem("Next Event", TYPE_HEADER));

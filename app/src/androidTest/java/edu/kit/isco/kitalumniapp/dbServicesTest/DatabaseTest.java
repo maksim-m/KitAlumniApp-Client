@@ -129,6 +129,7 @@ public class DatabaseTest extends AndroidTestCase {
     @Override
     public void tearDown() throws Exception {
         DatabaseManager.getInstance().closeDatabase();
+        context.deleteDatabase("test_Database_Client");
         super.tearDown();
     }
 }
