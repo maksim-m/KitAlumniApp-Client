@@ -126,12 +126,8 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
                     @Override
                     public void onCompleted(Exception e, List<DataAccessJob> result) {
                         // this is called back onto the ui thread, no Activity.runOnUiThread or Handler.post necessary.
-                        if (e != null) {
+                        if (e != null || result == null) {
                             Toast.makeText(getContext(), "Error loading jobs.", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        if (result == null) {
                             return;
                         }
                         // add the jobs
