@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
+import android.view.View;
 
 import edu.kit.isco.kitalumniapp.OverviewListItem;
 import edu.kit.isco.kitalumniapp.adapter.JobsAdapter;
@@ -17,13 +18,28 @@ import edu.kit.isco.kitalumniapp.dbServices.DatabaseManager;
  */
 public class JobsAdapterTest extends AndroidTestCase {
     JobsAdapter testClass;
-
+    private SQLiteDatabase db;
+    private Context context;
 
 
     @Override
     public void setUp () throws Exception{
+        this.context = new RenamingDelegatingContext(getContext(), "test_");
+        DatabaseManager.initializeInstance(new DBHandlerClient(context));
+        db = DatabaseManager.getInstance().openDatabase();
         testClass = new JobsAdapter(getContext(), 0);
         super.setUp();
+    }
+
+    public void testLoadJobs() {
+        testClass.update();
+    }
+
+    public void testGetViewTest() {
+        testClass.update();
+        int i = testClass.getCount();
+        View view = testClass.getView(i-1, null, null);
+        assertNotNull(view);
     }
 
 

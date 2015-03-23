@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.dbServicesTest;
 
 import android.test.AndroidTestCase;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;

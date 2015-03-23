@@ -1,9 +1,10 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.adapterTest;
 
 import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
+import edu.kit.isco.kitalumniapp.ContactParentItem;
 import edu.kit.isco.kitalumniapp.adapter.ExpandableListAdapter;
 
 /**

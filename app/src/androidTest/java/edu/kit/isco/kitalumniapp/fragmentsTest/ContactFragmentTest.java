@@ -2,20 +2,19 @@ package edu.kit.isco.kitalumniapp.fragmentsTest;
 
 import android.app.FragmentTransaction;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.AndroidTestCase;
 
 import edu.kit.isco.kitalumniapp.MainActivity;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.fragments.ContactFragment;
-import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
 
 /**
- * Created by Yannick on 22.03.15 | KW 12.
+ * Created by Stelian Stoev on 22.3.2015 г..
  */
 public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    private MainActivity mainActivity;
+    MainActivity mainActivity;
     ContactFragment contactFragment;
 
+    //Constructor
     public ContactFragmentTest() {
         super(MainActivity.class);
     }
@@ -27,6 +26,9 @@ public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainAc
         startFragment();
     }
 
+    /**
+     * Starts a fragment
+     */
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
         contactFragment = new ContactFragment();

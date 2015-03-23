@@ -1,6 +1,7 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.activityTest;
 
 
+import edu.kit.isco.kitalumniapp.MainActivity;
 
 /**
  * Created by Kristina on 20.3.2015 г..

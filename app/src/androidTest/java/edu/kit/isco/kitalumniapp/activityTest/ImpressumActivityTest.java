@@ -1,10 +1,11 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.activityTest;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
+import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.settings.ImpressumActivity;
 
 /**

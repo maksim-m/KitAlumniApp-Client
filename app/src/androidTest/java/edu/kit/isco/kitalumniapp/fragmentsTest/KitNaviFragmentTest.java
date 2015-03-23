@@ -12,9 +12,12 @@ import edu.kit.isco.kitalumniapp.fragments.OverViewFragment;
  * Created by Yannick on 22.03.15 | KW 12.
  */
 public class KitNaviFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    private MainActivity mainActivity;
+    MainActivity mainActivity;
     KitNaviFragment kitNaviFragment;
 
+    /**
+     * Constructor
+     */
     public KitNaviFragmentTest() {
         super(MainActivity.class);
     }
@@ -26,6 +29,9 @@ public class KitNaviFragmentTest extends ActivityInstrumentationTestCase2<MainAc
         startFragment();
     }
 
+    /**
+     * Starts a fragment
+     */
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
         kitNaviFragment = new KitNaviFragment();

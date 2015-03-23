@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.dbServicesTest;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

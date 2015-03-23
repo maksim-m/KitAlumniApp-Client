@@ -1,4 +1,4 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.activityTest;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.settings.ListViewCheckboxTagsActivity;
 
 /**

@@ -1,19 +1,21 @@
-package edu.kit.isco.kitalumniapp;
+package edu.kit.isco.kitalumniapp.fragmentsTest;
 
 import android.app.FragmentTransaction;
 import android.test.ActivityInstrumentationTestCase2;
 
-import edu.kit.isco.kitalumniapp.fragments.ContactFragment;
+import edu.kit.isco.kitalumniapp.MainActivity;
+import edu.kit.isco.kitalumniapp.R;
+import edu.kit.isco.kitalumniapp.fragments.KitAtAGlanceFragment;
 
 /**
  * Created by Stelian Stoev on 22.3.2015 г..
  */
-public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class KitAtAGlanceFragmentTest extends ActivityInstrumentationTestCase2<MainActivity> {
     MainActivity mainActivity;
-    ContactFragment contactFragment;
+    KitAtAGlanceFragment kitAtAGlanceFragment;
 
     //Constructor
-    public ContactFragmentTest() {
+    public KitAtAGlanceFragmentTest() {
         super(MainActivity.class);
     }
 
@@ -29,12 +31,12 @@ public class ContactFragmentTest extends ActivityInstrumentationTestCase2<MainAc
      */
     private void startFragment() {
         FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-        contactFragment = new ContactFragment();
-        transaction.add(R.id.container, contactFragment).commitAllowingStateLoss();
+        kitAtAGlanceFragment = new KitAtAGlanceFragment();
+        transaction.add(R.id.container, kitAtAGlanceFragment).commitAllowingStateLoss();
     }
 
     public void testPreConditions() {
         assertNotNull(mainActivity);
-        assertNotNull(contactFragment);
+        assertNotNull(kitAtAGlanceFragment);
     }
 }
