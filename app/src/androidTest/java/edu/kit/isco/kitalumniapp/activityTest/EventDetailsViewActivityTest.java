@@ -33,7 +33,7 @@ public class EventDetailsViewActivityTest extends ActivityInstrumentationTestCas
     public void testSettings() {
         solo.sendKey(Solo.MENU);
         solo.clickOnMenuItem("Settings");
-        assertTrue(solo.waitForActivity("SettingsActivity", 500));
+        assertTrue(solo.waitForActivity("SettingsActivity", 5000));
     }
 
     /**

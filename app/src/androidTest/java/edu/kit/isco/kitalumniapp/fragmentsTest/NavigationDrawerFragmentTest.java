@@ -38,6 +38,5 @@ public class NavigationDrawerFragmentTest extends ActivityInstrumentationTestCas
     public void testSelectItem(){
         solo.clickInList(0);
         assertTrue(solo.waitForText("Overview/Home"));
-
     }
 }

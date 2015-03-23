@@ -50,5 +50,4 @@ public class JobsAdapterTest extends AndroidTestCase {
         context.deleteDatabase("test2_Database_Client");
         super.tearDown();
     }
-
 }
