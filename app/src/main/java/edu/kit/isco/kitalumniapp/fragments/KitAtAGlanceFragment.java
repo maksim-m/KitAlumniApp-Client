@@ -279,6 +279,10 @@ public class KitAtAGlanceFragment extends Fragment {
         }
     }
 
+    /**
+     * This method checks if there is a internet connecting available
+     * @return True if there is a valid internet connecting
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

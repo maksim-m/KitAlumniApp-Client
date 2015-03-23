@@ -33,7 +33,7 @@ public class ContactFragment extends Fragment {
      *
      * @since 1.0
      */
-    ArrayList<ContactParentItem> kitAtAGlanceContacts;
+    ArrayList<ContactParentItem> contacts;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -50,12 +50,12 @@ public class ContactFragment extends Fragment {
         // Inflate the layout for this fragment
         ArrayList<ContactParentItem> arrayOfUsers = new ArrayList<ContactParentItem>();
         //create list with contacts
-        kitAtAGlanceContacts = new ArrayList<ContactParentItem>();
+        contacts = new ArrayList<ContactParentItem>();
         //fill contacts-list with Data
         prepareData();
 
         // Create the adapter to convert the array to views
-        ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), kitAtAGlanceContacts);
+        ExpandableListAdapter adapter = new ExpandableListAdapter(getActivity(), contacts);
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.contactListView);
@@ -107,9 +107,9 @@ public class ContactFragment extends Fragment {
      * to the contact-list.
      */
     private void prepareData() {
-        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
-        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
-        kitAtAGlanceContacts.add(new ContactParentItem(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
+        contacts.add(new ContactParentItem(getResources().getString(R.string.isco_name), getResources().getString(R.string.isco_short_description), getResources().getString(R.string.isco_phone), getResources().getString(R.string.isco_mail), getResources().getString(R.string.isco_web)));
+        contacts.add(new ContactParentItem(getResources().getString(R.string.ok_name), getResources().getString(R.string.ok_short_description), getResources().getString(R.string.ok_phone), getResources().getString(R.string.ok_mail), getResources().getString(R.string.ok_web)));
+        contacts.add(new ContactParentItem(getResources().getString(R.string.tr_name), getResources().getString(R.string.tr_short_description), null, null, getResources().getString(R.string.tr_web)));
     }
 
     /**
