@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -24,6 +25,7 @@ import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 public class GcmIntentService extends IntentService {
 
     public static final String VIBRATE_CHECKBOX = "vibrate";
+    private static final String TAG = "GcmIntentService";
     private static int NOTIFICATION_ID = 1;
     private static String jobUrl;
 
@@ -86,27 +88,42 @@ public class GcmIntentService extends IntentService {
         final SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
         //Notification with vibration
-        NotificationCompat.Builder mBuilder;
+        NotificationCompat.Builder mBuilder = null;
         if (sharedPreferences.getBoolean(VIBRATE_CHECKBOX, false)) {
-            mBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_launcher2)
-                    .setContentTitle(title)
-                    .setTicker(message)
-                    .setWhen(when)
-                    .setShowWhen(true)
-                    .setAutoCancel(true)
-                    .setVibrate(pattern)
-                    .setContentText(message);
+            try {
+                mBuilder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_launcher2)
+                        .setContentTitle(title)
+                        .setTicker(message)
+                        .setWhen(when)
+                        .setShowWhen(true)
+                        .setAutoCancel(true)
+                        .setVibrate(pattern)
+                        .setContentText(message);
+            } catch (SecurityException se) {
+                Log.e(TAG, "Can not initialize NotificationCompat.Builder due security exception: " + se.getLocalizedMessage());
+            } catch (Exception e) {
+                Log.e(TAG, "Can not initialize NotificationCompat.Builder due exception: " + e.getLocalizedMessage());
+            }
         } else { // The same Notification without vibration
-            mBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_launcher2)
-                    .setContentTitle(title)
-                    .setTicker(message)
-                    .setWhen(when)
-                    .setShowWhen(true)
-                    .setAutoCancel(true)
-                    .setContentText(message);
-        } //Intent who caries all extra information
+            try {
+                mBuilder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_launcher2)
+                        .setContentTitle(title)
+                        .setTicker(message)
+                        .setWhen(when)
+                        .setShowWhen(true)
+                        .setAutoCancel(true)
+                        .setContentText(message);
+            } catch (Exception e) {
+                Log.e(TAG, "Can not initialize NotificationCompat.Builder due exception: " + e.getLocalizedMessage());
+            }
+        }
+        if (mBuilder == null) {
+            Log.e(TAG, "NotificationCompat.Builder is not initialized!");
+            return;
+        }
+        //Intent who caries all extra information
         Intent resultIntent = new Intent(context, JobsDetailsViewActivity.class);
         resultIntent.putExtra("jobURL", jobUrl);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
