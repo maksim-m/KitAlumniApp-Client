@@ -9,8 +9,8 @@
         android:layout_height="64dp"
         android:id="@+id/appIcon"
         android:src="@drawable/ic_launcher"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:gravity="center_horizontal"
         style="@android:style/TextAppearance.Large"
         android:text="@string/app_name"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="5dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -27,24 +27,31 @@
         android:gravity="center_horizontal"
         android:id="@+id/versionName"
         android:text="Version number"
-        android:paddingBottom="20dp"
+        android:paddingBottom="35dp"
         />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="left|center_horizontal"
         android:id="@+id/about_project"
-        android:text="This app was created by students of the Karlsruhe Institute of Technology, in the context of the
-        lecture 'Software Engineering Practice' during the winter semester of 2014/2015."
+        android:text="This app was created by students of the Karlsruhe Institute of Technology, in the context of the lecture 'Software Engineering Practice' during the winter semester of 2014/2015."
         android:paddingBottom="10dp"
         />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="left|center_horizontal"
         android:id="@+id/developer"
-        android:text="Developers: \n Yannick Keller \n André Langenstein \n Kristina Mincheva \n Maksim Moiseikin \n Alexander Müller \n Stelian Stoev"
+        android:text="Developers Team:\n\tYannick Keller\n\tAndré Langenstein\n\tKristina Mincheva\n\tMaksim Moiseikin\n\tAlexander Müller\n\tStelian Stoev"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_horizontal"
+        android:id="@+id/management"
+        android:text="Project Management\n\tIPD Koziolek\n\tAxel Busch"
         android:paddingBottom="10dp"/>
 
     <ScrollView

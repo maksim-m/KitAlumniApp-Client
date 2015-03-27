@@ -18,7 +18,7 @@ import edu.kit.isco.kitalumniapp.dbObjects.*;
  */
 public class DBHandlerClient extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "DatabaseClient.db";
     private static final String LOG = "DBHandlerClient";
     public static final int NEWS_IN_DB = 30;
@@ -33,6 +33,8 @@ public class DBHandlerClient extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         context.deleteDatabase("test_DatabaseClient.db");
+        context.deleteDatabase("test2_DatabaseClient.db");
+        context.deleteDatabase("test3_DatabaseClient.db");
         db.execSQL(NewsTable.createSQL());
         db.execSQL(EventTable.createSQL());
         db.execSQL(JobTable.createSQL());
@@ -40,9 +42,6 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion == 1) {
-            context.deleteDatabase("Database_Client");
-        }
         db.execSQL(NewsTable.dropSQL());
         db.execSQL(EventTable.dropSQL());
         db.execSQL(JobTable.dropSQL());
