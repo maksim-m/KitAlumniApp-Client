@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <ImageView
         android:layout_width="64dp"
@@ -25,7 +26,26 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:id="@+id/versionName"
-        android:text="Version number" />
+        android:text="Version number"
+        android:paddingBottom="20dp"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/about_project"
+        android:text="This app was created by students of the Karlsruhe Institute of Technology, in the context of the
+        lecture 'Software Engineering Practice' during the winter semester of 2014/2015."
+        android:paddingBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/developer"
+        android:text="Developers: \n Yannick Keller \n André Langenstein \n Kristina Mincheva \n Maksim Moiseikin \n Alexander Müller \n Stelian Stoev"
+        android:paddingBottom="10dp"/>
 
     <ScrollView
         android:layout_width="fill_parent"
