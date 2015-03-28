@@ -92,7 +92,7 @@ public class GcmIntentService extends IntentService {
         if (sharedPreferences.getBoolean(VIBRATE_CHECKBOX, false)) {
             try {
                 mBuilder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.notification_icon)
                         .setContentTitle(title)
                         .setTicker(message)
                         .setWhen(when)
@@ -108,7 +108,7 @@ public class GcmIntentService extends IntentService {
         } else { // The same Notification without vibration
             try {
                 mBuilder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.notification_icon)
                         .setContentTitle(title)
                         .setTicker(message)
                         .setWhen(when)
