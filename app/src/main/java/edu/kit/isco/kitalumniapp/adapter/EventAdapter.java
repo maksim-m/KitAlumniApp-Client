@@ -14,9 +14,13 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessEvent;
@@ -78,7 +82,6 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_view_item_events, null);
             holder = new EventsHolder();
-
             holder.eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
             holder.eventDate = (TextView) convertView.findViewById(R.id.eventDate);
             convertView.setTag(holder);
@@ -88,13 +91,7 @@ public class EventAdapter extends ArrayAdapter<DataAccessEvent> {
 
         DataAccessEvent event = getItem(position);
         holder.eventTitle.setText(event.getTitle());
-
         holder.eventDate.setText(event.getShortInfo());
-
-        TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
-        eventTitle.setText(event.getTitle());
-        TextView eventShortDescription = (TextView) convertView.findViewById(R.id.eventDate);
-        eventShortDescription.setText(event.getShortInfo());
         return convertView;
     }
 
