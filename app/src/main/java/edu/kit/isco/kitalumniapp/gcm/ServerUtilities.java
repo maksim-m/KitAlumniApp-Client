@@ -18,6 +18,7 @@ package edu.kit.isco.kitalumniapp.gcm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
@@ -32,6 +33,7 @@ import java.util.List;
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessTag;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessUser;
+import edu.kit.isco.kitalumniapp.settings.SettingsActivity;
 
 /**
  * Binds in one place methods for register, unregister and updating for notifications.
@@ -53,7 +55,7 @@ public class ServerUtilities {
      * Intent's extra that contains the message to be displayed.
      */
     static final String EXTRA_MESSAGE = "message";
-    private static BigInteger bigInteger = null;
+    private BigInteger bigInteger = null;
     private List<DataAccessTag> fullTagsList;
 
     /**
@@ -77,12 +79,19 @@ public class ServerUtilities {
      *
      * @return password
      */
-    private static BigInteger getPassword() {
-        if (bigInteger == null) {
+    private String getPassword(Context context) {
+        final SharedPreferences prefs = context.getSharedPreferences(SettingsActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+        if(prefs.getBoolean("isPasswordGenerated", false)){
+            return prefs.getString("password", null);
+        } else {
             SecureRandom password = new SecureRandom();
             bigInteger = new BigInteger(64, password);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isPasswordGenerated", true);
+            editor.putString("password", bigInteger.toString(32));
+            return bigInteger.toString(32);
         }
-        return bigInteger;
     }
 
     /**
@@ -121,7 +130,7 @@ public class ServerUtilities {
         if (regId == null || context == null)
             throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
-        DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword().toString(32));
+        DataAccessUser user = new DataAccessUser(regId, populateTagList(), getPassword(context));
         // Once GCM returns a registration id, we need to register it in the
         // app server. The registration will be repeated maximal 5 times.
         displayMessage(context, context.getString(
@@ -147,7 +156,7 @@ public class ServerUtilities {
         if (regId == null || context == null)
             throw new IllegalArgumentException();
         Log.i(TAG, "unregistering device (regId = " + regId + ")");
-        DataAccessUser user = new DataAccessUser(regId, null, getPassword().toString(32));
+        DataAccessUser user = new DataAccessUser(regId, null, getPassword(context));
         Ion.with(context)
                 .load("DELETE", SERVER_URL)
                 .setJsonPojoBody(user)
@@ -170,7 +179,7 @@ public class ServerUtilities {
             throw new IllegalArgumentException();
         Log.i(TAG, "registering device (regId = " + regId + ")");
         fullTagsList = tags;
-        DataAccessUser user = new DataAccessUser(regId, tags, getPassword().toString(32));
+        DataAccessUser user = new DataAccessUser(regId, tags, getPassword(context));
         displayMessage(context, context.getString(
                 R.string.server_registering));
         Ion.with(context)
