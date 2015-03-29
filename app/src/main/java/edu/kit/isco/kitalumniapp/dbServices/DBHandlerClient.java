@@ -79,6 +79,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 } while (c.moveToNext());
             }
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
 
@@ -112,6 +113,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 } while (c.moveToNext());
             }
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
         return jobs;
@@ -145,6 +147,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 } while (c.moveToNext());
             }
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
 
@@ -315,6 +318,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             }
 
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
 
@@ -352,6 +356,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 } while (c.moveToPrevious() && i < x);
             }
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
 
@@ -388,6 +393,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
                 } while (c.moveToPrevious() && i < x);
             }
         } finally {
+            c.close();
             DatabaseManager.getInstance().closeDatabase();
         }
         return jobs;
