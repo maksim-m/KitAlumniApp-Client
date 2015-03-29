@@ -1,6 +1,5 @@
 package edu.kit.isco.kitalumniapp.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import java.util.List;
 
 import edu.kit.isco.kitalumniapp.R;
 import edu.kit.isco.kitalumniapp.dbObjects.DataAccessJob;
-import edu.kit.isco.kitalumniapp.dbObjects.DataAccessNews;
 import edu.kit.isco.kitalumniapp.dbServices.DBHandlerClient;
 
 /**
@@ -45,8 +43,8 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
     private int layoutResId;
 
     /**
-     * @param context
-     * @param resource
+     * @param context Context
+     * @param resource ResourceId
      */
     public JobsAdapter(Context context, int resource) {
         super(context, resource);
@@ -70,8 +68,8 @@ public class JobsAdapter extends ArrayAdapter<DataAccessJob> {
      *
      * @param position:    The position of the item within the adapter's data set of the item whose view we want.
      * @param convertView: Converts the XML-view to display the correct data.
-     * @param parent
-     * @return
+     * @param parent Parent
+     * @return Returns the View
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

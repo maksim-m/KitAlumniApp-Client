@@ -52,6 +52,9 @@ public class ListViewCheckboxTagsActivity extends Activity {
         displayListView();
     }
 
+    /**
+     * Generate ListView from ArrayList.
+     */
     private void displayListView() {
         String[] tagsStringArray = getResources().getStringArray(R.array.tags);
 
