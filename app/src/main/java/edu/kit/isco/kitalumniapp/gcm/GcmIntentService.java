@@ -126,6 +126,7 @@ public class GcmIntentService extends IntentService {
         //Intent who caries all extra information
         Intent resultIntent = new Intent(context, JobsDetailsViewActivity.class);
         resultIntent.putExtra("jobURL", jobUrl);
+        resultIntent.putExtra("title", message);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
