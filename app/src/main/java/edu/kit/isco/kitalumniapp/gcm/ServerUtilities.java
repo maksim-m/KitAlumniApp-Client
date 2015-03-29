@@ -90,6 +90,7 @@ public class ServerUtilities {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isPasswordGenerated", true);
             editor.putString("password", bigInteger.toString(32));
+            editor.apply();
             return bigInteger.toString(32);
         }
     }
