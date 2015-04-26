@@ -343,6 +343,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
             if (c.moveToLast()) {
                 int i = 0;
                 do {
+                    if (Long.parseLong(c.getString(c.getColumnIndex(EventTable.DATE))) > System.currentTimeMillis()){
                     DataAccessEvent ev = new DataAccessEvent();
                     ev.setId(c.getLong(c.getColumnIndex(EventTable.ID)));
                     ev.setTitle(c.getString(c.getColumnIndex(EventTable.TITLE)));
@@ -353,6 +354,7 @@ public class DBHandlerClient extends SQLiteOpenHelper{
 
                     events.add(ev);
                     i++;
+                    }
                 } while (c.moveToPrevious() && i < x);
             }
         } finally {
